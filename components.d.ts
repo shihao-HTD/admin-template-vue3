@@ -10,6 +10,7 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElRow: typeof import('element-plus/es')['ElRow']
     IconfontIcon: typeof import('./src/components/IconfontIcon.vue')['default']
+    IconList: typeof import('./src/components/IconList.vue')['default']
     NetIcon: typeof import('./src/components/NetIcon.vue')['default']
     ReloadPrompt: typeof import('./src/components/ReloadPrompt.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
