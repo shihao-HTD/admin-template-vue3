@@ -3,23 +3,13 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  url: {
-    type: String,
-    default: ''
-  },
-  prefix: {
-    type: String,
-    default: 'iconfont-'
-  },
-  type: {
-    type: String,
-    default: ''
-  },
-  fontFamily: {
-    type: String,
-    default: 'iconfont'
-  }
+import type { NetIconProps } from '@/components/type'
+
+const props = withDefaults(defineProps<NetIconProps>(), {
+  url: '',
+  prefix: 'iconfont-',
+  type: '',
+  fontFamily: 'iconfont'
 })
 
 onBeforeMount(() => {
@@ -33,7 +23,6 @@ onBeforeMount(() => {
   }
 })
 const className = computed(() => `${props.fontFamily} ${props.prefix}${props.type}`)
-
 </script>
 
 <style scoped></style>
