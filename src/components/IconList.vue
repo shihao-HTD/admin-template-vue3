@@ -1,5 +1,5 @@
 <template>
-  <ul class="flex flex-wrap border rounded">
+  <ul class="grid grid-cols-[repeat(auto-fill,minmax(1.825rem,1fr))] border-l border-t rounded">
     <li
       :class="[
         'border-r border-b flex flex-col items-center justify-center cursor-pointer',
@@ -7,9 +7,19 @@
       ]"
       v-for="(item, index) in json"
       :key="index"
-      @click="handleClick(item)"
+      @click="handleClick(item, index)"
     >
-      <component :class="iconClass" :is="Icon" :icon="collection + ':' + item"> </component>
+      <component
+        :class="[
+          iconClass,
+          {
+            [activeClass]: choose === index
+          }
+        ]"
+        :is="Icon"
+        :icon="collection + ':' + item"
+      >
+      </component>
 
       <div class="text-sm" v-if="showText">
         {{ toPascalCase(item) }}
@@ -28,6 +38,7 @@ interface IconListType {
   iconClass: string
   itemClass: string
   showText: boolean
+  activeClass: string
 }
 
 const emits = defineEmits(['click'])
@@ -35,10 +46,14 @@ const props = withDefaults(defineProps<IconListType>(), {
   iconData: () => json,
   collection: 'ep',
   iconClass: 'text-3xl mb-3',
-  itemClass: 'hover:bg-sky-100 py-4 w-1/8'
+  itemClass: 'hover:bg-sky-100 py-4 w-1/8',
+  activeClass: ''
 })
 
-async function handleClick(icon: string) {
+const choose = ref(-1)
+
+async function handleClick(icon: string, index: number) {
+  choose.value = index
   emits('click', icon)
 }
 
