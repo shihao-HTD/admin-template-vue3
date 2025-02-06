@@ -3,6 +3,8 @@
     <RouterLink to="/">home</RouterLink>
     <RouterLink to="/about">about</RouterLink>
     <h1>This is an about page</h1>
+    <IconfontIcon type="chaiquan"></IconfontIcon>
+
   </div>
 </template>
 

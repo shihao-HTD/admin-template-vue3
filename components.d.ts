@@ -9,6 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElRow: typeof import('element-plus/es')['ElRow']
+    IconfontIcon: typeof import('./src/components/IconfontIcon.vue')['default']
+    NetIcon: typeof import('./src/components/NetIcon.vue')['default']
     ReloadPrompt: typeof import('./src/components/ReloadPrompt.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
