@@ -1,6 +1,14 @@
 <template>
-  <div>
-    <el-switch v-model="copyTypeFlag" active-text="复制icon名称" inactive-text="复制SVG图标" />
+  <div class="mb-2 flex justify-end items-center w-full">
+    <div class="mr-4">
+      <el-checkbox v-model="copyIconComponentFlag" label="复制Icon组件" size="large" />
+    </div>
+    <div class="mr-4">
+      <el-switch v-model="copyTypeFlag" active-text="复制Icon名称" inactive-text="复制SVG图标" />
+    </div>
+    <div class="mr-4">
+      <el-switch v-model="showTextFlag" active-text="显示文字" inactive-text="隐藏文字" />
+    </div>
   </div>
 
   <ul class="flex flex-wrap border rounded">
@@ -12,7 +20,7 @@
     >
       <component class="text-3xl mb-3" :is="Icon" :icon="'ep:' + item"> </component>
 
-      <div class="text-sm">
+      <div class="text-sm" v-if="showTextFlag">
         {{ toPascalCase(item) }}
       </div>
     </li>
@@ -24,10 +32,13 @@ import json from './icon-ep.json'
 import { Icon, loadIcons, loadIcon } from '@iconify/vue'
 import { ElMessage } from 'element-plus'
 
+const copyIconComponentFlag = ref(true)
+const showTextFlag = ref(true)
+
 // false->copySvgName   true->copyName
 const copyTypeFlag = ref(true)
 const source = ref('')
-const { copy, copied } = useClipboard({ source })
+const { copy } = useClipboard({ source })
 
 function objectToSvg(svgObject: any) {
   const { body, hFlip, height, left, rotate, top, vFlip, width } = svgObject
@@ -50,7 +61,9 @@ function toPascalCase(input: string): string {
 }
 
 async function handleClick(icon: string) {
-  if (copyTypeFlag.value) {
+  if (copyIconComponentFlag.value) {
+    source.value = `<div class="i-ep:${icon}"></div>`
+  } else if (copyTypeFlag.value) {
     source.value = toPascalCase(icon)
   } else {
     const res = await loadIcon('ep:' + icon)
