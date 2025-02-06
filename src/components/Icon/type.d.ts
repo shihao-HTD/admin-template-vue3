@@ -9,3 +9,12 @@ export interface IconPickerSubmitDataType {
   color: string
   fontSize: number
 }
+
+export interface IconListType {
+  iconData: string[]
+  collection: string
+  iconClass: string
+  itemClass: string
+  showText: boolean
+  activeClass: string
+}

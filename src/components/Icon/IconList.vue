@@ -13,11 +13,12 @@
         :class="[
           iconClass,
           {
-            [activeClass]: choose === index
+            [activeClass]:
+              (modelValue && modelValue === `${collection}:${item}`) || choose === index
           }
         ]"
         :is="Icon"
-        :icon="collection + ':' + item"
+        :icon="`${collection}:${item}`"
       >
       </component>
 
@@ -31,16 +32,12 @@
 <script setup lang="ts">
 import { Icon, loadIcons } from '@iconify/vue'
 import json from './icon-ep.json'
+import type { IconListType } from '@/components/Icon/type'
 
-interface IconListType {
-  iconData: string[]
-  collection: string
-  iconClass: string
-  itemClass: string
-  showText: boolean
-  activeClass: string
-}
-
+const modelValue = defineModel({
+  type: String,
+  default: ''
+})
 const emits = defineEmits(['click'])
 const props = withDefaults(defineProps<IconListType>(), {
   iconData: () => json,
@@ -54,6 +51,7 @@ const choose = ref(-1)
 
 async function handleClick(icon: string, index: number) {
   choose.value = index
+  modelValue.value = `${props.collection}':'${icon}`
   emits('click', icon)
 }
 

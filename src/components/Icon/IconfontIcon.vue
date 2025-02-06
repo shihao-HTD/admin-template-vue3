@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { NetIconProps } from '@/components/type'
+import type { NetIconProps } from '@/components/Icon/type'
 const props = withDefaults(defineProps<NetIconProps>(), {
   url: '/font_4821237_or03y9sxpf.css',
   prefix: 'iconfont-',

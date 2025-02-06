@@ -17,7 +17,7 @@
   <!--  <i class="iconfont icon-cangshu"></i>-->
   <NetIcon url="//at.alicdn.com/t/c/font_4821237_or03y9sxpf.css" type="cangshu"></NetIcon>
 
-  <IconList></IconList>
+  <IconList :show-text="false"></IconList>
 </template>
 
 <script setup lang="ts">

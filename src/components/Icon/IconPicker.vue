@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="icon-picker">
     <el-button type="primary" @click="() => toggle(true)"> 选择图标 </el-button>
 
-    <el-dialog :width="width" v-model="show">
+    <el-dialog :title="title" :width="width" v-model="show">
+      <!-- v-model="iconTest" -->
       <IconList
         item-class="hover:bg-sky-100 p-1"
         icon-class="text-2xl"
@@ -12,9 +13,15 @@
       >
       </IconList>
 
-      <div class="py-2">
-        <el-color-picker class="mr-2" v-model="color" size="small"></el-color-picker>
-        <el-input-number v-model="num" :step="1" size="small"></el-input-number>
+      <div class="p-2 flex">
+        <div class="mr-4">
+          <span class="pr-2">color:</span>
+          <el-color-picker v-model="color" />
+        </div>
+        <div class="flex items-center flex-1">
+          <span class="pr-2">fontSize:</span>
+          <el-slider v-model="num" :step="1" show-input />
+        </div>
       </div>
 
       <div>
@@ -38,12 +45,16 @@
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import type { IconPickerSubmitDataType } from '@/components/type'
+import type { IconPickerSubmitDataType } from '@/components/Icon/type'
 
 defineProps({
   width: {
     type: String,
     default: '50%'
+  },
+  title: {
+    type: String,
+    default: '选择图标'
   }
 })
 
@@ -57,6 +68,7 @@ const num = ref(16)
 const [show, toggle] = useToggle(false)
 
 const iconRef = ref('')
+const iconTest = ref('ep:zoom-out')
 
 function handleClick(i: string) {
   iconRef.value = 'ep:' + i
@@ -72,4 +84,14 @@ function handleConfirm() {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.icon-picker {
+  :deep(.el-dialog__body) {
+    padding-bottom: 0;
+    padding-top: 0;
+    height: auto;
+    max-height: 65vh;
+    overflow-y: auto;
+  }
+}
+</style>
