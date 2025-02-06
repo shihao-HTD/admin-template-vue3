@@ -14,6 +14,7 @@ declare module 'vue' {
     ElSlider: typeof import('element-plus/es')['ElSlider']
     IconfontIcon: typeof import('./src/components/IconfontIcon.vue')['default']
     IconFontIcon: typeof import('./src/components/Icon/IconfontIcon.vue')['default']
+    IconIfy: typeof import('./src/components/Icon/Iconify.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
     IconNetIcon: typeof import('./src/components/Icon/NetIcon.vue')['default']
     IconPicker: typeof import('./src/components/Icon/IconPicker.vue')['default']
