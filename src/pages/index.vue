@@ -11,6 +11,8 @@
   </el-row>
 
   <Icon icon="mdi:home" class="c-sky text-3xl"></Icon>
+
+  <SvgIcon type="advice" class="text-sky w-5 h-5"></SvgIcon>
 </template>
 
 <script setup lang="ts">
