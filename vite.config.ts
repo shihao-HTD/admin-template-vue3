@@ -22,7 +22,6 @@ import { viteMockServe } from 'vite-plugin-mock'
 
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -53,12 +52,12 @@ export default defineConfig({
         VueRouterAutoImports,
         '@vueuse/core'
       ],
-      resolvers:[ElementPlusResolver()]
+      resolvers: [ElementPlusResolver()]
     }),
     Components({
-      directoryAsNamespace: true,
+      directoryAsNamespace: false,
       collapseSamePrefixes: true,
-      resolvers:[ElementPlusResolver()]
+      resolvers: [ElementPlusResolver()]
     }),
     Layouts({
       layoutsDirs: 'src/layouts',
@@ -92,9 +91,8 @@ export default defineConfig({
       // Specify the icon folder to be cached
       iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
       // Specify symbolId format
-      symbolId: 'icon-[dir]-[name]',
-
-    }),
+      symbolId: 'icon-[dir]-[name]'
+    })
   ],
   resolve: {
     alias: {

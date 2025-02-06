@@ -7,23 +7,27 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    DarkModeToggle: typeof import('./src/components/Themes/DarkModeToggle.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSlider: typeof import('element-plus/es')['ElSlider']
-    IconfontIcon: typeof import('./src/components/IconfontIcon.vue')['default']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    IconfontIcon: typeof import('./src/components/Icon/IconfontIcon.vue')['default']
     IconFontIcon: typeof import('./src/components/Icon/IconfontIcon.vue')['default']
+    Iconify: typeof import('./src/components/Icon/Iconify.vue')['default']
     IconIfy: typeof import('./src/components/Icon/Iconify.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
     IconNetIcon: typeof import('./src/components/Icon/NetIcon.vue')['default']
     IconPicker: typeof import('./src/components/Icon/IconPicker.vue')['default']
     IconSvgIcon: typeof import('./src/components/Icon/SvgIcon.vue')['default']
-    NetIcon: typeof import('./src/components/NetIcon.vue')['default']
+    NetIcon: typeof import('./src/components/Icon/NetIcon.vue')['default']
     OthersReloadPrompt: typeof import('./src/components/others/ReloadPrompt.vue')['default']
-    ReloadPrompt: typeof import('./src/components/ReloadPrompt.vue')['default']
+    ReloadPrompt: typeof import('./src/components/others/ReloadPrompt.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SvgIcon: typeof import('./src/components/SvgIcon.vue')['default']
+    SvgIcon: typeof import('./src/components/Icon/SvgIcon.vue')['default']
+    ThemesDarkModeToggle: typeof import('./src/components/Themes/DarkModeToggle.vue')['default']
   }
 }
