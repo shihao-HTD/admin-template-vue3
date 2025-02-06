@@ -9,10 +9,13 @@
     <el-button type="warning">Warning</el-button>
     <el-button type="danger">Danger</el-button>
   </el-row>
+
+  <Icon icon="mdi:home" class="c-sky text-3xl"></Icon>
 </template>
 
 <script setup lang="ts">
 import { registerSW } from 'virtual:pwa-register'
+import { Icon } from '@iconify/vue'
 
 onMounted(() => {
   registerSW({
