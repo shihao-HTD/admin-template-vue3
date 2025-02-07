@@ -10,6 +10,7 @@ declare module 'vue' {
     DarkModeToggle: typeof import('./src/components/Themes/DarkModeToggle.vue')['default']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    FullScreen: typeof import('./src/components/Themes/FullScreen.vue')['default']
     IconfontIcon: typeof import('./src/components/Icon/IconfontIcon.vue')['default']
     Iconify: typeof import('./src/components/Icon/Iconify.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
