@@ -1,12 +1,21 @@
 <template>
   <el-dropdown trigger="click">
-    <Notification></Notification>
+    <Notification v-bind="filterProps"></Notification>
     <template #dropdown>
-      <NoticeMessageList></NoticeMessageList>
+      <NoticeMessageList :list="list" :actions="actions"></NoticeMessageList>
     </template>
   </el-dropdown>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { NoticeProps } from '@/components/Notice/type'
+
+const props = defineProps<NoticeProps>()
+const filterProps = computed(() => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { list, actions, ...resetProps } = props
+  return resetProps
+})
+</script>
 
 <style scoped></style>

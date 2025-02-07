@@ -1,38 +1,45 @@
 <template>
   <el-tabs>
-    <el-tab-pane label="User" name="first">
-      <ul>
-        <li>
+    <el-tab-pane
+      v-for="(tabItem, index) in list"
+      :key="index"
+      :label="tabItem.title"
+      :name="tabItem.title"
+    >
+      <ul v-if="tabItem.contents && tabItem.contents.length">
+        <li v-for="(item, itemIndex) in tabItem.contents" :key="itemIndex">
           <el-row justify="center" align="middle">
-            <el-col :span="4" align="middle">
+            <el-col
+              v-if="item.avatar"
+              @click="handleClickAvatar(item.avatar)"
+              :span="4"
+              align="middle"
+            >
               <el-avatar
-                size="small"
-                src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+                v-bind="
+                  Object.assign(
+                    {
+                      size: 'small'
+                    },
+                    item.avatar
+                  )
+                "
               />
             </el-col>
 
-            <el-col :span="20" class="px-2">
+            <el-col @click="handleClickItem(item)" :span="20" class="px-2">
               <!--              消息-->
               <el-row align="middle" class="flex-nowrap! mb-2">
-                <div class="text-base line-clamp-1">
-                  消息标题
-                  消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题消息标题
-                </div>
-                <el-tag class="ml-2" type="success" size="small" effect="dark">Tag 2</el-tag>
+                <div class="text-base line-clamp-1">{{ item.title }}</div>
+                <el-tag class="ml-2" effect="dark" v-bind="item.tagProps">{{ item.tag }}</el-tag>
               </el-row>
 
               <el-row>
-                <div class="text-sm text-gray-400 mb-2 line-clamp-2">
-                  消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,
-                  消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,
-                  消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,
-                  消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,
-                  消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,消息内容消息内容,
-                </div>
+                <div class="text-sm text-gray-400 mb-2 line-clamp-2">{{ item.content }}</div>
               </el-row>
 
               <el-row>
-                <div class="text-sm text-gray-400">2023-10-01 23:00</div>
+                <div class="text-sm text-gray-400">{{ item.time }}</div>
               </el-row>
             </el-col>
           </el-row>
@@ -55,33 +62,22 @@
 </template>
 
 <script setup lang="tsx">
-import type { AvatarProps, TagProps } from 'element-plus'
-import type { IconProps } from '@iconify/vue'
+import type { AvatarProps } from 'element-plus'
+import type { MessageListItem, NoticeMessageListProps } from '@/components/Notice/type'
 
-interface MessageListItem {
-  avatar?: AvatarProps
-  title: string
-  tagProps?: TagProps
-  tag?: string
-  content?: string
-  time?: string
-}
-
-interface NoticeMessageListOptions {
-  title: string
-  contents: MessageListItem[]
-}
-interface NoticeActionItem {
-  title: string
-  callback: () => void
-  icon?: IconProps
-}
-
-interface NoticeMessageListProps {
-  list: NoticeMessageListOptions[]
-  actions: NoticeActionItem[]
-}
 defineProps<NoticeMessageListProps>()
+
+const emits = defineEmits<{
+  clickAvatar: [AvatarProps]
+  clickItem: [MessageListItem]
+}>()
+
+function handleClickAvatar(avatar: AvatarProps) {
+  emits('clickAvatar', avatar)
+}
+function handleClickItem(item: MessageListItem) {
+  emits('clickItem', item)
+}
 </script>
 
 <style scoped></style>
