@@ -43,23 +43,45 @@
 
   <div class="w-full flex justify-around border-t">
     <div
+      @click="action.callback"
+      v-for="(action, index) in actions"
+      :key="index"
       class="flex-1 py-3 border-r flex items-center justify-center hover:bg-sky-100 cursor-pointer text-gray-500"
     >
-      <Delete></Delete>
-      <span class="ml-2">清空</span>
-    </div>
-    <div
-      class="flex-1 py-3 flex items-center justify-center hover:bg-sky-100 cursor-pointer text-gray-500"
-    >
-      <More></More>
-      <span class="ml-2">更多</span>
+      <Iconify v-if="action.icon" v-bind="action.icon"></Iconify>
+      <span class="ml-2">{{ action.title }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="tsx">
-const Delete = () => <i class="i-ep:delete"></i>
-const More = () => <i class="i-ep:more"></i>
+import type { AvatarProps, TagProps } from 'element-plus'
+import type { IconProps } from '@iconify/vue'
+
+interface MessageListItem {
+  avatar?: AvatarProps
+  title: string
+  tagProps?: TagProps
+  tag?: string
+  content?: string
+  time?: string
+}
+
+interface NoticeMessageListOptions {
+  title: string
+  contents: MessageListItem[]
+}
+interface NoticeActionItem {
+  title: string
+  callback: () => void
+  icon?: IconProps
+}
+
+interface NoticeMessageListProps {
+  list: NoticeMessageListOptions[]
+  actions: NoticeActionItem[]
+}
+defineProps<NoticeMessageListProps>()
 </script>
 
 <style scoped></style>

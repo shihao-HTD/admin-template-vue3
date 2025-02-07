@@ -32,14 +32,14 @@
 <script setup lang="ts">
 import { Icon, loadIcons } from '@iconify/vue'
 import json from './icon-ep.json'
-import type { IconListType } from '@/components/Icon/type'
+import type { IconListProps } from '@/components/Icon/type'
 
 const modelValue = defineModel({
   type: String,
   default: ''
 })
 const emits = defineEmits(['click'])
-const props = withDefaults(defineProps<IconListType>(), {
+const props = withDefaults(defineProps<IconListProps>(), {
   iconData: () => json,
   collection: 'ep',
   iconClass: 'text-3xl mb-3',

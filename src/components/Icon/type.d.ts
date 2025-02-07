@@ -10,7 +10,7 @@ export interface IconPickerSubmitDataType {
   fontSize: number
 }
 
-export interface IconListType {
+export interface IconListProps {
   iconData: string[]
   collection: string
   iconClass: string
