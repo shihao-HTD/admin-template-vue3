@@ -1,5 +1,5 @@
 <template>
-  <el-tabs>
+  <el-tabs v-model="activeName" :class="wrapClass" :style="wrapStyle">
     <el-tab-pane
       v-for="(tabItem, index) in list"
       :key="index"
@@ -31,7 +31,9 @@
               <!--              消息-->
               <el-row align="middle" class="flex-nowrap! mb-2">
                 <div class="text-base line-clamp-1">{{ item.title }}</div>
-                <el-tag class="ml-2" effect="dark" v-bind="item.tagProps">{{ item.tag }}</el-tag>
+                <el-tag v-if="item.tag" class="ml-2" effect="dark" v-bind="item.tagProps">{{
+                  item.tag
+                }}</el-tag>
               </el-row>
 
               <el-row>
@@ -55,7 +57,7 @@
       :key="index"
       class="flex-1 py-3 border-r flex items-center justify-center hover:bg-sky-100 cursor-pointer text-gray-500"
     >
-      <Iconify v-if="action.icon" v-bind="action.icon"></Iconify>
+      <Iconify v-if="action.icon" v-bind="omit(action, ['title', 'callback'])"></Iconify>
       <span class="ml-2">{{ action.title }}</span>
     </div>
   </div>
@@ -64,8 +66,10 @@
 <script setup lang="tsx">
 import type { AvatarProps } from 'element-plus'
 import type { MessageListItem, NoticeMessageListProps } from '@/components/Notice/type'
+import omit from 'lodash-es/omit'
+const props = defineProps<NoticeMessageListProps>()
 
-defineProps<NoticeMessageListProps>()
+const activeName = ref(props.list[0]?.title || '')
 
 const emits = defineEmits<{
   clickAvatar: [AvatarProps]

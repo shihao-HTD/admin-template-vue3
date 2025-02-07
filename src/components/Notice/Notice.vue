@@ -2,7 +2,12 @@
   <el-dropdown trigger="click">
     <Notification v-bind="filterProps"></Notification>
     <template #dropdown>
-      <NoticeMessageList :list="list" :actions="actions"></NoticeMessageList>
+      <NoticeMessageList
+        :list="list"
+        :actions="actions"
+        :wrap-class="wrapClass"
+        :wrap-style="wrapStyle"
+      ></NoticeMessageList>
     </template>
   </el-dropdown>
 </template>
