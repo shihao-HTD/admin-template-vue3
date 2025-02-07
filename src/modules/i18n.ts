@@ -20,7 +20,27 @@ const localesMap = Object.fromEntries(
 
 localesMap['zh-CN']().then((res) => console.log(res.default))
 
+
+const elementPlusLocalesMap = Object.fromEntries(
+  Object.entries(import.meta.glob('../../node_modules/element-plus/dist/locale/*.mjs')).map(
+    ([path, loadLocale]) => [path.match(/([\w-]*)\.mjs$/)?.[1], loadLocale]
+  )
+) as Record<Locale, () => Promise<{ default: Record<string, string> }>>
+
+
 export const availableLocales = Object.keys(localesMap)
+
+// lodash pick
+// for -> {}
+// reduce
+const filterEPLocalesMap = availableLocales.reduce(
+  (acc: Record<Locale, () => Promise<{ default: Record<string, string> }>>, locale: Locale) => {
+    return { ...acc, [locale]: elementPlusLocalesMap[locale.toLowerCase()] }
+  },
+  {}
+)
+
+// console.log(filterEPLocalesMap)
 
 const loadedLanguages: string[] = []
 
@@ -38,9 +58,11 @@ export async function loadLocaleMessages(lang: string) {
   }
   // load locale messages with dynamic import
   const messages = await localesMap[lang]()
+  const messagesEP = await filterEPLocalesMap[lang]()
   // set locale and locale message
   i18n.global.setLocaleMessage(lang, {
-    ...messages.default
+    ...messagesEP.default,
+    ...messages.default,
   })
   loadedLanguages.push(lang)
   return setI18nLanguage(lang)
