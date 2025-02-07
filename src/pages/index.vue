@@ -1,6 +1,6 @@
 <template>
   <el-row class="mb-4">
-    <DarkModeToggle> </DarkModeToggle>
+    <DarkModeToggle :dark="true" > </DarkModeToggle>
   </el-row>
 
   <div class="w-25 h-25 bg-red dark:bg-sky">块元素</div>

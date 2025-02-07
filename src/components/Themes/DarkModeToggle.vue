@@ -9,14 +9,45 @@
 
 <script setup lang="tsx">
 
+const props = defineProps({
+  dark: {
+    type: Boolean
+  }
+})
 
-const isDark = useDark()
+// const isDark = useDark()
+const isDark = ref(props.dark)
+const isPreferredDark = usePreferredDark()
+
 const Moon = () => <i class="i-prime:moon"></i>
 const Sun = () => <i class="i-octicon:sun-24"></i>
 
+function toggleMode(flag: boolean) {
+  if (flag) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+}
 
+watch(
+  isDark,
+  () => {
+    nextTick(() => {
+      toggleMode(isDark.value)
+    })
+  },
+  {
+    immediate:true
+  }
+)
+
+watch(isPreferredDark, () => {
+  nextTick(() => {
+    toggleMode(isPreferredDark.value)
+    isDark.value = isPreferredDark.value
+  })
+})
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
