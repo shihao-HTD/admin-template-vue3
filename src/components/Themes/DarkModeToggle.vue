@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="tsx">
-
 const props = defineProps({
   dark: {
     type: Boolean
@@ -16,8 +15,16 @@ const props = defineProps({
 })
 
 // const isDark = useDark()
-const isDark = ref(props.dark)
+// const isDark = ref(props.dark)
+const isDark = useStorage('dark-mode-flag', props.dark)
 const isPreferredDark = usePreferredDark()
+
+onMounted(() => {
+  if (typeof isDark.value === 'undefined' && !props.dark) {
+    toggleMode(isPreferredDark.value)
+    isDark.value = isPreferredDark.value
+  }
+})
 
 const Moon = () => <i class="i-prime:moon"></i>
 const Sun = () => <i class="i-octicon:sun-24"></i>
@@ -38,7 +45,7 @@ watch(
     })
   },
   {
-    immediate:true
+    immediate: true
   }
 )
 
