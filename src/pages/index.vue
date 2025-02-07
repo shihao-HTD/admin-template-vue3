@@ -7,7 +7,7 @@
   <div class="w-25 h-25 bg-red dark:bg-sky">块元素</div>
 
   <div>
-    {{ $t('hello') }}
+    {{ t('hello') }}
   </div>
 
   <select v-model="locale">
@@ -19,6 +19,8 @@
 <script setup lang="ts">
 import { registerSW } from 'virtual:pwa-register'
 import { loadLocaleMessages } from '@/modules/i18n'
+import { useI18n } from 'vue-i18n'
+const {t} = useI18n()
 
 const locale = ref('zh-CN')
 

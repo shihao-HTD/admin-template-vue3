@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import path from 'path'
+import fs from 'fs'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -23,8 +24,35 @@ import { viteMockServe } from 'vite-plugin-mock'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import I18n from '@intlify/unplugin-vue-i18n/vite'
 
+// 过滤element-plus的.mjs的文件，不打包不需要的locales
+// 判断，/locales中对应的文件名的.mjs文件作为过滤条件 -> 保留
+function externalElementPlusLocales(id: string) {
+  // return true -> external, false -> not external
+  const localesDir = path.resolve(__dirname, 'locales')
+  const localesFiles = fs
+    .readdirSync(localesDir)
+    .map((file) => file.match(/([\w-]+)\.json/)?.[1] || '')
+
+  if (id.includes('element-plus/dist/locale')) {
+    // 获取 id 的basename
+    // 判断这个basename在不在上面的localesFiles中
+    const basename = path.basename(id, '.mjs')
+    return !localesFiles.some((o) => o.toLowerCase() === basename)
+  }
+  // 其他的外部依赖
+  return false
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  build:{
+    rollupOptions:{
+      external(source) {
+        return  externalElementPlusLocales(source)
+      },
+    }
+  },
+
   plugins: [
     VueRouter(),
     vue(),
@@ -99,7 +127,7 @@ export default defineConfig({
       // 说明:由于配置了modules/i18n.ts中默认为legacy: false
       // 所以禁止修改
       compositionOnly: true,
-      jitCompilation:true
+      jitCompilation: true
     })
   ],
   resolve: {
