@@ -12,8 +12,8 @@ const localesMap = Object.fromEntries(
   // -> [./locale/en.js: () => import(./locale/en.js] => ['en', () => import('./locale/en.js')]
 
   // { en: function () {}, zh-CN: function () {} }
-  Object.entries(import.meta.glob('../../locales/*.js')).map(([path, loadLocale]) => [
-    path.match(/([\w-]*)\.js$/)?.[1],
+  Object.entries(import.meta.glob('../../locales/*.json')).map(([path, loadLocale]) => [
+    path.match(/([\w-]*)\.json$/)?.[1],
     loadLocale
   ])
 ) as Record<Locale, () => Promise<{ default: Record<string, string> }>>
