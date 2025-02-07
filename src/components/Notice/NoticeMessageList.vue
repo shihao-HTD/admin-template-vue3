@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="activeName" :class="wrapClass" :style="wrapStyle">
+  <el-tabs v-model="activeName" :class="wrapClass" :style="wrapStyle" @tab-click="handleTabClick">
     <el-tab-pane
       v-for="(tabItem, index) in list"
       :key="index"
@@ -7,7 +7,11 @@
       :name="tabItem.title"
     >
       <ul v-if="tabItem.contents && tabItem.contents.length">
-        <li v-for="(item, itemIndex) in tabItem.contents" :key="itemIndex">
+        <li
+          class="cursor-pointer hover:bg-sky-100 py-2"
+          v-for="(item, itemIndex) in tabItem.contents"
+          :key="itemIndex"
+        >
           <el-row justify="center" align="middle">
             <el-col
               v-if="item.avatar"
@@ -64,7 +68,7 @@
 </template>
 
 <script setup lang="tsx">
-import type { AvatarProps } from 'element-plus'
+import type { AvatarProps, TabsPaneContext } from 'element-plus'
 import type { MessageListItem, NoticeMessageListProps } from '@/components/Notice/type'
 import omit from 'lodash-es/omit'
 const props = defineProps<NoticeMessageListProps>()
@@ -74,14 +78,30 @@ const activeName = ref(props.list[0]?.title || '')
 const emits = defineEmits<{
   clickAvatar: [AvatarProps]
   clickItem: [MessageListItem]
+  clickTab: [TabsPaneContext, Event]
 }>()
 
-function handleClickAvatar(avatar: AvatarProps) {
-  emits('clickAvatar', avatar)
+function handleClickAvatar(avatar: Partial<AvatarProps>) {
+  emits('clickAvatar', avatar as AvatarProps)
 }
 function handleClickItem(item: MessageListItem) {
   emits('clickItem', item)
 }
+
+function handleTabClick(tab: TabsPaneContext, event: Event) {
+  emits('clickTab', tab, event)
+}
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+:deep(.el-tabs__nav-scroll) {
+  @apply pl-4;
+}
+:deep(.el-tabs__content) {
+  @apply my-2;
+}
+
+:deep(.el-tabs__header) {
+  @apply mb-0;
+}
+</style>

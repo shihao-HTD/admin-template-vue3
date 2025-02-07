@@ -33,6 +33,8 @@
     "@types/jsdom": "^21.1.2",
     "@types/node": "^20.6.0",
     "@unocss/preset-wind": "^0.55.7",
+    "@unocss/transformer-directives": "^65.4.3",
+    "@unocss/transformer-variant-group": "^65.4.3",
     "@vitejs/plugin-vue": "^4.3.4",
     "@vitejs/plugin-vue-jsx": "^3.0.2",
     "@vue/eslint-config-prettier": "^8.0.0",

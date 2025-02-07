@@ -12,7 +12,7 @@ export interface NotificationProps extends Partial<BadgeProps> {
 }
 
 export interface MessageListItem {
-  avatar?: AvatarProps
+  avatar?: Partial<AvatarProps>
   title: string
   tagProps?: Partial<TagProps>
   tag?: string
@@ -24,16 +24,16 @@ export interface NoticeMessageListOptions {
   title: string
   contents?: MessageListItem[]
 }
-export interface NoticeActionItem extends IconProps{
+export interface NoticeActionItem extends IconProps {
   title: string
   callback: () => void
 }
 
 export interface NoticeMessageListProps {
   list: NoticeMessageListOptions[]
-  actions: NoticeActionItem[],
-  wrapClass?:string
-  wrapStyle?:CSSProperties
+  actions: NoticeActionItem[]
+  wrapClass?: string
+  wrapStyle?: CSSProperties
 }
 
 export interface NoticeProps extends Partial<NotificationProps>, NoticeMessageListProps {}

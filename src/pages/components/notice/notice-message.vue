@@ -4,7 +4,12 @@
     <el-button>comments</el-button>
   </el-badge>-->
   <br />
-  <Notice wrap-class="w-[300px]" :list="lists" :actions="actions"></Notice>
+  <Notice
+    wrap-class="w-[300px]"
+    :list="lists"
+    :actions="actions"
+    @clickItem="handleClickItem"
+  ></Notice>
 </template>
 
 <script setup lang="ts">
@@ -29,7 +34,7 @@ const lists = ref<NoticeMessageListOptions[]>([
     contents: [
       {
         title: '消息1',
-        avatar: { url: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
+        avatar: { src: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
         content: '消息内容1',
         time: '2022-01-03 14:55:33',
         tagProps: { type: 'danger' },
@@ -37,13 +42,13 @@ const lists = ref<NoticeMessageListOptions[]>([
       },
       {
         title: '消息1',
-        avatar: { url: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
+        avatar: { src: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
         content: '消息内容1',
         time: '2022-01-02 14:55:33'
       },
       {
         title: '消息1',
-        avatar: { url: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
+        avatar: { src: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
         content: '消息内容1',
         time: '2022-01-01 14:55:33'
       }
@@ -54,7 +59,7 @@ const lists = ref<NoticeMessageListOptions[]>([
     contents: [
       {
         title: '消息3',
-        avatar: { url: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
+        avatar: { src: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
         content: '消息内容3',
         time: '2022-01-02 14:55:33',
         tagProps: { type: 'info' },
@@ -62,7 +67,7 @@ const lists = ref<NoticeMessageListOptions[]>([
       },
       {
         title: '消息3',
-        avatar: { url: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
+        avatar: { src: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
         content: '消息内容3',
         time: '2022-01-01 14:55:33'
       }
@@ -73,7 +78,7 @@ const lists = ref<NoticeMessageListOptions[]>([
     contents: [
       {
         title: '消息2',
-        avatar: { url: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
+        avatar: { src: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
         content: '消息内容2',
         time: '2022-01-02 14:55:33',
         tagProps: { type: 'info' },
@@ -81,7 +86,7 @@ const lists = ref<NoticeMessageListOptions[]>([
       },
       {
         title: '消息2',
-        avatar: { url: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
+        avatar: { src: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png' },
         content: '消息内容2',
         time: '2022-01-01 14:55:33'
       }
