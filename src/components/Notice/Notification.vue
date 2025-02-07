@@ -1,13 +1,5 @@
 <template>
-  <el-badge
-    :value="value"
-    :style="{
-      '--notice-bg-color': color || 'var(--el-color-danger)',
-      '--notice-font-size': size ? size + 'px' : 'var(--el-badge-size)',
-      '--translate-x': (transformData.translateX || 100) + '%',
-      '--scale': transformData.scale
-    }"
-  >
+  <el-badge :value="value">
     <slot>
       <Iconify
         icon="ep:bell"
@@ -50,17 +42,17 @@ function calculateTransform(scale: number) {
   }
 }
 const transformData = computed(() => calculateTransform(props.scale))
+
+const colorBg = computed(() => props.color || 'var(--el-color-danger)')
+const contentFontSize = computed(() => (props.size ? props.size + 'px' : 'var(--el-badge-size)'))
+const translateX = computed(() => (transformData.value.translateX || 100) + '%')
+const contentScale = computed(() => transformData.value.scale)
 </script>
 
 <style lang="scss" scoped>
-$color: var(--notice-bg-color);
-$size: var(--notice-font-size);
-$translate-x: var(--translate-x);
-$scale: var(--scale);
-
 :deep(.el-badge__content) {
-  background-color: $color;
-  font-size: $size;
-  transform: translateY(-50%) translateX($translate-x) scale($scale);
+  background-color: v-bind(colorBg);
+  font-size: v-bind(contentFontSize);
+  transform: translateY(-50%) translateX(v-bind(translateX)) scale(v-bind(contentScale));
 }
 </style>

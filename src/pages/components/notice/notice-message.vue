@@ -1,9 +1,9 @@
 <template>
-  <Notification value="123" color="yellowgreen"> </Notification>
+  <Notification value="123" color="green" :size="16"> </Notification>
   <!--  <el-badge :value="12" class="item">
     <el-button>comments</el-button>
   </el-badge>-->
-  <br>
+  <br />
   <Notice></Notice>
 </template>
 
