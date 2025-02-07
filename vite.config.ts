@@ -21,6 +21,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { viteMockServe } from 'vite-plugin-mock'
 
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import I18n from '@intlify/unplugin-vue-i18n/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -92,6 +93,13 @@ export default defineConfig({
       iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
       // Specify symbolId format
       symbolId: 'icon-[dir]-[name]'
+    }),
+    I18n({
+      include: [path.resolve(__dirname, './locales/**')],
+      // 说明:由于配置了modules/i18n.ts中默认为legacy: false
+      // 所以禁止修改
+      compositionOnly: true,
+      jitCompilation:true
     })
   ],
   resolve: {

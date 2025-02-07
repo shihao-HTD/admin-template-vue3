@@ -7,20 +7,24 @@
   <div class="w-25 h-25 bg-red dark:bg-sky">块元素</div>
 
   <div>
-    {{ t('hello') }}
+    {{ $t('hello') }}
   </div>
 
   <select v-model="locale">
-    <option value="zh">中文</option>
+    <option value="zh-CN">中文</option>
     <option value="en">en</option>
   </select>
 </template>
 
 <script setup lang="ts">
 import { registerSW } from 'virtual:pwa-register'
-import { useI18n } from 'vue-i18n'
+import { loadLocaleMessages } from '@/modules/i18n'
 
-const { locale, t } = useI18n()
+const locale = ref('zh-CN')
+
+watch(locale, () => {
+  loadLocaleMessages(locale.value)
+})
 
 onMounted(() => {
   registerSW({
