@@ -39,7 +39,7 @@ const data: AppRouteMenuItem[] = [
               title: '联系我们',
               layout: 'default',
               order: 3,
-              icon: 'phone',
+              // icon: 'phone',
               hideMenu: false,
               disabled: false
             }
