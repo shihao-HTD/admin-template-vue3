@@ -2,7 +2,7 @@
   <el-badge :value="value">
     <slot>
       <Iconify
-        icon="ep:bell"
+        :icon="icon"
         :style="{
           color: iconColor ?? '#333',
           fontSize: iconSize ? `${iconSize}px` : '18px'
