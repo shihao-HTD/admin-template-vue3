@@ -1,26 +1,38 @@
 <template>
-  <!--  单Item start-->
   <!-- 单item  -->
-  <el-menu-item index="1">Processing Center</el-menu-item>
+  <el-menu-item :disabled="data.meta?.disabled" v-if="!data.meta?.icon" :index="getIndex(data)">{{
+    data.meta?.title
+  }}</el-menu-item>
 
-  <!--  折叠-->
-  <el-menu-item index="2">
-    <el-icon><icon-menu /></el-icon>
-    <template #title>Navigator Two</template>
-  </el-menu-item>
+  <template v-else>
+    <!--  折叠-->
+    <el-menu-item :disabled="data.meta?.disabled" v-if="collapse" :index="getIndex(data)">
+      <Iconify :icon="data.meta?.icon"></Iconify>
+      <template #title>
+        {{ data.meta?.title }}
+      </template>
+    </el-menu-item>
 
-  <!--  侧栏-->
-  <el-menu-item index="4">
-    <el-icon><setting /></el-icon>
-    <span>Navigator Four</span>
-  </el-menu-item>
-  <!-- 单Item end  -->
+    <!--  侧栏-->
+    <el-menu-item :disabled="data.meta?.disabled" v-else :index="getIndex(data)">
+      <Iconify :icon="data.meta?.icon"></Iconify>
+      <span>
+        {{ data.meta?.title }}
+      </span>
+    </el-menu-item>
+  </template>
 </template>
 
 <script setup lang="ts">
+import type { AppRouteMenuItem } from '@/components/Menu/type'
+import { useMenu } from '@/components/Menu/useMenu'
 
+const props = defineProps<{
+  data: AppRouteMenuItem
+  collapse?: boolean
+}>()
+
+const { getIndex } = useMenu()
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

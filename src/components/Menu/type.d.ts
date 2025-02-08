@@ -11,13 +11,14 @@ export interface RouteMeta extends Record<string | number | symbol, unknown> {
   order?: number
   icon?: string | IconifyIcon
   hideMenu?: boolean
+  disabled?: boolean
 }
 
 export interface AppRouteMenuItem {
   path: string
-  name: string
+  name?: string
   alias?: string
-  component: Component
+  component?: Component
   meta?: RouteMeta
   children?: AppRouteMenuItem[]
 }

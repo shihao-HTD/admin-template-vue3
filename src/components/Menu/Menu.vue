@@ -1,8 +1,12 @@
 <template>
-  <el-menu v-bind="$attrs">
+  <el-menu v-bind="elMenuProps">
+    <slot name="icon"> </slot>
+    <!--  左右Logo 加下拉菜单情况-->
+    <!--    <div v-if="isDefined(slots['name'])" class="flex-grow"></div>-->
     <SubMenu
       v-for="menu in filterMenus"
       :data="menu"
+      :collapse="collapse"
       v-bind="subMenuProps"
       :key="menu.path"
     ></SubMenu>
@@ -15,17 +19,23 @@ import type { AppRouteMenuItem } from '@/components/Menu/type'
 import { useMenu } from '@/components/Menu/useMenu'
 
 interface MenuProps extends Partial<ElMenuProps> {
-  menus: AppRouteMenuItem[]
-  subMenuProps: SubMenuProps
+  data: AppRouteMenuItem[]
+  subMenuProps?: SubMenuProps
 }
 const props = withDefaults(defineProps<MenuProps>(), {
-  menus: () => []
+  data: () => []
 })
+const slots = useSlots()
 
+const elMenuProps = computed(() => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data, subMenuProps, ...restProps } = props
+  return restProps
+})
 const { generateMenuKeys } = useMenu()
 
 const filterMenus = computed(() => {
-  return generateMenuKeys(props.menus)
+  return generateMenuKeys(props.data)
 })
 </script>
 
