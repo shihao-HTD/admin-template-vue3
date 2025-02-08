@@ -1,21 +1,5 @@
 <template>
-  <!--  单Item start-->
-  <!-- 单item  -->
-  <el-menu-item index="1">Processing Center</el-menu-item>
-
-  <!--  折叠-->
-  <el-menu-item index="2">
-    <el-icon><icon-menu /></el-icon>
-    <template #title>Navigator Two</template>
-  </el-menu-item>
-
-  <!--  侧栏-->
-  <el-menu-item index="4">
-    <el-icon><setting /></el-icon>
-    <span>Navigator Four</span>
-  </el-menu-item>
-  <!-- 单Item end  -->
-
+  <MenuItem></MenuItem>
   <!--  左右Logo 加下拉菜单情况-->
   <div class="flex-grow"></div>
 
@@ -34,10 +18,12 @@
 
 <script setup lang="ts">
 import type { SubMenuProps as ElSubMenuProps } from 'element-plus'
-import type { AppRouterMenuItem } from '@/components/Menu/type'
+import type { AppRouteMenuItem } from '@/components/Menu/type'
+import { useMenu } from '@/components/Menu/useMenu'
+import MenuItem from '@/components/Menu/MenuItem.vue'
 
 interface SubMenuProps extends Partial<ElSubMenuProps> {
-  data: AppRouterMenuItem
+  data: AppRouteMenuItem
 }
 
 const props = defineProps<SubMenuProps>()
@@ -46,6 +32,8 @@ const subAttrs = computed(() => {
   const { data, ...restProps } = props
   return restProps
 })
+
+const { getIndex } = useMenu()
 </script>
 
 <style scoped></style>

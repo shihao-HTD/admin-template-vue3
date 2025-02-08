@@ -5,19 +5,19 @@ export type Component<T = any> =
   | (() => Promise<T>)
   | (() => Promise<typeof import('*.vue')>)
 
-export interface RouteMeta {
+export interface RouteMeta extends Record<string | number | symbol, unknown> {
   layout?: string
   title?: string
   order?: number
-  icon: string | IconifyIcon
+  icon?: string | IconifyIcon
   hideMenu?: boolean
 }
 
-export interface AppRouterMenuItem {
+export interface AppRouteMenuItem {
   path: string
   name: string
   alias?: string
   component: Component
   meta?: RouteMeta
-  children?: AppRouterMenuItem[]
+  children?: AppRouteMenuItem[]
 }
