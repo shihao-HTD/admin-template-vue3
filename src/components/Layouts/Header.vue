@@ -11,7 +11,15 @@
       <FullScreen></FullScreen>
       <el-divider direction="vertical"></el-divider>
       <!-- 用户下拉菜单-->
-      <AvatarMenu ></AvatarMenu>
+      <AvatarMenu
+        src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
+        avatar-size="small"
+        :data="[
+          { key: 1, value: 'haha1' },
+          { key: 2, value: 'haha2' }
+        ]"
+        trigger="click"
+      ></AvatarMenu>
     </el-row>
   </el-row>
 </template>
