@@ -9,18 +9,18 @@ export function useMenu() {
         const orderB = b.meta?.order ?? 100
         return orderA - orderB
       })
-    let i = 0
+    let i = 1
     filteredMenus.forEach((item) => {
       const key = level.indexOf('-') !== -1 ? `${level}${i}` : `${i}`
       item.meta = {
         ...item.meta,
         key
       }
+      i++
 
       if (item.children && item.children.length > 0) {
         return (item.children = generateMenuKeys(item.children, `${key}-`))
       }
-      i++
     })
     return filteredMenus
   }

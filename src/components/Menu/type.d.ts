@@ -1,4 +1,5 @@
 import type { IconifyIcon } from '@iconify/vue'
+import type { CSSProperties } from 'vue'
 
 export type Component<T = any> =
   | ReturnType<typeof defineComponent>
@@ -21,4 +22,9 @@ export interface AppRouteMenuItem {
   component?: Component
   meta?: RouteMeta
   children?: AppRouteMenuItem[]
+}
+
+export interface IconOptions {
+  style: CSSProperties
+  class: string
 }

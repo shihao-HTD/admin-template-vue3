@@ -7,7 +7,11 @@
   <template v-else>
     <!--  折叠-->
     <el-menu-item :disabled="data.meta?.disabled" v-if="collapse" :index="getIndex(data)">
-      <Iconify :icon="data.meta?.icon"></Iconify>
+      <Iconify
+        :style="iconStyles.style"
+        :class="iconStyles.class"
+        :icon="data.meta?.icon"
+      ></Iconify>
       <template #title>
         {{ data.meta?.title }}
       </template>
@@ -15,7 +19,11 @@
 
     <!--  侧栏-->
     <el-menu-item :disabled="data.meta?.disabled" v-else :index="getIndex(data)">
-      <Iconify :icon="data.meta?.icon"></Iconify>
+      <Iconify
+        :style="iconStyles.style"
+        :class="iconStyles.class"
+        :icon="data.meta?.icon"
+      ></Iconify>
       <span>
         {{ data.meta?.title }}
       </span>
@@ -24,13 +32,15 @@
 </template>
 
 <script setup lang="ts">
-import type { AppRouteMenuItem } from '@/components/Menu/type'
+import type { AppRouteMenuItem, IconOptions } from '@/components/Menu/type'
 import { useMenu } from '@/components/Menu/useMenu'
 
 const props = defineProps<{
   data: AppRouteMenuItem
   collapse?: boolean
 }>()
+
+const iconStyles = inject('iconProps') as IconOptions
 
 const { getIndex } = useMenu()
 </script>

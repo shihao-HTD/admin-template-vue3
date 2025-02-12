@@ -9,7 +9,11 @@
 
     <!--折叠 侧栏情况-->
     <template v-else #title>
-      <Iconify :icon="data.meta?.icon"></Iconify>
+      <Iconify
+        :style="iconStyles.style"
+        :class="iconStyles.class"
+        :icon="data.meta?.icon"
+      ></Iconify>
 
       <span>{{ data.meta.title }}</span>
     </template>
@@ -25,7 +29,7 @@
 
 <script setup lang="ts">
 import type { SubMenuProps as ElSubMenuProps } from 'element-plus'
-import type { AppRouteMenuItem } from '@/components/Menu/type'
+import type { AppRouteMenuItem, IconOptions } from '@/components/Menu/type'
 import { useMenu } from '@/components/Menu/useMenu'
 import MenuItem from '@/components/Menu/MenuItem.vue'
 
@@ -40,6 +44,7 @@ const subAttrs = computed(() => {
   const { data, ...restProps } = props
   return restProps
 })
+const iconStyles = inject('iconProps') as IconOptions
 
 const { getIndex, menuHasChildren } = useMenu()
 </script>
