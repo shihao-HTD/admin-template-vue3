@@ -18,6 +18,13 @@
 import { loadIcon } from '@iconify/vue'
 import { ElMessage } from 'element-plus'
 
+definePage({
+  meta: {
+    title: '图标列表',
+    // icon: 'mdi:user'
+  }
+})
+
 const copyIconComponentFlag = ref(true)
 const showTextFlag = ref(true)
 

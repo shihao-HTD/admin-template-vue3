@@ -15,6 +15,13 @@
 <script setup lang="ts">
 import type { NoticeMessageListOptions, NoticeActionItem } from '@/components/Notice/type'
 
+definePage({
+  meta: {
+    title: '消息通知',
+    // icon: 'mdi:user'
+  }
+})
+
 const actions = ref<NoticeActionItem[]>([
   {
     title: '清空',

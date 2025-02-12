@@ -2,8 +2,13 @@ import type { AppRouteMenuItem } from '@/components/Menu/type'
 
 export function useMenu() {
   function generateMenuKeys(menus: AppRouteMenuItem[], level = '1') {
-    const filteredMenus = menus.filter((m) => !m.meta?.hideMenu)
-
+    const filteredMenus = menus
+      .filter((m) => !m.meta?.hideMenu)
+      .sort((a, b) => {
+        const orderA = a.meta?.order ?? 100
+        const orderB = b.meta?.order ?? 100
+        return orderA - orderB
+      })
     let i = 0
     filteredMenus.forEach((item) => {
       const key = level.indexOf('-') !== -1 ? `${level}${i}` : `${i}`
@@ -33,4 +38,3 @@ export function useMenu() {
     menuHasChildren
   }
 }
-

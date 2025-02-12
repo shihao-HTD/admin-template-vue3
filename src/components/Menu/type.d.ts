@@ -16,7 +16,7 @@ export interface RouteMeta extends Record<string | number | symbol, unknown> {
 
 export interface AppRouteMenuItem {
   path: string
-  name?: string
+  name?: string | symbol
   alias?: string
   component?: Component
   meta?: RouteMeta
