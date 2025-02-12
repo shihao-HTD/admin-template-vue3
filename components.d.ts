@@ -7,8 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ChangeLocale: typeof import('./src/components/Themes/ChangeLocale.vue')['default']
     DarkModeToggle: typeof import('./src/components/Themes/DarkModeToggle.vue')['default']
-    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElDropdown: typeof import('element-plus/es')['ElDropdown']
+    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
+    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRow: typeof import('element-plus/es')['ElRow']
@@ -16,6 +19,8 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     FullScreen: typeof import('./src/components/Themes/FullScreen.vue')['default']
+    Head: typeof import('./src/components/Layouts/Head.vue')['default']
+    Header: typeof import('./src/components/Layouts/Header.vue')['default']
     IconfontIcon: typeof import('./src/components/Icon/IconfontIcon.vue')['default']
     Iconify: typeof import('./src/components/Icon/Iconify.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']

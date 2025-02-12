@@ -4,6 +4,7 @@
     v-model="isDark"
     :active-action-icon="Moon"
     :inactive-action-icon="Sun"
+    size="large"
   />
 </template>
 
@@ -26,8 +27,8 @@ onMounted(() => {
   }
 })
 
-const Moon = () => <i class="i-prime:moon"></i>
-const Sun = () => <i class="i-octicon:sun-24"></i>
+const Moon = () => <i class="i-prime:moon text-3xl"></i>
+const Sun = () => <i class="i-octicon:sun-24 text-3xl"></i>
 
 function toggleMode(flag: boolean) {
   if (flag) {

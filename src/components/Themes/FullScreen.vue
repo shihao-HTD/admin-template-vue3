@@ -2,7 +2,11 @@
   <component
     @click="handleClick"
     :is="tag"
-    :class="[isFullscreen ? 'i-ep:full-screen' : 'i-ri:fullscreen-exit-fill', 'cursor-pointer']"
+    :class="[
+      isFullscreen ? 'i-ep:full-screen' : 'i-ri:fullscreen-exit-fill',
+      'cursor-pointer',
+      iconClass
+    ]"
   ></component>
 </template>
 
@@ -13,6 +17,10 @@ defineProps({
   tag: {
     type: String,
     default: 'i'
+  },
+  iconClass: {
+    type: String,
+    default: 'text-xl'
   }
 })
 

@@ -12,6 +12,7 @@
 
     <!--    content-->
     <div class="flex-1 h-full">
+      <Header :collapse="true" :locales="locales"></Header>
       <router-view></router-view>
     </div>
   </div>
@@ -21,13 +22,30 @@
 import { routes } from 'vue-router/auto/routes'
 import type { RouteRecordRaw } from 'vue-router'
 import type { AppRouteMenuItem } from '@/components/Menu/type'
+import Header from '@/components/Layouts/Header.vue'
+import type { LocaleItem } from '@/components/Themes/type'
 
 interface ThemeSettings {
   menuWidth: number | string
+  locales: LocaleItem[]
 }
 
 const props = withDefaults(defineProps<ThemeSettings>(), {
-  menuWidth: 240
+  menuWidth: 240,
+  locales() {
+    return [
+      {
+        text: 'English',
+        name: 'en',
+        icon: 'ri:english-input'
+      },
+      {
+        text: '中文',
+        name: 'zh-CN',
+        icon: 'uil:letter-chinese-a'
+      }
+    ]
+  }
 })
 function generateMenuData(routes: RouteRecordRaw[]): AppRouteMenuItem[] {
   const menus: AppRouteMenuItem[] = []
