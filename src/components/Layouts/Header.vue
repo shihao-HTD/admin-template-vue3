@@ -9,6 +9,9 @@
       <DarkModeToggle class="mr-2"> </DarkModeToggle>
       <ChangeLocale class="mr-2" :locales="locales"></ChangeLocale>
       <FullScreen></FullScreen>
+      <el-divider direction="vertical"></el-divider>
+      <!-- 用户下拉菜单-->
+      <AvatarMenu ></AvatarMenu>
     </el-row>
   </el-row>
 </template>
