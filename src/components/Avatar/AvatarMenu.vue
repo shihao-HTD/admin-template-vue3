@@ -1,17 +1,19 @@
 <template>
   <el-dropdown v-bind="props" @command="handleCommand">
-    <el-avatar
-      :icon="icon"
-      :size="avatarSize"
-      :src="src"
-      :alt="alt"
-      :fit="fit"
-      :src-set="srcSet"
-      :shape="shape"
-    >
-    </el-avatar>
+    <div class="flex items-center">
+      <el-avatar
+        :icon="icon"
+        :size="avatarSize"
+        :src="src"
+        :alt="alt"
+        :fit="fit"
+        :src-set="srcSet"
+        :shape="shape"
+      >
+      </el-avatar>
 
-    <span> 用户名称 </span>
+      <span class="ml-2"> {{ username }} </span>
+    </div>
     <template #dropdown>
       <el-dropdown-item
         v-for="(menu, index) in data"
@@ -25,46 +27,21 @@
 </template>
 
 <script setup lang="ts">
-import type { ButtonProps, ButtonType, PartialOptions, Placement, AvatarProps } from 'element-plus'
-
 /* 不推荐
 type DropdownProps = ExtractPropTypes<typeof dropdownProps>
 interface AvatarMenuProps extends /!* @vue-ignore *!/ Partial<DropdownProps> {}
 */
-interface DropMenuProps {
-  trigger?: 'click' | 'hover' | 'contextmenu'
-  effect?: string
-  type?: ButtonType
-  placement?: Placement
-  popperOptions?: Partial<PartialOptions>
-  id?: string
-  size?: string
-  splitButton?: boolean
-  hideOnClick?: boolean
-  loop?: boolean
-  showTimeout?: number
-  hideTimeout?: number
-  tabindex?: number | string
-  maxHeight?: number | string
-  popperClass?: string
-  disabled?: boolean
-  role?: string
-  buttonProps?: ButtonProps
-  teleported?: boolean
-}
-
-export type DropDownMenuItem = string | number | { key: string | number | object; value: string }
-
-interface AvatarMenuProps extends AvatarProps, Omit<DropMenuProps, 'size'> {
-  data: DropDownMenuItem[]
-  avatarSize: number | 'larger' | 'default' | 'small'
-}
+import type { AvatarMenuProps } from '@/components/Themes/type'
 
 const props = withDefaults(defineProps<Partial<AvatarMenuProps>>(), {
   trigger: 'click'
 })
+const emits = defineEmits<{
+  (e: 'command', arg: string | number | object): void
+}>()
 const handleCommand = (command: string | number | object) => {
-  console.log("=>(AvatarMenu.vue:67) command", command);
+  console.log('=>(AvatarMenu.vue:67) command', command)
+  emits('command', command)
 }
 </script>
 

@@ -19,6 +19,8 @@
           { key: 2, value: 'haha2' }
         ]"
         trigger="click"
+        class="mr-2"
+        username="tom"
       ></AvatarMenu>
     </el-row>
   </el-row>
