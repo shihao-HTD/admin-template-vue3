@@ -22,7 +22,6 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     FullScreen: typeof import('./src/components/Themes/FullScreen.vue')['default']
-    Head: typeof import('./src/components/Layouts/Head.vue')['default']
     Header: typeof import('./src/components/Layouts/Header.vue')['default']
     IconfontIcon: typeof import('./src/components/Icon/IconfontIcon.vue')['default']
     Iconify: typeof import('./src/components/Icon/Iconify.vue')['default']

@@ -15,13 +15,16 @@
       <span class="ml-2"> {{ username }} </span>
     </div>
     <template #dropdown>
-      <el-dropdown-item
-        v-for="(menu, index) in data"
-        :key="index"
-        :command="typeof menu === 'object' && menu.key ? menu.key : menu"
-      >
-        {{ typeof menu === 'object' && menu.value ? menu.value : menu }}
-      </el-dropdown-item>
+      <template v-for="(menu, index) in data" :key="index">
+        <el-dropdown-item
+          v-if="(typeof menu === 'object' && menu.value ? menu.value : menu) !== 'divider'"
+          :command="typeof menu === 'object' && menu.key ? menu.key : menu"
+        >
+          {{ typeof menu === 'object' && menu.value ? menu.value : menu }}
+        </el-dropdown-item>
+
+        <el-divider class="my-0!" v-else></el-divider>
+      </template>
     </template>
   </el-dropdown>
 </template>

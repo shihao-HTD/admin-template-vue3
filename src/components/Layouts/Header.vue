@@ -16,7 +16,10 @@
         avatar-size="small"
         :data="[
           { key: 1, value: 'haha1' },
-          { key: 2, value: 'haha2' }
+          { key: 2, value: 'haha2' },
+          { key: 3, value: 'divider' },
+          { key: 4, value: 'xxx' },
+
         ]"
         trigger="click"
         class="mr-2"
