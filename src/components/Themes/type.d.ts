@@ -1,7 +1,6 @@
 import type { IconifyIcon } from '@iconify/vue'
 import type { AvatarProps, ButtonProps, ButtonType, PartialOptions, Placement } from 'element-plus'
 
-
 export interface LocaleItem {
   name: string
   text?: string
@@ -34,6 +33,6 @@ export type DropDownMenuItem = string | number | { key: string | number | object
 
 export interface AvatarMenuProps extends AvatarProps, Omit<DropMenuProps, 'size'> {
   data: DropDownMenuItem[]
-  avatarSize: number | 'larger' | 'default' | 'small'
-  username:string
+  menuSize: 'larger' | 'default' | 'small' | string
+  username: string
 }

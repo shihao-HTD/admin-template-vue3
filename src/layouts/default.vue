@@ -12,7 +12,13 @@
 
     <!--    content-->
     <div class="flex-1 h-full">
-      <Header :collapse="true" :locales="locales"></Header>
+      <Header
+        :data="avatarMenu"
+        :username="username"
+        :collapse="true"
+        :locales="locales"
+        :src="avatar"
+      ></Header>
       <router-view></router-view>
     </div>
   </div>
@@ -23,11 +29,14 @@ import { routes } from 'vue-router/auto/routes'
 import type { RouteRecordRaw } from 'vue-router'
 import type { AppRouteMenuItem } from '@/components/Menu/type'
 import Header from '@/components/Layouts/Header.vue'
-import type { LocaleItem } from '@/components/Themes/type'
+import type { DropDownMenuItem, LocaleItem } from '@/components/Themes/type'
 
 interface ThemeSettings {
   menuWidth: number | string
   locales: LocaleItem[]
+  username: string
+  avatar: string
+  avatarMenu: DropDownMenuItem[]
 }
 
 const props = withDefaults(defineProps<ThemeSettings>(), {
@@ -45,7 +54,10 @@ const props = withDefaults(defineProps<ThemeSettings>(), {
         icon: 'uil:letter-chinese-a'
       }
     ]
-  }
+  },
+  username(props) {
+      return "tom"
+  },
 })
 function generateMenuData(routes: RouteRecordRaw[]): AppRouteMenuItem[] {
   const menus: AppRouteMenuItem[] = []

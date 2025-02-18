@@ -12,18 +12,10 @@
       <el-divider direction="vertical"></el-divider>
       <!-- 用户下拉菜单-->
       <AvatarMenu
-        src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
-        avatar-size="small"
-        :data="[
-          { key: 1, value: 'haha1' },
-          { key: 2, value: 'haha2' },
-          { key: 3, value: 'divider' },
-          { key: 4, value: 'xxx' },
-
-        ]"
-        trigger="click"
+        @command="handleCommand"
+        v-bind="avatarProps"
+        v-if="username || src"
         class="mr-2"
-        username="tom"
       ></AvatarMenu>
     </el-row>
   </el-row>
@@ -33,13 +25,29 @@
 import DarkModeToggle from '../Themes/DarkModeToggle.vue'
 import FullScreen from '../Themes/FullScreen.vue'
 import ChangeLocale from '../Themes/ChangeLocale.vue'
-import type { LocaleItem } from '@/components/Themes/type'
+import type { AvatarMenuProps, LocaleItem } from '@/components/Themes/type'
 
-interface HeaderProps {
+interface HeaderProps extends Partial<AvatarMenuProps> {
   collapse: boolean
   locales: LocaleItem[]
 }
-defineProps<HeaderProps>()
+const props = withDefaults(defineProps<HeaderProps>(),{
+  collapse:false
+})
+
+const avatarProps = computed(() => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { collapse, locales, ...restProps } = props
+  return restProps
+})
+
+const emits = defineEmits<{
+  (e: 'command', arg: string | number | object): void
+}>()
+const handleCommand = (command: string | number | object) => {
+  console.log('=>(AvatarMenu.vue:67) command', command)
+  emits('command', command)
+}
 </script>
 
 <style scoped></style>

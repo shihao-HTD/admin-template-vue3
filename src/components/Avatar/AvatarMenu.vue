@@ -1,15 +1,16 @@
 <template>
-  <el-dropdown v-bind="props" @command="handleCommand">
+  <el-dropdown v-bind="props" @command="handleCommand" :size="menuSize">
     <div class="flex items-center">
       <el-avatar
         :icon="icon"
-        :size="avatarSize"
+        :size="size"
         :src="src"
         :alt="alt"
         :fit="fit"
         :src-set="srcSet"
         :shape="shape"
       >
+        {{ username ? username[0].toUpperCase() : '' }}
       </el-avatar>
 
       <span class="ml-2"> {{ username }} </span>
@@ -37,7 +38,9 @@ interface AvatarMenuProps extends /!* @vue-ignore *!/ Partial<DropdownProps> {}
 import type { AvatarMenuProps } from '@/components/Themes/type'
 
 const props = withDefaults(defineProps<Partial<AvatarMenuProps>>(), {
-  trigger: 'click'
+  trigger: 'click',
+  username: '',
+  size: 'small'
 })
 const emits = defineEmits<{
   (e: 'command', arg: string | number | object): void
