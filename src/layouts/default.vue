@@ -2,22 +2,37 @@
   <div class="w-full h-screen overflow-hidden flex">
     <!--    sidebar-->
     <div
-      v-if="settings?.mode === 'siderbar'"
       :style="{
         width: localeSettings.collapse ? '64px' : menuWidth + 'px',
         backgroundColor: settings?.backgroundColor
       }"
       class="h-full bg-sky transition-width"
+      v-if="settings?.mode !== 'top'"
     >
-      <el-scrollbar>
-        <Menu
-          :background-color="settings?.backgroundColor"
-          text-color="#b8b8b8"
-          :collapse="localeSettings.collapse"
-          :data="menus"
-        >
-        </Menu>
-      </el-scrollbar>
+      <el-row class="flex-nowrap!">
+        <!--      菜单:左侧 左侧菜单混合-->
+        <el-scrollbar>
+          <Menu
+            v-if="settings?.mode === 'siderbar' || settings?.mode === 'mixbar'"
+            :background-color="settings?.backgroundColor"
+            text-color="#b8b8b8"
+            :collapse="localeSettings.collapse"
+            :data="menus"
+          >
+          </Menu>
+        </el-scrollbar>
+
+        <!--    二级菜单 顶部左侧菜单混合  左侧菜单混合-->
+        <el-scrollbar v-if="settings?.mode === 'mixbar' || settings?.mode === 'mix'">
+          <Menu
+            :background-color="settings?.backgroundColor"
+            text-color="#b8b8b8"
+            :collapse="localeSettings.collapse"
+            :data="menus"
+          >
+          </Menu>
+        </el-scrollbar>
+      </el-row>
     </div>
 
     <!--    content-->
@@ -31,8 +46,9 @@
         @settingsChange="handleSettingsChange"
         :settings="settings"
       >
+        <!--   顶部菜单 顶部左侧菜单混合     -->
         <Menu
-          v-if="settings?.mode === 'top'"
+          v-if="settings?.mode === 'top' || settings?.mode === 'mix'"
           :collapse="false"
           mode="horizontal"
           :data="menus"
