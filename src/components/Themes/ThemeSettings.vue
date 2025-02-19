@@ -2,7 +2,7 @@
   <Iconify @click="drawer = true" class="text-xl mr-3 cursor-pointer" icon="ri:brush-2-line">
   </Iconify>
 
-  <el-drawer v-model="drawer" title="主题设置">
+  <el-drawer @close="handleClose" v-model="drawer" title="主题设置">
     <el-form :model="form">
       <el-form-item label="主题设置">
         <el-color-picker v-model="form.theme"> </el-color-picker>
@@ -12,7 +12,7 @@
         <el-switch v-model="form.darkMode"> </el-switch>
       </el-form-item>
 
-      <el-form-item  label="导航模式">
+      <el-form-item label="导航模式">
         <div class="flex justify-around flex-1">
           <el-tooltip content="左侧菜单">
             <div class="item">
@@ -41,8 +41,19 @@
         </div>
       </el-form-item>
 
+      <el-form-item label="菜单背景">
+        <el-color-picker v-model="form.backgroundColor"></el-color-picker>
+      </el-form-item>
       <el-form-item label="菜单宽度">
-        <el-slider class="ml-3" show-input input-size="small" v-model="form.menuWidth"> </el-slider>
+        <el-slider
+          :min="220"
+          :max="600"
+          class="ml-3"
+          show-input
+          input-size="small"
+          v-model="form.menuWidth"
+        >
+        </el-slider>
       </el-form-item>
 
       <el-form-item label="显示Logo">
@@ -67,26 +78,34 @@
 </template>
 
 <script setup lang="ts">
+import type { ThemeSettingsProps } from '@/components/Themes/type'
+
 const drawer = ref(false)
-interface SettingsProps {
-  theme: string
-  darkMode: boolean
-  menuWidth?: number
-  showLogo: boolean
-  showTabs: boolean
-  fixedHead: boolean
-  showBreadCrumb: boolean
-  mode: 'sliderbar' | 'mix' | 'top' | 'mixbar'
-}
-const form = reactive<SettingsProps>({
-  theme: '',
+
+const emits = defineEmits<{
+  (e: 'change', settings: ThemeSettingsProps): void
+}>()
+
+const props = withDefaults(defineProps<ThemeSettingsProps>(), {
+  theme: '#409eff',
+  menuWidth: 240,
   darkMode: false,
   showLogo: false,
   showTabs: true,
   fixedHead: false,
-  showBreadCrumb: true,
-  mode: 'sliderbar'
+  showBreadcrumb: true,
+  mode: 'siderbar',
+  backgroundColor: '#001529'
 })
+
+const form = reactive<ThemeSettingsProps>({
+  ...props
+})
+
+function handleClose() {
+  console.log(form)
+  emits('change', form)
+}
 </script>
 
 <style scoped lang="scss">

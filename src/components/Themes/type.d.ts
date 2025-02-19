@@ -36,3 +36,15 @@ export interface AvatarMenuProps extends AvatarProps, Omit<DropMenuProps, 'size'
   menuSize: 'larger' | 'default' | 'small' | string
   username: string
 }
+
+export interface ThemeSettingsProps {
+  theme: string
+  darkMode: boolean
+  menuWidth?: number
+  showLogo: boolean
+  showTabs: boolean
+  fixedHead: boolean
+  showBreadCrumb: boolean
+  mode: 'siderbar' | 'mix' | 'top' | 'mixbar'
+  backgroundColor: string
+}
