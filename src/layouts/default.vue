@@ -3,22 +3,28 @@
     <!--    sidebar-->
     <div
       :style="{
-        width: menuWidth + 'px',
+        width: localeSettings.collapse ? '64px' : menuWidth + 'px',
         backgroundColor: settings?.backgroundColor
       }"
-      class="h-full bg-sky"
+      class="h-full bg-sky transition-width"
     >
       <el-scrollbar>
-        <Menu :data="menus"> </Menu>
+        <Menu
+          :background-color="localeSettings.settings?.backgroundColor"
+          text-color="#b8b8b8"
+          :collapse="localeSettings.collapse"
+          :data="menus"
+        >
+        </Menu>
       </el-scrollbar>
     </div>
 
     <!--    content-->
     <div class="flex-1 h-full">
       <Header
+        v-model:collapse="localeSettings.collapse"
         :data="localeSettings.avatarMenu"
         :username="localeSettings.username"
-        :collapse="localeSettings.collapse"
         :locales="localeSettings.locales"
         :src="localeSettings.avatar"
         @settingsChange="handleSettingsChange"
@@ -93,7 +99,7 @@ const settings = computed(() => localeSettings.settings)
 
 function handleSettingsChange(themeSettings: ThemeSettingsProps) {
   localeSettings.settings = themeSettings
-  console.log("=>(default.vue:96) themeSettings", themeSettings);
+  console.log('=>(default.vue:96) themeSettings', themeSettings)
 }
 const menus = computed(() => generateMenuData(routes))
 </script>

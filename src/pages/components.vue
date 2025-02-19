@@ -3,7 +3,8 @@
 <script setup lang="ts">
 definePage({
   meta: {
-    title: '组件示例'
+    title: '组件示例',
+    icon: 'mdi:user'
   }
 })
 </script>

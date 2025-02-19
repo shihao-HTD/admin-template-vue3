@@ -1,7 +1,11 @@
 <template>
   <el-row class="items-center">
     <!--    面包屑-->
-    <Iconify class="text-2xl cursor-pointer" :icon="collapse ? 'ep:expand' : 'ep:fold'"></Iconify>
+    <Iconify
+      @click="collapseModel = !collapseModel"
+      class="text-2xl cursor-pointer"
+      :icon="collapseModel ? 'ep:expand' : 'ep:fold'"
+    ></Iconify>
     <!--    右侧-->
 
     <div class="flex-grow"></div>
@@ -31,8 +35,10 @@ import type { ThemeSettingsProps } from '@/components/Themes/type'
 import ThemeSettings from '@/components/Themes/ThemeSettings.vue'
 import type { HeaderProps } from '@/components/Layouts/type'
 
-const props = withDefaults(defineProps<HeaderProps>(), {
-  collapse: false
+const props = withDefaults(defineProps<HeaderProps>(), {})
+
+const collapseModel = defineModel('collapse', {
+  default: false
 })
 
 const localeProps = reactive<HeaderProps>({

@@ -15,7 +15,7 @@
         :icon="data.meta?.icon"
       ></Iconify>
 
-      <span>{{ data.meta.title }}</span>
+      <span>{{ data.meta?.title }}</span>
     </template>
 
     <SubMenu

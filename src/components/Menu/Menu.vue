@@ -1,5 +1,5 @@
 <template>
-  <el-menu :style="{ '--bg-color': backgroundColor }" v-bind="elMenuProps">
+  <el-menu class="border-r-0!" :style="{ '--bg-color': backgroundColor }" v-bind="elMenuProps">
     <slot name="icon"> </slot>
     <!--  左右Logo 加下拉菜单情况-->
     <!--    <div v-if="isDefined(slots['name'])" class="flex-grow"></div>-->
@@ -37,7 +37,16 @@ const props = withDefaults(defineProps<MenuProps>(), {
 })
 const slots = useSlots()
 
-provide('iconProps', props.iconProps)
+const iconProps = reactive(props.iconProps)
+
+watch(
+  () => props.collapse,
+  () => {
+    iconProps.class = props.collapse ? '' : 'mr-3'
+  }
+)
+
+provide('iconProps', iconProps)
 
 const elMenuProps = computed(() => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -51,4 +60,8 @@ const filterMenus = computed(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+:deep(.el-sub-menu_title) {
+  padding-right: 0 !important;
+}
+</style>
