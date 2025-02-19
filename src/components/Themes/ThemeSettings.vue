@@ -102,6 +102,10 @@ const form = reactive<ThemeSettingsProps>({
   ...props
 })
 
+onMounted(()=>{
+  emits('change', form)
+})
+
 function handleClose() {
   console.log(form)
   emits('change', form)

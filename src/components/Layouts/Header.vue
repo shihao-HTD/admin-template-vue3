@@ -6,7 +6,7 @@
 
     <div class="flex-grow"></div>
     <el-row class="items-center">
-      <ThemeSettings></ThemeSettings>
+      <ThemeSettings v-bind="settings" @change="handleChange"></ThemeSettings>
       <DarkModeToggle class="mr-2"> </DarkModeToggle>
       <ChangeLocale class="mr-2" :locales="locales"></ChangeLocale>
       <FullScreen></FullScreen>
@@ -26,15 +26,12 @@
 import DarkModeToggle from '../Themes/DarkModeToggle.vue'
 import FullScreen from '../Themes/FullScreen.vue'
 import ChangeLocale from '../Themes/ChangeLocale.vue'
-import type { AvatarMenuProps, LocaleItem } from '@/components/Themes/type'
+import type { ThemeSettingsProps } from '@/components/Themes/type'
 import ThemeSettings from '@/components/Themes/ThemeSettings.vue'
+import type { HeaderProps } from '@/components/Layouts/type'
 
-interface HeaderProps extends Partial<AvatarMenuProps> {
-  collapse: boolean
-  locales: LocaleItem[]
-}
-const props = withDefaults(defineProps<HeaderProps>(),{
-  collapse:false
+const props = withDefaults(defineProps<HeaderProps>(), {
+  collapse: false
 })
 
 const avatarProps = computed(() => {
@@ -44,11 +41,16 @@ const avatarProps = computed(() => {
 })
 
 const emits = defineEmits<{
-  (e: 'command', arg: string | number | object): void
+  (e: 'menuChange', arg: string | number | object): void
+  (e: 'settingsChange', settings: ThemeSettingsProps): void
 }>()
 const handleCommand = (command: string | number | object) => {
   console.log('=>(AvatarMenu.vue:67) command', command)
-  emits('command', command)
+  emits('menuChange', command)
+}
+
+function handleChange(settings: ThemeSettingsProps) {
+  emits('settingsChange', settings)
 }
 </script>
 

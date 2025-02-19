@@ -44,7 +44,7 @@ export interface ThemeSettingsProps {
   showLogo: boolean
   showTabs: boolean
   fixedHead: boolean
-  showBreadCrumb: boolean
+  showBreadCrumb?: boolean
   mode: 'siderbar' | 'mix' | 'top' | 'mixbar'
   backgroundColor: string
 }

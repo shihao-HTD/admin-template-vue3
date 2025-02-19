@@ -2,7 +2,10 @@
   <div class="w-full h-screen overflow-hidden flex">
     <!--    sidebar-->
     <div
-      :style="{ width: typeof menuWidth === 'string' ? menuWidth : menuWidth + 'px' }"
+      :style="{
+        width: menuWidth + 'px',
+        backgroundColor: settings.settings?.backgroundColor
+      }"
       class="h-full bg-sky"
     >
       <el-scrollbar>
@@ -13,11 +16,13 @@
     <!--    content-->
     <div class="flex-1 h-full">
       <Header
-        :data="avatarMenu"
-        :username="username"
-        :collapse="true"
-        :locales="locales"
-        :src="avatar"
+        :data="settings.avatarMenu"
+        :username="settings.username"
+        :collapse="settings.collapse"
+        :locales="settings.locales"
+        :src="settings.avatar"
+        @settingsChange="handleSettingsChange"
+        :settings="settings.settings"
       ></Header>
       <router-view></router-view>
     </div>
@@ -29,36 +34,38 @@ import { routes } from 'vue-router/auto/routes'
 import type { RouteRecordRaw } from 'vue-router'
 import type { AppRouteMenuItem } from '@/components/Menu/type'
 import Header from '@/components/Layouts/Header.vue'
-import type { DropDownMenuItem, LocaleItem } from '@/components/Themes/type'
+import type { DropDownMenuItem, ThemeSettingsProps } from '@/components/Themes/type'
+import type { HeaderProps } from '@/components/Layouts/type'
 
-interface ThemeSettings {
-  menuWidth: number | string
-  locales: LocaleItem[]
+interface ThemeSettingsOption extends HeaderProps {
+  menuWidth?: number | string
   username: string
   avatar: string
   avatarMenu: DropDownMenuItem[]
 }
 
-const props = withDefaults(defineProps<ThemeSettings>(), {
-  menuWidth: 240,
-  locales() {
-    return [
-      {
-        text: 'English',
-        name: 'en',
-        icon: 'ri:english-input'
-      },
-      {
-        text: '中文',
-        name: 'zh-CN',
-        icon: 'uil:letter-chinese-a'
-      }
-    ]
-  },
-  username(props) {
-      return "tom"
-  },
+const settings = reactive<ThemeSettingsOption>({
+  locales: [
+    {
+      text: 'English',
+      name: 'en',
+      icon: 'ri:english-input'
+    },
+    {
+      text: '中文',
+      name: 'zh-CN',
+      icon: 'uil:letter-chinese-a'
+    }
+  ],
+  username: 'tom',
+  collapse: false,
+  avatarMenu: [],
+  avatar: '',
+  settings: {
+    menuWidth: 280
+  } as ThemeSettingsProps
 })
+
 function generateMenuData(routes: RouteRecordRaw[]): AppRouteMenuItem[] {
   const menus: AppRouteMenuItem[] = []
 
@@ -78,7 +85,13 @@ function generateMenuData(routes: RouteRecordRaw[]): AppRouteMenuItem[] {
 
   return menus
 }
+const menuWidth = computed(() => {
+  return settings.settings ? settings.settings.menuWidth : 240
+})
 
+function handleSettingsChange(themeSettings: ThemeSettingsProps) {
+  settings.settings = themeSettings
+}
 const menus = computed(() => generateMenuData(routes))
 </script>
 
