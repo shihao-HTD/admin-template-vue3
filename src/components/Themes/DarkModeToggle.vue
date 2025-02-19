@@ -43,7 +43,7 @@ watch(
   () => {
     nextTick(() => {
       toggleMode(isDark.value)
-      emits('change', isDark.value)
+      emits('change', isDark)
     })
   },
   {
