@@ -8,7 +8,9 @@
     ></Iconify>
     <!--    右侧-->
 
-    <div class="flex-grow"></div>
+    <div class="flex-grow">
+      <slot></slot>
+    </div>
     <el-row class="items-center">
       <ThemeSettings v-bind="settings" @change="handleChange"></ThemeSettings>
       <DarkModeToggle :dark="settings?.darkMode" @change="handleDarkModeChange" class="mr-2">

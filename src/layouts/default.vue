@@ -2,6 +2,7 @@
   <div class="w-full h-screen overflow-hidden flex">
     <!--    sidebar-->
     <div
+      v-if="settings?.mode === 'siderbar'"
       :style="{
         width: localeSettings.collapse ? '64px' : menuWidth + 'px',
         backgroundColor: settings?.backgroundColor
@@ -10,7 +11,7 @@
     >
       <el-scrollbar>
         <Menu
-          :background-color="localeSettings.settings?.backgroundColor"
+          :background-color="settings?.backgroundColor"
           text-color="#b8b8b8"
           :collapse="localeSettings.collapse"
           :data="menus"
@@ -28,8 +29,15 @@
         :locales="localeSettings.locales"
         :src="localeSettings.avatar"
         @settingsChange="handleSettingsChange"
-        :settings="localeSettings.settings"
-      ></Header>
+        :settings="settings"
+      >
+        <Menu
+          v-if="settings?.mode === 'top'"
+          :collapse="false"
+          mode="horizontal"
+          :data="menus"
+        ></Menu>
+      </Header>
       <router-view></router-view>
     </div>
   </div>

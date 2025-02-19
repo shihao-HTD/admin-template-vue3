@@ -15,24 +15,30 @@
       <el-form-item label="导航模式">
         <div class="flex justify-around flex-1">
           <el-tooltip content="左侧菜单">
-            <div class="item">
+            <div
+              :class="['item', { active: form.mode === 'siderbar' }]"
+              @click="form.mode = 'siderbar'"
+            >
               <div class="bg-dark w-1/4 h-full left-0 top-0 absolute z-30"></div>
               <div class="bg-white w-full h-1/4 left-0 top-0 absolute z-10"></div>
             </div>
           </el-tooltip>
           <el-tooltip content="顶部左侧菜单混合">
-            <div class="item">
+            <div :class="['item', { active: form.mode === 'mix' }]" @click="form.mode = 'mix'">
               <div class="bg-white w-1/4 h-full left-0 top-0 absolute z-10"></div>
               <div class="bg-dark w-full h-1/4 left-0 top-0 absolute z-30"></div>
             </div>
           </el-tooltip>
           <el-tooltip content="顶部菜单">
-            <div class="item">
+            <div :class="['item', { active: form.mode === 'top' }]" @click="form.mode = 'top'">
               <div class="bg-dark w-full h-1/4 left-0 top-0 absolute z-10"></div>
             </div>
           </el-tooltip>
           <el-tooltip content="左侧菜单混合">
-            <div class="item">
+            <div
+              :class="['item', { active: form.mode === 'mixbar' }]"
+              @click="form.mode = 'mixbar'"
+            >
               <div class="bg-dark w-1/5 h-full left-0 top-0 absolute z-30"></div>
               <div class="bg-white w-1/3 h-full left-0 top-0 absolute z-10"></div>
               <div class="bg-white w-full h-1/4 left-0 top-0 absolute z-20 border-b"></div>
@@ -102,7 +108,7 @@ const form = reactive<ThemeSettingsProps>({
   ...props
 })
 
-onMounted(()=>{
+onMounted(() => {
   emits('change', form)
 })
 
@@ -120,7 +126,7 @@ function handleClose() {
   @apply bg-gray-100 rounded w-15 h-12 overflow-hidden pos-relative shadow
   border border-gray-200 cursor-pointer;
   &.active {
-    @apply bg-sky;
+    @apply border-sky-800 border-2;
   }
 }
 </style>

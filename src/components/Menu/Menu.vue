@@ -60,8 +60,12 @@ const filterMenus = computed(() => {
 })
 </script>
 
-<style scoped>
-:deep(.el-sub-menu_title) {
+<style lang="scss">
+.el-sub-menu_title {
   padding-right: 0 !important;
+}
+
+.el-menu--horizontal.el-menu {
+  border-bottom: 0 !important;
 }
 </style>
