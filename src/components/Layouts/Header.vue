@@ -7,7 +7,8 @@
     <div class="flex-grow"></div>
     <el-row class="items-center">
       <ThemeSettings v-bind="settings" @change="handleChange"></ThemeSettings>
-      <DarkModeToggle class="mr-2"> </DarkModeToggle>
+      <DarkModeToggle :dark="settings?.darkMode" @change="handleDarkModeChange" class="mr-2">
+      </DarkModeToggle>
       <ChangeLocale class="mr-2" :locales="locales"></ChangeLocale>
       <FullScreen></FullScreen>
       <el-divider direction="vertical"></el-divider>
@@ -34,6 +35,10 @@ const props = withDefaults(defineProps<HeaderProps>(), {
   collapse: false
 })
 
+const localeProps = reactive<HeaderProps>({
+  ...props
+})
+
 const avatarProps = computed(() => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { collapse, locales, ...restProps } = props
@@ -49,8 +54,21 @@ const handleCommand = (command: string | number | object) => {
   emits('menuChange', command)
 }
 
+watch(
+  () => localeProps.settings,
+  () => {
+    emits('settingsChange', localeProps.settings!)
+  },
+  {
+    deep: true
+  }
+)
+
 function handleChange(settings: ThemeSettingsProps) {
-  emits('settingsChange', settings)
+  localeProps.settings = settings
+}
+function handleDarkModeChange(dark: boolean) {
+  localeProps.settings!.darkMode = dark
 }
 </script>
 

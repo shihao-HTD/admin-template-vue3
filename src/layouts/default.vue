@@ -93,6 +93,7 @@ const settings = computed(() => localeSettings.settings)
 
 function handleSettingsChange(themeSettings: ThemeSettingsProps) {
   localeSettings.settings = themeSettings
+  console.log("=>(default.vue:96) themeSettings", themeSettings);
 }
 const menus = computed(() => generateMenuData(routes))
 </script>

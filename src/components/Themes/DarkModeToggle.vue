@@ -10,10 +10,10 @@
 
 <script setup lang="tsx">
 const props = defineProps({
-  dark: {
-    type: Boolean
-  }
+  dark: Boolean
 })
+
+const emits = defineEmits(['change'])
 
 // const isDark = useDark()
 // const isDark = ref(props.dark)
@@ -43,6 +43,7 @@ watch(
   () => {
     nextTick(() => {
       toggleMode(isDark.value)
+      emits('change', isDark.value)
     })
   },
   {
