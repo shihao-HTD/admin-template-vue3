@@ -4,7 +4,7 @@
     <div
       :style="{
         width: menuWidth + 'px',
-        backgroundColor: settings.settings?.backgroundColor
+        backgroundColor: settings?.backgroundColor
       }"
       class="h-full bg-sky"
     >
@@ -16,13 +16,13 @@
     <!--    content-->
     <div class="flex-1 h-full">
       <Header
-        :data="settings.avatarMenu"
-        :username="settings.username"
-        :collapse="settings.collapse"
-        :locales="settings.locales"
-        :src="settings.avatar"
+        :data="localeSettings.avatarMenu"
+        :username="localeSettings.username"
+        :collapse="localeSettings.collapse"
+        :locales="localeSettings.locales"
+        :src="localeSettings.avatar"
         @settingsChange="handleSettingsChange"
-        :settings="settings.settings"
+        :settings="localeSettings.settings"
       ></Header>
       <router-view></router-view>
     </div>
@@ -44,7 +44,7 @@ interface ThemeSettingsOption extends HeaderProps {
   avatarMenu: DropDownMenuItem[]
 }
 
-const settings = reactive<ThemeSettingsOption>({
+const localeSettings = reactive<ThemeSettingsOption>({
   locales: [
     {
       text: 'English',
@@ -86,11 +86,13 @@ function generateMenuData(routes: RouteRecordRaw[]): AppRouteMenuItem[] {
   return menus
 }
 const menuWidth = computed(() => {
-  return settings.settings ? settings.settings.menuWidth : 240
+  return settings.value ? settings.value.menuWidth : 240
 })
 
+const settings = computed(() => localeSettings.settings)
+
 function handleSettingsChange(themeSettings: ThemeSettingsProps) {
-  settings.settings = themeSettings
+  localeSettings.settings = themeSettings
 }
 const menus = computed(() => generateMenuData(routes))
 </script>
