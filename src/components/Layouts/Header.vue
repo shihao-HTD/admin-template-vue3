@@ -6,6 +6,7 @@
 
     <div class="flex-grow"></div>
     <el-row class="items-center">
+      <ThemeSettings></ThemeSettings>
       <DarkModeToggle class="mr-2"> </DarkModeToggle>
       <ChangeLocale class="mr-2" :locales="locales"></ChangeLocale>
       <FullScreen></FullScreen>
@@ -26,6 +27,7 @@ import DarkModeToggle from '../Themes/DarkModeToggle.vue'
 import FullScreen from '../Themes/FullScreen.vue'
 import ChangeLocale from '../Themes/ChangeLocale.vue'
 import type { AvatarMenuProps, LocaleItem } from '@/components/Themes/type'
+import ThemeSettings from '@/components/Themes/ThemeSettings.vue'
 
 interface HeaderProps extends Partial<AvatarMenuProps> {
   collapse: boolean
