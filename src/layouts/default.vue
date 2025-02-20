@@ -11,24 +11,29 @@
     >
       <el-row class="flex-nowrap!">
         <!--      菜单:左侧 左侧菜单混合-->
-        <el-scrollbar>
+        <el-scrollbar :class="settings?.mode !== 'mixbar' ? 'flex-1' : 'w-[64px] py-4'">
           <Menu
+            :class="[
+              {
+                mixbar: settings?.mode === 'mixbar'
+              }
+            ]"
             v-if="settings?.mode === 'siderbar' || settings?.mode === 'mixbar'"
             :background-color="settings?.backgroundColor"
             text-color="#b8b8b8"
             :collapse="localeSettings.collapse"
-            :data="menus"
+            :data="mixMenus"
           >
           </Menu>
         </el-scrollbar>
 
         <!--    二级菜单 顶部左侧菜单混合  左侧菜单混合-->
-        <el-scrollbar v-if="settings?.mode === 'mixbar' || settings?.mode === 'mix'">
+        <el-scrollbar class="flex-1" v-if="settings?.mode === 'mixbar' || settings?.mode === 'mix'">
           <Menu
             :background-color="settings?.backgroundColor"
             text-color="#b8b8b8"
             :collapse="localeSettings.collapse"
-            :data="menus"
+            :data="getSubMenus(menus)"
           >
           </Menu>
         </el-scrollbar>
@@ -66,6 +71,7 @@ import type { AppRouteMenuItem } from '@/components/Menu/type'
 import Header from '@/components/Layouts/Header.vue'
 import type { DropDownMenuItem, ThemeSettingsProps } from '@/components/Themes/type'
 import type { HeaderProps } from '@/components/Layouts/type'
+import { useMenu } from '@/components/Menu/useMenu'
 
 interface ThemeSettingsOption extends HeaderProps {
   menuWidth?: number | string
@@ -115,11 +121,20 @@ function generateMenuData(routes: RouteRecordRaw[]): AppRouteMenuItem[] {
 
   return menus
 }
+
+const { getTopMenus, getSubMenus } = useMenu()
+
+onMounted(() => {})
+
 const menuWidth = computed(() => {
   return settings.value ? settings.value.menuWidth : 240
 })
 
 const settings = computed(() => localeSettings.settings)
+
+const mixMenus = computed(() => {
+  return settings.value?.mode === 'mixbar' ? getTopMenus(menus.value) : menus.value
+})
 
 function handleSettingsChange(themeSettings: ThemeSettingsProps) {
   localeSettings.settings = themeSettings
@@ -128,4 +143,19 @@ function handleSettingsChange(themeSettings: ThemeSettingsProps) {
 const menus = computed(() => generateMenuData(routes))
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.mixbar {
+  :deep(.el-menu-item) {
+    height: auto;
+    line-height: unset !important;
+    flex-direction: column;
+    margin-bottom: 15px;
+    padding: 4px 0 !important;
+
+    svg {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+}
+</style>
