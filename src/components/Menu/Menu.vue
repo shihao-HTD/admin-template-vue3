@@ -61,7 +61,7 @@ const filterMenus = computed(() => {
 </script>
 
 <style lang="scss">
-.el-sub-menu_title {
+.el-menu--vertical .el-sub-menu__title {
   padding-right: 0 !important;
 }
 

@@ -3,7 +3,7 @@
     <!--    sidebar-->
     <div
       :style="{
-        width: localeSettings.collapse ? '64px' : menuWidth + 'px',
+        width: mixMenuWidth,
         backgroundColor: settings?.backgroundColor
       }"
       class="h-full bg-sky transition-width"
@@ -12,6 +12,7 @@
       <el-row class="flex-nowrap! h-full">
         <!--      菜单:左侧 左侧菜单混合-->
         <el-scrollbar
+          v-if="settings?.mode !== 'mix'"
           :class="settings?.mode !== 'mixbar' ? 'flex-1' : 'w-[64px] py-4'"
           :style="{
             backgroundColor:
@@ -64,7 +65,7 @@
           v-if="settings?.mode === 'top' || settings?.mode === 'mix'"
           :collapse="false"
           mode="horizontal"
-          :data="menus"
+          :data="settings?.mode === 'mix' ? getTopMenus(menus) : menus"
         ></Menu>
       </Header>
       <router-view></router-view>
@@ -135,8 +136,22 @@ const { getTopMenus, getSubMenus } = useMenu()
 
 onMounted(() => {})
 
+const isFullIcons = computed(() => {
+  return getSubMenus(menus.value).every(
+    (item) => typeof item.meta?.icon !== 'undefined' && item.meta.icon
+  )
+})
+
 const menuWidth = computed(() => {
   return settings.value ? settings.value.menuWidth : 240
+})
+const mixMenuWidth = computed(() => {
+  // localeSettings.collapse ? '64px' : menuWidth + 'px'
+  if (settings.value?.mode === 'mixbar' && isFullIcons.value) {
+    return localeSettings.collapse ? 'auto' : menuWidth.value + 'px'
+  } else {
+    return localeSettings.collapse ? '64px' : menuWidth.value + 'px'
+  }
 })
 
 const settings = computed(() => localeSettings.settings)

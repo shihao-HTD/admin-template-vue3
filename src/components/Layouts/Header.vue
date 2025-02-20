@@ -1,5 +1,5 @@
 <template>
-  <el-row class="items-center">
+  <el-row class="items-center pl-2">
     <!--    面包屑-->
     <Iconify
       @click="collapseModel = !collapseModel"
