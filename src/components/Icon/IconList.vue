@@ -1,5 +1,5 @@
 <template>
-  <ul class="grid grid-cols-[repeat(auto-fill,minmax(1.825rem,1fr))] border-l border-t rounded">
+  <ul class="grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] border-l border-t rounded">
     <li
       :class="[
         'border-r border-b flex flex-col items-center justify-center cursor-pointer',
@@ -43,7 +43,7 @@ const props = withDefaults(defineProps<IconListProps>(), {
   iconData: () => json,
   collection: 'ep',
   iconClass: 'text-3xl mb-3',
-  itemClass: 'hover:bg-sky-100 py-4 w-1/8',
+  itemClass: 'hover:bg-sky-100 py-4 ',
   activeClass: ''
 })
 

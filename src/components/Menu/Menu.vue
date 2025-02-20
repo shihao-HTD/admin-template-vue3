@@ -1,5 +1,6 @@
 <template>
   <el-menu
+    ref="menuRef"
     @select="handleSelect"
     @open="handleOpen"
     @close="handleClose"
@@ -58,6 +59,7 @@ const emits = defineEmits<{
 const slots = useSlots()
 
 const iconProps = reactive(props.iconProps)
+const menuRef = ref()
 
 watch(
   () => props.collapse,
@@ -73,7 +75,16 @@ const elMenuProps = computed(() => {
   const { data, subMenuProps, ...restProps } = props
   return restProps
 })
-const { generateMenuKeys, getItem } = useMenu()
+const { generateMenuKeys, getItem, getParentMenu } = useMenu()
+
+onMounted(() => {
+  const item = getParentMenu(filterMenus.value)
+  if (item && item.meta && item.meta.key) {
+    if (menuRef.value && menuRef.value.open) {
+      menuRef.value.open(item.meta.key)
+    }
+  }
+})
 
 const filterMenus = computed(() => {
   return generateMenuKeys(props.data)
