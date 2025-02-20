@@ -9,9 +9,15 @@
       class="h-full bg-sky transition-width"
       v-if="settings?.mode !== 'top'"
     >
-      <el-row class="flex-nowrap!">
+      <el-row class="flex-nowrap! h-full">
         <!--      菜单:左侧 左侧菜单混合-->
-        <el-scrollbar :class="settings?.mode !== 'mixbar' ? 'flex-1' : 'w-[64px] py-4'">
+        <el-scrollbar
+          :class="settings?.mode !== 'mixbar' ? 'flex-1' : 'w-[64px] py-4'"
+          :style="{
+            backgroundColor:
+              settings?.mode !== 'mixbar' ? 'auto' : darken(settings.backgroundColor, 0.1)
+          }"
+        >
           <Menu
             :class="[
               {
@@ -19,9 +25,11 @@
               }
             ]"
             v-if="settings?.mode === 'siderbar' || settings?.mode === 'mixbar'"
-            :background-color="settings?.backgroundColor"
+            :background-color="
+              settings.mode !== 'mixbar' ? settings?.backgroundColor : 'transparent'
+            "
             text-color="#b8b8b8"
-            :collapse="localeSettings.collapse"
+            :collapse="settings.mode !== 'mixbar' && localeSettings.collapse"
             :data="mixMenus"
           >
           </Menu>
@@ -72,6 +80,7 @@ import Header from '@/components/Layouts/Header.vue'
 import type { DropDownMenuItem, ThemeSettingsProps } from '@/components/Themes/type'
 import type { HeaderProps } from '@/components/Layouts/type'
 import { useMenu } from '@/components/Menu/useMenu'
+import { darken } from '@/utils'
 
 interface ThemeSettingsOption extends HeaderProps {
   menuWidth?: number | string
