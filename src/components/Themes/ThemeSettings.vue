@@ -2,7 +2,9 @@
   <Iconify @click="drawer = true" class="text-xl mr-3 cursor-pointer" icon="ri:brush-2-line">
   </Iconify>
 
-  <el-drawer @close="handleClose" v-model="drawer" title="主题设置">
+  <el-drawer
+    class="min-w-[330px] lt-sm:w-full!"
+    @close="handleClose" v-model="drawer" title="主题设置">
     <el-form :model="form">
       <el-form-item label="主题设置">
         <el-color-picker v-model="form.theme"> </el-color-picker>
