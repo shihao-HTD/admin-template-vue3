@@ -1,9 +1,6 @@
 <template>
   <el-dropdown @command="handleCommand">
     <slot name="header">
-      <span class="el-dropdown-link">
-        <Iconify :class="iconClass" v-bind="iconProps" icon="ion:language"></Iconify>
-      </span>
     </slot>
     <template #dropdown>
       <el-dropdown-menu>

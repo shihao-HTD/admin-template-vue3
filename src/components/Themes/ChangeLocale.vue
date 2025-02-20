@@ -6,6 +6,11 @@
     :icon-props="iconPropsComputed"
     v-model="current"
   >
+    <template #header>
+      <span class="el-dropdown-link">
+        <Iconify :class="iconClass" v-bind="iconPropsComputed" icon="ion:language"></Iconify>
+      </span>
+    </template>
     <template #item="{ item }">
       <span>{{ item.text }}</span>
     </template>
@@ -16,6 +21,7 @@
 import type { LocaleItem } from '@/components/Themes/type'
 import type { IconProps } from '@iconify/vue'
 import DropDown from '@/components/Menu/DropDown.vue'
+import Iconify from '@/components/Icon/Iconify.vue'
 
 const current = ref(0)
 
