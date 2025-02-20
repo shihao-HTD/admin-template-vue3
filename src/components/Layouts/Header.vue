@@ -9,7 +9,7 @@
     ></Iconify>
     <!--    右侧-->
 
-    <div class="relative overflow-x-hidden w-full">
+    <div class="relative overflow-x-hidden flex-grow">
       <slot></slot>
     </div>
     <el-row class="items-center flex-nowrap!">

@@ -6,7 +6,7 @@
         width: mixMenuWidth,
         backgroundColor: settings?.backgroundColor
       }"
-      class="h-full bg-sky transition-width"
+      class="h-full bg-sky transition-width shrink-0"
       v-if="settings?.mode !== 'top'"
     >
       <el-row class="flex-nowrap! h-full">
@@ -74,6 +74,25 @@
       </Header>
       <router-view></router-view>
     </div>
+
+    <el-drawer
+      :style="{
+        backgroundColor: settings?.backgroundColor
+      }"
+      v-if="isMobile"
+      :model-value="!localeSettings.collapse"
+      @close="localeSettings.collapse = true"
+      class="w-full!"
+      direction="ltr"
+    >
+      <Menu
+        :background-color="settings?.backgroundColor"
+        text-color="#b8b8b8"
+        :data="menus"
+        @select="handleSelect"
+      >
+      </Menu>
+    </el-drawer>
   </div>
 </template>
 
@@ -115,6 +134,45 @@ const localeSettings = reactive<ThemeSettingsOption>({
     menuWidth: 280
   } as ThemeSettingsProps
 })
+const tmpWidth = ref(0)
+const changeWithFlag = ref(false)
+const isMobile = ref(false)
+useResizeObserver(document.body, (entries) => {
+  const entry = entries[0]
+  const { width } = entry.contentRect
+  if (tmpWidth.value === 0) {
+    tmpWidth.value = width
+  }
+  if (width > tmpWidth.value) {
+    //   扩大屏幕
+    changeWithFlag.value = width < 640
+  } else {
+    //   缩小屏幕
+    changeWithFlag.value = width > 1200
+  }
+
+  if (width < 640 && !changeWithFlag.value) {
+    localeSettings.collapse = true
+  }
+  if (width > 1200 && !changeWithFlag.value) {
+    localeSettings.collapse = false
+  }
+  isMobile.value = width < 440
+  tmpWidth.value = width
+})
+
+onBeforeMount(() => {
+  // user-agent是否是移动端
+  if (
+    navigator.userAgent.match(
+      /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+    )
+  ) {
+    isMobile.value = true
+    localeSettings.collapse = true
+  }
+})
+
 const router = useRouter()
 function generateMenuData(routes: RouteRecordRaw[]): AppRouteMenuItem[] {
   const menus: AppRouteMenuItem[] = []
@@ -150,6 +208,9 @@ const menuWidth = computed(() => {
   return settings.value ? settings.value.menuWidth : 240
 })
 const mixMenuWidth = computed(() => {
+  if (isMobile.value) {
+    return 0
+  }
   // localeSettings.collapse ? '64px' : menuWidth + 'px'
   if (settings.value?.mode === 'mixbar' && isFullIcons.value) {
     return localeSettings.collapse ? 'auto' : menuWidth.value + 'px'
@@ -174,6 +235,9 @@ function handleSelect(item: AppRouteMenuItem) {
   console.log('=>(default.vue:170) item', item)
   if (item && item.name) {
     router.push(item.name as string)
+    if (isMobile.value) {
+      localeSettings.collapse = true
+    }
   }
 }
 </script>
