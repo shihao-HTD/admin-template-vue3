@@ -8,7 +8,7 @@
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item
-          :class="{ active: current === index }"
+          :class="{ active: currentIndex === index }"
           v-for="(item, index) in items"
           :key="index"
           :command="{ item, index }"
@@ -21,7 +21,7 @@
               v-if="item.icon"
               :icon="item.icon"
             ></Iconify>
-            <slot :item="item"> </slot>
+            <slot name="item" :item="item"> </slot>
           </div>
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -29,30 +29,35 @@
   </el-dropdown>
 </template>
 
-<script setup lang="ts" generic="T extends { icon: string | IconifyIcon }">
+<script setup lang="ts" generic="T extends { icon?: string | IconifyIcon }">
 import type { IconifyIcon, IconProps } from '@iconify/vue'
 import Iconify from '@/components/Icon/Iconify.vue'
 interface DropDownProps {
   items: T[]
   iconProps?: Partial<IconProps>
   iconClass?: string
-  current?: number
+  // current?: number
 }
 const props = defineProps<DropDownProps>()
+
+const currentIndex = defineModel('modelValue', {
+  default: 0
+})
+
 const emits = defineEmits<{
-  (e: 'change', item: T, index?: number): void
+  (e: 'change', item: T, index: number): void
 }>()
 
-watch(
+/*watch(
   () => props.current,
   () => {
     if (props.current) {
       currentIndex.value = props.current
     }
   }
-)
+)*/
 
-const currentIndex = ref(props.current || 0)
+// const currentIndex = ref(props.current || 0)
 
 function handleCommand(command: { item: T; index: number }) {
   currentIndex.value = command.index

@@ -1,38 +1,21 @@
 <template>
-  <el-dropdown @command="handleCommand">
-    <slot name="header">
-      <span class="el-dropdown-link">
-        <Iconify :class="iconClass" v-bind="iconPropsComputed" icon="ion:language"></Iconify>
-      </span>
-    </slot>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item
-          :class="{ active: current === index }"
-          v-for="(item, index) in locales"
-          :key="index"
-          :command="item.name"
-        >
-          <div class="flex items-center">
-            <Iconify
-              :class="iconClass"
-              v-bind="iconPropsComputed"
-              class="mr-2"
-              v-if="item.icon"
-              :icon="item.icon"
-            ></Iconify>
-            {{ item.text }}
-          </div>
-        </el-dropdown-item>
-      </el-dropdown-menu>
+  <DropDown
+    @change="handleCommand"
+    :items="locales"
+    :icon-class="iconClass"
+    :icon-props="iconPropsComputed"
+    v-model="current"
+  >
+    <template #item="{ item }">
+      <span>{{ item.text }}</span>
     </template>
-  </el-dropdown>
+  </DropDown>
 </template>
 
 <script setup lang="ts">
-import Iconify from '@/components/Icon/Iconify.vue'
 import type { LocaleItem } from '@/components/Themes/type'
 import type { IconProps } from '@iconify/vue'
+import DropDown from '@/components/Menu/DropDown.vue'
 
 const current = ref(0)
 
@@ -51,12 +34,9 @@ const iconPropsComputed = computed(() => {
   const { locales, ...restProps } = props
   return restProps
 })
-function handleCommand(command: string | number | object) {
-  console.log("=>(ChangeLocale.vue:55) command", command);
-  // current.value = props.locales.findIndex((item) => item.name === command)
-  // current.value = index
-
-  emits('change', command)
+function handleCommand(command: LocaleItem, index: number) {
+  console.log('=>(ChangeLocale.vue:38) current.value', current.value)
+  emits('change', command.name)
 }
 </script>
 
