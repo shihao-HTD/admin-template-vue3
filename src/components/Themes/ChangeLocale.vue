@@ -30,7 +30,7 @@ interface ChangeLocaleProps extends Partial<IconProps> {
   iconClass?: string
 }
 const emits = defineEmits<{
-  (e: 'change', command: string | number | object): void
+  (e: 'change', command: string): void
 }>()
 
 const props = withDefaults(defineProps<ChangeLocaleProps>(), {

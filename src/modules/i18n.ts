@@ -1,7 +1,7 @@
 import type { App } from 'vue'
 import { createI18n, type Locale } from 'vue-i18n'
 
-const i18n = createI18n({
+export const i18n = createI18n({
   legacy: false,
   locale: '',
   messages: {}
@@ -20,13 +20,11 @@ const localesMap = Object.fromEntries(
 
 localesMap['zh-CN']().then((res) => console.log(res.default))
 
-
 const elementPlusLocalesMap = Object.fromEntries(
   Object.entries(import.meta.glob('../../node_modules/element-plus/dist/locale/*.mjs')).map(
     ([path, loadLocale]) => [path.match(/([\w-]*)\.mjs$/)?.[1], loadLocale]
   )
 ) as Record<Locale, () => Promise<{ default: Record<string, string> }>>
-
 
 export const availableLocales = Object.keys(localesMap)
 
@@ -62,7 +60,7 @@ export async function loadLocaleMessages(lang: string) {
   // set locale and locale message
   i18n.global.setLocaleMessage(lang, {
     ...messagesEP.default,
-    ...messages.default,
+    ...messages.default
   })
   loadedLanguages.push(lang)
   return setI18nLanguage(lang)

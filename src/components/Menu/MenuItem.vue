@@ -1,7 +1,7 @@
 <template>
   <!-- 单item  -->
   <el-menu-item :disabled="data.meta?.disabled" v-if="!data.meta?.icon" :index="getIndex(data)">{{
-    data.meta?.title
+    $t(data.meta?.title || '')
   }}</el-menu-item>
 
   <template v-else>
@@ -13,7 +13,7 @@
         :icon="data.meta?.icon"
       ></Iconify>
       <template #title>
-        {{ data.meta?.title }}
+        {{ $t(data.meta?.title || '') }}
       </template>
     </el-menu-item>
 
@@ -25,7 +25,7 @@
         :icon="data.meta?.icon"
       ></Iconify>
       <span>
-        {{ data.meta?.title }}
+        {{ $t(data.meta?.title || '') }}
       </span>
     </el-menu-item>
   </template>

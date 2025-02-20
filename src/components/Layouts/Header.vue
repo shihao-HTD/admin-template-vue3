@@ -15,7 +15,7 @@
       <ThemeSettings v-bind="settings" @change="handleChange"></ThemeSettings>
       <DarkModeToggle :dark="settings?.darkMode" @change="handleDarkModeChange" class="mr-2">
       </DarkModeToggle>
-      <ChangeLocale class="mr-2" :locales="locales"></ChangeLocale>
+      <ChangeLocale @change="handleLocalesChange" class="mr-2" :locales="locales"></ChangeLocale>
       <FullScreen></FullScreen>
       <el-divider direction="vertical"></el-divider>
       <!-- 用户下拉菜单-->
@@ -36,6 +36,7 @@ import ChangeLocale from '../Themes/ChangeLocale.vue'
 import type { ThemeSettingsProps } from '@/components/Themes/type'
 import ThemeSettings from '@/components/Themes/ThemeSettings.vue'
 import type { HeaderProps } from '@/components/Layouts/type'
+import { loadLocaleMessages } from '@/modules/i18n'
 
 const props = withDefaults(defineProps<HeaderProps>(), {})
 
@@ -77,6 +78,9 @@ function handleChange(settings: ThemeSettingsProps) {
 }
 function handleDarkModeChange(dark: boolean) {
   localeProps.settings!.darkMode = dark
+}
+function handleLocalesChange(locale: string) {
+  loadLocaleMessages(locale)
 }
 </script>
 

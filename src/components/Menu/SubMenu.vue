@@ -4,7 +4,7 @@
   <!--  有下拉菜单 -->
   <el-sub-menu v-else :index="getIndex(data)">
     <template v-if="!data.meta?.icon" #title>
-      {{ data.meta?.title }}
+      {{ $t(data.meta?.title || '') }}
     </template>
 
     <!--折叠 侧栏情况-->
@@ -15,7 +15,7 @@
         :icon="data.meta?.icon"
       ></Iconify>
 
-      <span>{{ data.meta?.title }}</span>
+      <span> {{ $t(data.meta?.title || '') }} </span>
     </template>
 
     <SubMenu
