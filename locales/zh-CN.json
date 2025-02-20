@@ -20,6 +20,10 @@
     "head-message": "消息通知",
     "home": "首页",
     "icons": "图标示例",
+    "login": {
+      "password": "请输入密码",
+      "username": "请输入用户名"
+    },
     "notice": "通知组件",
     "pick-icon": "图标选择器"
   }

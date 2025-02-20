@@ -20,6 +20,10 @@
     "head-message": "Head Messages",
     "home": "Home",
     "icons": "Icons",
+    "login": {
+      "password": "Password",
+      "username": "Username"
+    },
     "notice": "Notice Component",
     "pick-icon": "Icon Picker"
   }
