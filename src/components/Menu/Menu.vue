@@ -1,5 +1,12 @@
 <template>
-  <el-menu class="border-r-0!" :style="{ '--bg-color': backgroundColor }" v-bind="elMenuProps">
+  <el-menu
+    @select="handleSelect"
+    @open="handleOpen"
+    @close="handleClose"
+    class="border-r-0!"
+    :style="{ '--bg-color': backgroundColor }"
+    v-bind="elMenuProps"
+  >
     <slot name="icon"> </slot>
     <!--  左右Logo 加下拉菜单情况-->
     <!--    <div v-if="isDefined(slots['name'])" class="flex-grow"></div>-->
@@ -15,7 +22,12 @@
 
 <script setup lang="ts">
 import type { MenuProps as ElMenuProps, SubMenuProps } from 'element-plus'
-import type { AppRouteMenuItem, IconOptions } from '@/components/Menu/type'
+import type {
+  AppRouteMenuItem,
+  EmitSelectType,
+  IconOptions,
+  OpenCloseType
+} from '@/components/Menu/type'
 import { useMenu } from '@/components/Menu/useMenu'
 
 interface MenuProps extends Partial<ElMenuProps> {
@@ -23,9 +35,10 @@ interface MenuProps extends Partial<ElMenuProps> {
   subMenuProps?: SubMenuProps
   iconProps?: Partial<IconOptions>
 }
+
 const props = withDefaults(defineProps<MenuProps>(), {
   data: () => [],
-  iconProps(props) {
+  iconProps() {
     return {
       style: {
         fontSize: '22px'
@@ -35,6 +48,13 @@ const props = withDefaults(defineProps<MenuProps>(), {
   },
   backgroundColor: 'transparent'
 })
+
+const emits = defineEmits<{
+  (e: 'select', arg: AppRouteMenuItem): void
+  (e: 'open', arg: OpenCloseType): void
+  (e: 'close', arg: OpenCloseType): void
+}>()
+
 const slots = useSlots()
 
 const iconProps = reactive(props.iconProps)
@@ -53,11 +73,27 @@ const elMenuProps = computed(() => {
   const { data, subMenuProps, ...restProps } = props
   return restProps
 })
-const { generateMenuKeys } = useMenu()
+const { generateMenuKeys, getItem } = useMenu()
 
 const filterMenus = computed(() => {
   return generateMenuKeys(props.data)
 })
+
+const handleSelect = (...args: EmitSelectType) => {
+  const [index] = args
+
+  const item = getItem(filterMenus.value, index)
+
+  if (item) {
+    emits('select', item)
+  }
+}
+const handleOpen = (...args: OpenCloseType) => {
+  emits('open', args)
+}
+const handleClose = (...args: OpenCloseType) => {
+  emits('close', args)
+}
 </script>
 
 <style lang="scss">

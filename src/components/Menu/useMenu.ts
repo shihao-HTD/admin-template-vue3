@@ -1,6 +1,21 @@
 import type { AppRouteMenuItem } from '@/components/Menu/type'
 
 export function useMenu() {
+  function getItem(menus: AppRouteMenuItem[], index: string) {
+    for (let i = 0; i < menus.length; i++) {
+      if (menus[i].meta?.key === index) {
+        return menus[i]
+      } else {
+        if (menus[i].children && Array.isArray(menus[i].children)) {
+          const item = getItem(menus[i].children!, index) as AppRouteMenuItem | undefined
+          if (item) {
+            return item
+          }
+        }
+      }
+    }
+  }
+
   function filterAndOrderMenus(menus: AppRouteMenuItem[]) {
     return menus
       .filter((m) => !m.meta?.hideMenu)
@@ -59,6 +74,7 @@ export function useMenu() {
     menuHasChildren,
     filterAndOrderMenus,
     getTopMenus,
-    getSubMenus
+    getSubMenus,
+    getItem
   }
 }

@@ -1,5 +1,7 @@
 import type { IconifyIcon } from '@iconify/vue'
 import type { CSSProperties } from 'vue'
+import type { MenuItemClicked } from 'element-plus'
+import type { NavigationFailure } from 'vue-router'
 
 export type Component<T = any> =
   | ReturnType<typeof defineComponent>
@@ -28,3 +30,11 @@ export interface IconOptions {
   style: CSSProperties
   class: string
 }
+
+export type EmitSelectType = [
+  index: string,
+  indexPath: string[],
+  item: MenuItemClicked,
+  routerResult?: Promise<void | NavigationFailure>
+]
+export type OpenCloseType = [index: string, indexPath: string[]]

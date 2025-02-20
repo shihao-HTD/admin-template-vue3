@@ -32,6 +32,7 @@
             text-color="#b8b8b8"
             :collapse="settings.mode !== 'mixbar' && localeSettings.collapse"
             :data="mixMenus"
+            @select="handleSelect"
           >
           </Menu>
         </el-scrollbar>
@@ -43,6 +44,7 @@
             text-color="#b8b8b8"
             :collapse="localeSettings.collapse"
             :data="getSubMenus(menus)"
+            @select="handleSelect"
           >
           </Menu>
         </el-scrollbar>
@@ -59,6 +61,7 @@
         :src="localeSettings.avatar"
         @settingsChange="handleSettingsChange"
         :settings="settings"
+        @select="handleSelect"
       >
         <!--   顶部菜单 顶部左侧菜单混合     -->
         <Menu
@@ -66,6 +69,7 @@
           :collapse="false"
           mode="horizontal"
           :data="settings?.mode === 'mix' ? getTopMenus(menus) : menus"
+          @select="handleSelect"
         ></Menu>
       </Header>
       <router-view></router-view>
@@ -111,7 +115,7 @@ const localeSettings = reactive<ThemeSettingsOption>({
     menuWidth: 280
   } as ThemeSettingsProps
 })
-
+const router = useRouter()
 function generateMenuData(routes: RouteRecordRaw[]): AppRouteMenuItem[] {
   const menus: AppRouteMenuItem[] = []
 
@@ -165,6 +169,13 @@ function handleSettingsChange(themeSettings: ThemeSettingsProps) {
   console.log('=>(default.vue:96) themeSettings', themeSettings)
 }
 const menus = computed(() => generateMenuData(routes))
+
+function handleSelect(item: AppRouteMenuItem) {
+  console.log('=>(default.vue:170) item', item)
+  if (item && item.name) {
+    router.push(item.name as string)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
