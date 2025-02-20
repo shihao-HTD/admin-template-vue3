@@ -10,6 +10,8 @@ declare module 'vue' {
     AvatarMenu: typeof import('./src/components/Avatar/AvatarMenu.vue')['default']
     ChangeLocale: typeof import('./src/components/Themes/ChangeLocale.vue')['default']
     DarkModeToggle: typeof import('./src/components/Themes/DarkModeToggle.vue')['default']
+    Dropdown: typeof import('./src/components/Menu/Dropdown.vue')['default']
+    DropDown: typeof import('./src/components/Menu/DropDown.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
