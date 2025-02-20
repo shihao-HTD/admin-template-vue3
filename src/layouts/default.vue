@@ -52,7 +52,7 @@
     </div>
 
     <!--    content-->
-    <div class="flex-1 h-full">
+    <div class="w-full h-full">
       <Header
         v-model:collapse="localeSettings.collapse"
         :data="localeSettings.avatarMenu"

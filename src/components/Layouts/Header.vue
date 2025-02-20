@@ -1,17 +1,18 @@
 <template>
-  <el-row class="items-center pl-2">
+  <el-row class="items-center pl-2 flex-nowrap! h-[50px]">
     <!--    面包屑-->
     <Iconify
+      v-if="settings?.mode!=='top'"
       @click="collapseModel = !collapseModel"
       class="text-2xl cursor-pointer"
       :icon="collapseModel ? 'ep:expand' : 'ep:fold'"
     ></Iconify>
     <!--    右侧-->
 
-    <div class="flex-grow">
+    <div class="relative overflow-x-hidden w-full">
       <slot></slot>
     </div>
-    <el-row class="items-center">
+    <el-row class="items-center flex-nowrap!">
       <ThemeSettings v-bind="settings" @change="handleChange"></ThemeSettings>
       <DarkModeToggle :dark="settings?.darkMode" @change="handleDarkModeChange" class="mr-2">
       </DarkModeToggle>

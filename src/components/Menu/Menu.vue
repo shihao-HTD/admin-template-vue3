@@ -7,6 +7,7 @@
     class="border-r-0!"
     :style="{ '--bg-color': backgroundColor }"
     v-bind="elMenuProps"
+    :ellipsis="true"
   >
     <slot name="icon"> </slot>
     <!--  左右Logo 加下拉菜单情况-->
