@@ -93,14 +93,14 @@ interface ThemeSettingsOption extends HeaderProps {
 const localeSettings = reactive<ThemeSettingsOption>({
   locales: [
     {
-      text: 'English',
-      name: 'en',
-      icon: 'ri:english-input'
-    },
-    {
       text: '中文',
       name: 'zh-CN',
       icon: 'uil:letter-chinese-a'
+    },
+    {
+      text: 'English',
+      name: 'en',
+      icon: 'ri:english-input'
     }
   ],
   username: 'tom',

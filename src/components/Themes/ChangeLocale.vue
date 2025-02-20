@@ -7,7 +7,12 @@
     </slot>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item v-for="(item, index) in locales" :key="index" :command="item.name">
+        <el-dropdown-item
+          :class="{ active: current === index }"
+          v-for="(item, index) in locales"
+          :key="index"
+          :command="item.name"
+        >
           <div class="flex items-center">
             <Iconify
               :class="iconClass"
@@ -29,10 +34,15 @@ import Iconify from '@/components/Icon/Iconify.vue'
 import type { LocaleItem } from '@/components/Themes/type'
 import type { IconProps } from '@iconify/vue'
 
+const current = ref(0)
+
 interface ChangeLocaleProps extends Partial<IconProps> {
   locales: LocaleItem[]
   iconClass?: string
 }
+const emits = defineEmits<{
+  (e: 'change', command: string | number | object): void
+}>()
 
 const props = withDefaults(defineProps<ChangeLocaleProps>(), {
   iconClass: 'text-xl'
@@ -41,7 +51,20 @@ const iconPropsComputed = computed(() => {
   const { locales, ...restProps } = props
   return restProps
 })
-function handleCommand(command: string) {}
+function handleCommand(command: string | number | object) {
+  console.log("=>(ChangeLocale.vue:55) command", command);
+  // current.value = props.locales.findIndex((item) => item.name === command)
+  // current.value = index
+
+  emits('change', command)
+}
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+:deep(.el-dropdown-menu__item) {
+  &.active {
+    color: var(--el-dropdown-menuItem-hover-color);
+    background-color: var(--el-dropdown-menuItem-hover-fill);
+  }
+}
+</style>
