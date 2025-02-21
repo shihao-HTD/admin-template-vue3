@@ -1,16 +1,8 @@
 <template>
   <el-table v-bind="props" style="width: 100%">
-    <el-table-column v-for="(column, index) in columns" :key="index" v-bind="column">
-      <template v-if="column.headerSlot" #header="scope">
-        <component v-bind="scope" :is="column.headerSlot"></component>
-      </template>
-      <template v-if="column.defaultSlot" #default="scope">
-        <component v-bind="scope" :is="column.defaultSlot"></component>
-      </template>
-    </el-table-column>
+    <VTableColumn v-for="(column, index) in columns" :key="index" v-bind="column"> </VTableColumn>
 
     <slot></slot>
-
     <template #append>
       <slot name="append"></slot>
     </template>

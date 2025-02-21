@@ -48,6 +48,8 @@ declare module 'vue-router/auto/routes' {
     '/components/icon/ep-icon-picker': RouteRecordInfo<'/components/icon/ep-icon-picker', '/components/icon/ep-icon-picker', Record<never, never>, Record<never, never>>,
     '/components/notice': RouteRecordInfo<'/components/notice', '/components/notice', Record<never, never>, Record<never, never>>,
     '/components/notice/notice-message': RouteRecordInfo<'/components/notice/notice-message', '/components/notice/notice-message', Record<never, never>, Record<never, never>>,
+    '/components/table': RouteRecordInfo<'/components/table', '/components/table', Record<never, never>, Record<never, never>>,
+    '/components/table/': RouteRecordInfo<'/components/table/', '/components/table', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
   }
 }
