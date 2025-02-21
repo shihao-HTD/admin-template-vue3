@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="self-center lg:self-end bg-white lt-xl2:shadow rounded p-4">
     <h3 class="mb-5">{{ title }}</h3>
     <el-form :model="form" class="min-w-[450px]">
       <el-form-item>
@@ -45,7 +45,10 @@ definePage({
   meta: {
     layout: 'singe-page',
     meta: '登录注册页',
-    hideMenu: true
+    hideMenu: true,
+    position: 'left',
+    // backgroundImage:'url'
+    // backgroundImage: 'https://cdn.pixabay.com/photo/2022/01/20/17/51/office-desk-6952919_1280.jpg'
   }
 })
 
