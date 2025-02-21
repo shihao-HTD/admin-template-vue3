@@ -45,11 +45,11 @@ function externalElementPlusLocales(id: string) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build:{
-    rollupOptions:{
+  build: {
+    rollupOptions: {
       external(source) {
-        return  externalElementPlusLocales(source)
-      },
+        return externalElementPlusLocales(source)
+      }
     }
   },
 
@@ -134,5 +134,8 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    host: '0.0.0.0'
   }
 })

@@ -6,6 +6,12 @@
       </template>
     </el-table-column>-->
   </v-table>
+  <v-table :columns="columns" :data="tableData">
+
+  </v-table>
+  <v-table :columns="columns" :data="tableData">
+
+  </v-table>
 </template>
 
 <script setup lang="tsx">

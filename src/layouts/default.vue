@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-screen overflow-hidden flex">
+  <div class="position-absolute left-0 top-0 w-full h-full overflow-hidden flex m-safe">
     <!--    sidebar-->
     <div
       :style="{
@@ -52,7 +52,7 @@
     </div>
 
     <!--    content-->
-    <div class="w-full h-full">
+    <div class="w-full h-full flex-1 overflow-hidden">
       <Header
         v-model:collapse="localeSettings.collapse"
         :data="localeSettings.avatarMenu"
@@ -72,9 +72,9 @@
           @select="handleSelect"
         ></Menu>
       </Header>
-      <el-scrollbar>
+      <div class="overflow-y-auto h-full">
         <router-view></router-view>
-      </el-scrollbar>
+      </div>
     </div>
 
     <el-drawer
