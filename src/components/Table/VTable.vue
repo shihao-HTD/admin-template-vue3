@@ -1,6 +1,17 @@
 <template>
   <el-table v-bind="props" style="width: 100%">
     <el-table-column v-for="(column, index) in columns" :key="index" v-bind="column" />
+
+    <!--    todo-->
+    <slot></slot>
+
+    <template #append>
+      <slot name="append"></slot>
+    </template>
+
+    <template #empty>
+      <slot name="empty"></slot>
+    </template>
   </el-table>
 
   <div :class="['p-2 flex', paginationClass]">

@@ -72,7 +72,9 @@
           @select="handleSelect"
         ></Menu>
       </Header>
-      <router-view></router-view>
+      <el-scrollbar>
+        <router-view></router-view>
+      </el-scrollbar>
     </div>
 
     <el-drawer
