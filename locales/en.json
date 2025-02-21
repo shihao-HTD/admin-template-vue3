@@ -22,7 +22,11 @@
     "icons": "Icons",
     "login": {
       "password": "Password",
-      "username": "Username"
+      "remember": "Remember Me",
+      "sign-up": "Sign Up",
+      "submit": "Login",
+      "username": "Username",
+      "welcome": "Welcome"
     },
     "notice": "Notice Component",
     "pick-icon": "Icon Picker"

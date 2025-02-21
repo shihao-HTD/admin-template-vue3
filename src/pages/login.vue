@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-form :model="form" label-width="120px">
+    <h3 class="mb-5">{{ title }}</h3>
+    <el-form :model="form" class="min-w-[450px]">
       <el-form-item>
         <el-input
           v-model="form.username"
@@ -18,14 +19,16 @@
       </el-form-item>
 
       <el-row class="items-center justify-between">
-        <el-form-item label="Remember Me">
+        <el-form-item :label="$t('pages.login.remember')">
           <el-checkbox v-model="form.remember" name="type"></el-checkbox>
         </el-form-item>
-        <el-link type="primary">Sign Up</el-link>
+        <el-link type="primary">{{ $t('pages.login.sign-up') }}</el-link>
       </el-row>
 
       <el-form-item>
-        <el-button @click="onSubmit" type="primary">Login</el-button>
+        <el-button class="w-full mt-4" @click="onSubmit" type="primary">{{
+          $t('pages.login.submit')
+        }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -38,6 +41,11 @@ import Iconify from '@/components/Icon/Iconify.vue'
 function getIcon(icon: string) {
   return () => <Iconify icon={icon} />
 }
+definePage({
+  meta: {
+    layout: 'singe-page'
+  }
+})
 
 interface LoginItems {
   url: string
@@ -49,6 +57,8 @@ interface LoginFormProps {
   title?: string
   loginItems: LoginItems[]
 }
+
+defineProps<LoginFormProps>()
 
 const form = reactive({
   username: '',
