@@ -29,6 +29,8 @@
       "welcome": "欢迎回来"
     },
     "notice": "通知组件",
-    "pick-icon": "图标选择器"
+    "pick-icon": "图标选择器",
+    "table-basic": "基础表格",
+    "tables": "表格组件"
   }
 }
