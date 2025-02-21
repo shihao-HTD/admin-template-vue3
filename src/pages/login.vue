@@ -43,7 +43,9 @@ function getIcon(icon: string) {
 }
 definePage({
   meta: {
-    layout: 'singe-page'
+    layout: 'singe-page',
+    meta: '登录注册页',
+    hideMenu: true
   }
 })
 
