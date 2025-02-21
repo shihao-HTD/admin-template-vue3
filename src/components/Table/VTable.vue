@@ -1,11 +1,11 @@
 <template>
   <el-table v-bind="props" style="width: 100%">
     <el-table-column v-for="(column, index) in columns" :key="index" v-bind="column">
-      <template v-if="column.headerSlot" #header>
-        <component :is="column.headerSlot"></component>
+      <template v-if="column.headerSlot" #header="scope">
+        <component v-bind="scope" :is="column.headerSlot"></component>
       </template>
-      <template v-if="column.defaultSlot" #default>
-        <component :is="column.defaultSlot"></component>
+      <template v-if="column.defaultSlot" #default="scope">
+        <component v-bind="scope" :is="column.defaultSlot"></component>
       </template>
     </el-table-column>
 

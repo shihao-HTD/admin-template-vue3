@@ -1,14 +1,14 @@
 <template>
   <v-table :columns="columns" :data="tableData">
-    <el-table-column label="操作">
+    <!--    <el-table-column label="操作">
       <template #default="{ row }">
         <el-button @click="handleClick(row)">Edit</el-button>
       </template>
-    </el-table-column>
+    </el-table-column>-->
   </v-table>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import VTable from '@/components/Table/VTable.vue'
 import type { TableColumnType } from '@/components/Table/type'
 definePage({
@@ -29,6 +29,18 @@ const columns = [
   {
     prop: 'address',
     label: 'Address'
+  },
+  {
+    prop: '',
+    label: '操作',
+    defaultSlot: (props: any) => (
+      <>
+        <el-button onClick={() => handleClick(props)} type="primary">
+          Edit
+        </el-button>
+        <el-button link>Delete</el-button>
+      </>
+    )
   }
 ] as TableColumnType[]
 

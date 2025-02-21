@@ -6,8 +6,8 @@ export interface PaginationType extends Partial<PaginationProps> {
   total: number
 }
 export type TableColumnType = TableColumnCtx<any> & {
-  defaultSlot?: Component
-  headerSlot?: Component
+  defaultSlot?: typeof Component
+  headerSlot?: typeof Component
 }
 
 export interface VTableProps extends TableProps<any> {
