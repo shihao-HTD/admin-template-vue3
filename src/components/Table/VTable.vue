@@ -1,34 +1,55 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column prop="date" label="Date" width="180" />
-    <el-table-column prop="name" label="Name" width="180" />
-    <el-table-column prop="address" label="Address" />
+  <el-table v-bind="props" style="width: 100%">
+    <el-table-column v-for="(column, index) in columns" :key="index" v-bind="column" />
   </el-table>
-<!--  todo pagination-->
+
+  <div :class="['p-2 flex', paginationClass]">
+    <el-pagination v-bind="pagination"></el-pagination>
+  </div>
 </template>
 
 <script lang="ts" setup>
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
+import type { VTableProps } from '@/components/Table/type'
+
+const props = withDefaults(defineProps<VTableProps>(), {
+  pagination() {
+    return {
+      align: 'right',
+      small: false,
+      background: false,
+      layout: 'total, sizes, prev, pager, next, jumper',
+      pagerCount: 7,
+      pageSizes: [10, 20, 30, 40, 50, 100],
+      total: 0
+    }
   },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
+  stripe: false,
+  border: false,
+  fit: true,
+  showHeader: true,
+  highlightCurrentRow: false,
+  emptyText: 'No Data',
+  defaultExpandAll: false,
+  tooltipEffect: 'dark',
+  showSummary: false,
+  flexible: false,
+  selectOnIndeterminate: true,
+  indent: 16,
+  tableLayout: 'fixed',
+  scrollbarAlwaysOn: false
+})
+
+const paginationClass = computed(() => {
+  let defaultClass = 'justify-center'
+  if (props.pagination && props.pagination.align) {
+    if (props.pagination.align === 'left') {
+      defaultClass = 'justify-start'
+    }
+    if (props.pagination.align === 'right') {
+      defaultClass = 'justify-end'
+    }
   }
-]
+  return defaultClass
+})
 </script>
 <style scoped></style>
