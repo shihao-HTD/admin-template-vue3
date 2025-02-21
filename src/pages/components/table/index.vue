@@ -50,6 +50,14 @@
     </VTable>
     <p>多级表头，json结构进行渲染</p>
     <VTable :data="fixedTableData" style="width: 100%" :columns="nestedTableColumns"> </VTable>
+
+    <p>单选</p>
+    <VTable
+      :data="fixedTableData"
+      :columns="fixedTableColumns"
+      highlight-current-row
+    >
+    </VTable>
   </div>
 </template>
 
@@ -106,6 +114,7 @@ const tableData = ref([
 ])
 
 const fixedTableColumns = ref([
+
   {
     prop: 'date',
     label: 'Date'
@@ -152,7 +161,10 @@ const fixedTableColumns = ref([
   }
 ] as TableColumnType[])
 const fixedTableColumns1 = computed(() => {
-  return fixedTableColumns.value.splice(0, fixedTableColumns.value.length - 1)
+  const arr = [
+    ...fixedTableColumns.value
+  ]
+  return arr.splice(0, fixedTableColumns.value.length - 1)
 })
 
 const nestedTableColumns = [
