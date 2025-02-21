@@ -207,6 +207,7 @@ const isFullIcons = computed(() => {
   )
 })
 
+
 const menuWidth = computed(() => {
   return settings.value ? settings.value.menuWidth : 240
 })
