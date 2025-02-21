@@ -1,5 +1,11 @@
 <template>
-  <v-table :columns="columns" :data="tableData"> </v-table>
+  <v-table :columns="columns" :data="tableData">
+    <el-table-column label="操作">
+      <template #default="{ row }">
+        <el-button @click="handleClick(row)">Edit</el-button>
+      </template>
+    </el-table-column>
+  </v-table>
 </template>
 
 <script setup lang="ts">
@@ -48,6 +54,10 @@ const tableData = [
     address: 'No. 189, Grove St, Los Angeles'
   }
 ]
+
+function handleClick(row: any) {
+  console.log('=>(index.vue:59) row', row)
+}
 </script>
 
 <style scoped></style>
