@@ -105,6 +105,7 @@ const validatePass = useDebounceFn((rule: any, value: any, callback: any) => {
     callback()
   }
 }, 200)
+
 const validatePass2 = useDebounceFn((rule: any, value: any, callback: any) => {
   if (value.trim() === '') {
     callback(new Error('请输入再次密码'))
