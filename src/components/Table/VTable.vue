@@ -1,5 +1,5 @@
 <template>
-  <el-table v-on="forwardEvents" v-bind="props" style="width: 100%">
+  <el-table ref="tableRef" v-on="forwardEvents" v-bind="props" style="width: 100%">
     <VTableColumn v-for="(column, index) in columns" :key="index" v-bind="column"> </VTableColumn>
 
     <slot></slot>
@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import type { TableEventsType, VTableProps } from '@/components/Table/type'
 import { isDefined } from '@vueuse/core'
-import { forwardEventsUtils } from '@/utils/format'
+import { exposeEventsUtils, forwardEventsUtils } from '@/utils/format'
 
 const props = withDefaults(defineProps<VTableProps>(), {
   pagination() {
@@ -74,6 +74,29 @@ const eventsName = [
 ]
 
 const forwardEvents = forwardEventsUtils(emits, eventsName)
+
+const tableRef = ref()
+const exposeEvents = [
+  'clearSelection',
+  'getSelectionRows',
+  'toggleRowSelection',
+  'toggleAllSelection',
+  'toggleRowExpansion',
+  'setCurrentRow',
+  'clearSort',
+  'clearFilter',
+  'doLayout',
+  'sort',
+  'scrollTo',
+  'setScrollTop',
+  'setScrollLeft'
+]
+// ref, exposeEvents
+const exposes = exposeEventsUtils(tableRef, exposeEvents)
+
+defineExpose({
+  ...exposes
+})
 
 const paginationClass = computed(() => {
   let defaultClass = 'justify-center'

@@ -5,7 +5,7 @@ export interface PaginationType extends Partial<PaginationProps> {
   align?: 'center' | 'left' | 'right'
   total: number
 }
-export interface TableColumnType extends TableColumnCtx<any> {
+export interface TableColumnType extends Partial<TableColumnCtx<any>> {
   defaultSlot?: typeof Component
   headerSlot?: typeof Component
   children?: TableColumnType[]

@@ -16,22 +16,26 @@
 
     <el-tab-pane label="多选" name="2">
       <VTable
-        @row-click="handleRowClick"
+        ref="multipleTableRef"
         :data="tableData"
         :columns="selectColumns"
         highlight-current-row
+        @selection-change="handleSelectionChange"
       >
       </VTable>
-      <p>行点击回调内容：</p>
-      <p>{{ argsRef }}</p>
-      <p>菜单击回调内容：</p>
-      <p>{{ menuClickRef }}</p>
+      <div style="margin-top: 20px">
+        <el-button @click="toggleSelection([tableData[1], tableData[2]])"
+          >Toggle selection status of second and third rows</el-button
+        >
+        <el-button @click="toggleSelection()">Clear selection</el-button>
+      </div>
     </el-tab-pane>
   </el-tabs>
 </template>
 
 <script setup lang="tsx">
 import type { TableColumnType } from '@/components/Table/type'
+import { ElTable } from 'element-plus'
 
 definePage({
   meta: {
@@ -50,10 +54,10 @@ const argsRef = ref()
 const menuClickRef = ref()
 
 const selectColumns = ref([
-  /*  {
+  {
     type: 'selection',
     width: 55
-  },*/
+  },
   {
     prop: 'date',
     label: 'Date'
@@ -217,6 +221,22 @@ const handleClick = (scope, event: string) => {
 
 const handleRowClick = (...args) => {
   argsRef.value = args
+}
+
+// 多选表格
+const multipleTableRef = ref<InstanceType<typeof ElTable>>()
+const multipleSelection = ref<User[]>([])
+const toggleSelection = (rows?: User[]) => {
+  if (rows) {
+    rows.forEach((row) => {
+      multipleTableRef.value!.toggleRowSelection(row, undefined)
+    })
+  } else {
+    multipleTableRef.value!.clearSelection()
+  }
+}
+const handleSelectionChange = (val: User[]) => {
+  multipleSelection.value = val
 }
 </script>
 
