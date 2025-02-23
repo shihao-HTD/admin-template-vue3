@@ -56,6 +56,7 @@
       :data="fixedTableData"
       :columns="fixedTableColumns"
       highlight-current-row
+      @row-click="handleRowClick"
     >
     </VTable>
   </div>
@@ -73,6 +74,10 @@ definePage({
 
 const handleClick = (scope: any) => {
   console.log('🚀 ~ file: index.vue:37 ~ handleClick ~ scope:', scope)
+}
+
+const handleRowClick = (...args:any) => {
+  console.log('🚀 ~ file: index.vue:37 ~ handleRowClick ~ scope:', args)
 }
 
 const columns = ref([
@@ -114,7 +119,6 @@ const tableData = ref([
 ])
 
 const fixedTableColumns = ref([
-
   {
     prop: 'date',
     label: 'Date'
@@ -161,9 +165,7 @@ const fixedTableColumns = ref([
   }
 ] as TableColumnType[])
 const fixedTableColumns1 = computed(() => {
-  const arr = [
-    ...fixedTableColumns.value
-  ]
+  const arr = [...fixedTableColumns.value]
   return arr.splice(0, fixedTableColumns.value.length - 1)
 })
 
