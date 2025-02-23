@@ -1,6 +1,11 @@
 <template>
   <el-table ref="tableRef" v-on="forwardEvents" v-bind="props" style="width: 100%">
-    <VTableColumn v-for="(column, index) in columns" :key="index" v-bind="column"> </VTableColumn>
+    <VTableColumn
+      v-for="(column, index) in columns"
+      :key="index"
+      v-bind="setColumnDefaults(column)"
+    >
+    </VTableColumn>
 
     <slot></slot>
     <template #append>
@@ -49,6 +54,19 @@ const props = withDefaults(defineProps<VTableProps>(), {
   tableLayout: 'fixed',
   scrollbarAlwaysOn: false
 })
+
+const columnDefaults = {
+  sortable: false,
+  'sort-orders': ['ascending', 'descending', null],
+  resizable: true,
+  align: 'left',
+  'reserve-selection': false,
+  'filter-multiple': true
+}
+
+function setColumnDefaults(column: object) {
+  return { ...columnDefaults, ...column }
+}
 
 const emits = defineEmits<TableEventsType>()
 

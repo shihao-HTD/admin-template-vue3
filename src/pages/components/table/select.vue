@@ -30,6 +30,29 @@
         <el-button @click="toggleSelection()">Clear selection</el-button>
       </div>
     </el-tab-pane>
+
+    <el-tab-pane label="排序" name="3">
+      <VTable
+        :data="tableData"
+        :columns="orderColumns"
+        :default-sort="{ prop: 'date', order: 'descending' }"
+      >
+      </VTable>
+    </el-tab-pane>
+
+    <el-tab-pane
+      row-key="date"
+      :default-sort="{ prop: 'date', order: 'descending' }"
+      label="过滤"
+      name="4"
+    >
+      <VTable ref="filterTableRef" :data="filterTableData" :columns="filterColumns"> </VTable>
+
+      <div>
+        <el-button @click="resetDateFilter">reset date filter</el-button>
+        <el-button @click="clearFilter">reset all filters</el-button>
+      </div>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -47,11 +70,93 @@ interface User {
   date: string
   name: string
   address: string
+  tag?: string
 }
 
 const activeName = ref('1')
 const argsRef = ref()
 const menuClickRef = ref()
+
+const filterColumns = ref([
+  {
+    prop: 'date',
+    label: 'Date',
+    filters: [
+      { text: '2016-05-01', value: '2016-05-01' },
+      { text: '2016-05-02', value: '2016-05-02' },
+      { text: '2016-05-03', value: '2016-05-03' },
+      { text: '2016-05-04', value: '2016-05-04' }
+    ],
+    columnKey: 'date',
+    sortable: true,
+    filterMethod: (value: string, row: User, column: TableColumnType) => {
+      const property = column['property']
+      return row[property as string] === value
+    }
+  },
+  {
+    prop: 'name',
+    label: 'Name'
+  },
+  {
+    prop: 'address',
+    label: 'Address'
+  },
+  {
+    prop: 'tag',
+    label: 'Tag',
+    filters: [
+      { text: 'Home', value: 'Home' },
+      { text: 'Office', value: 'Office' }
+    ],
+    filterMethod: (value: string, row: User) => {
+      return row.tag === value
+    }
+  }
+] as TableColumnType[])
+
+const filterTableData: User[] = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+    tag: 'Home'
+  },
+  {
+    date: '2016-05-02',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+    tag: 'Office'
+  },
+  {
+    date: '2016-05-04',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+    tag: 'Home'
+  },
+  {
+    date: '2016-05-01',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+    tag: 'Office'
+  }
+]
+
+const orderColumns = ref([
+  {
+    prop: 'date',
+    label: 'Date',
+    sortable: true
+  },
+  {
+    prop: 'name',
+    label: 'Name'
+  },
+  {
+    prop: 'address',
+    label: 'Address'
+  }
+] as TableColumnType[])
 
 const selectColumns = ref([
   {
@@ -237,6 +342,17 @@ const toggleSelection = (rows?: User[]) => {
 }
 const handleSelectionChange = (val: User[]) => {
   multipleSelection.value = val
+}
+
+// 过滤表格
+const filterTableRef = ref()
+const resetDateFilter = () => {
+  filterTableRef.value!.clearFilter(['date'])
+}
+// TODO: improvement typing when refactor table
+const clearFilter = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  filterTableRef.value!.clearFilter()
 }
 </script>
 
