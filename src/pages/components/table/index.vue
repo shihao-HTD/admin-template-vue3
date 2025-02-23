@@ -2,23 +2,33 @@
   <div class="basic-table">
     <el-tabs v-model="activeName">
       <el-tab-pane label="基础示例" name="1">
-        <VTable :columns="columns" :data="tableData"></VTable>
+        <VTable
+          :pagination="{
+            total: 1000
+          }"
+          @page-current-change="handlePageChange"
+          @page-size-change="handlePageChange"
+          @page-next-change="handlePageChange"
+          @page-prev-change="handlePageChange"
+          :columns="columns"
+          :data="tableData"
+        ></VTable>
       </el-tab-pane>
       <el-tab-pane label="带斑马纹表格" name="2"
-      ><VTable :columns="columns" :data="tableData" stripe></VTable
+        ><VTable :columns="columns" :data="tableData" stripe></VTable
       ></el-tab-pane>
       <el-tab-pane label="带边框表格" name="3">
         <VTable :columns="columns" :data="tableData" border></VTable
-        ></el-tab-pane>
+      ></el-tab-pane>
       <el-tab-pane label="带状态表格" name="4"
-      ><VTable :columns="columns" :data="tableData" :row-class-name="tableRowClassName"></VTable
+        ><VTable :columns="columns" :data="tableData" :row-class-name="tableRowClassName"></VTable
       ></el-tab-pane>
       <el-tab-pane label="固定表头" name="5"
-      ><VTable :columns="columns" :data="tableData" :height="250"></VTable
+        ><VTable :columns="columns" :data="tableData" :height="250"></VTable
       ></el-tab-pane>
       <el-tab-pane label="固定列" name="6"
-      ><VTable :columns="fixedTableColumns" :data="fixedTableData">
-        <!-- <el-table-column fixed="right" label="Operations" width="120">
+        ><VTable :columns="fixedTableColumns" :data="fixedTableData">
+          <!-- <el-table-column fixed="right" label="Operations" width="120">
       <template #default="scope">
         <el-button link type="primary" size="small" @click="() => handleClick(scope)"
           >Detail</el-button
@@ -27,23 +37,23 @@
         </template>
       </el-table-column>
       <template #append>123</template> -->
-      </VTable></el-tab-pane
+        </VTable></el-tab-pane
       >
       <el-tab-pane label="固定列和表头" name="7"
-      ><VTable :columns="fixedTableColumns" :height="250" :data="fixedTableData"> </VTable
+        ><VTable :columns="fixedTableColumns" :height="250" :data="fixedTableData"> </VTable
       ></el-tab-pane>
       <el-tab-pane label="流体高度" name="8"
-      ><VTable :columns="fixedTableColumns1" :max-height="300" :data="fixedTableData">
-        <el-table-column fixed="right" label="Operations" width="120">
-          <template #default="scope">
-            <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.$index)">
-              Remove
-            </el-button>
-          </template>
-        </el-table-column>
-      </VTable>
+        ><VTable :columns="fixedTableColumns1" :max-height="300" :data="fixedTableData">
+          <el-table-column fixed="right" label="Operations" width="120">
+            <template #default="scope">
+              <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.$index)">
+                Remove
+              </el-button>
+            </template>
+          </el-table-column>
+        </VTable>
         <el-button class="mt-4" style="width: 100%" @click="onAddItem"
-        >Add Item</el-button
+          >Add Item</el-button
         ></el-tab-pane
       >
       <el-tab-pane label="多级表头" name="9">
@@ -79,6 +89,9 @@ definePage({
     icon: 'icon-park-outline:page'
   }
 })
+const handlePageChange = (number) => {
+  console.log('🚀 ~ file: index.vue:105 ~ handlePageChange ~ number:', number)
+}
 
 const handleClick = (scope) => {
   console.log('🚀 ~ file: index.vue:37 ~ handleClick ~ scope:', scope)

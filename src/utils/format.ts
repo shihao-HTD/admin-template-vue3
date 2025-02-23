@@ -6,12 +6,12 @@ export function kebabToCamel(str: string): string {
   })
 }
 
-export function forwardEventsUtils(emits: any, arr: string[]) {
+export function forwardEventsUtils(emits: any, arr: string[], prefix?: string) {
   const forwardEvents: Record<string, (...args: any) => void> = {}
 
   arr.forEach((eventName) => {
     const name = kebabToCamel(eventName)
-    forwardEvents[name] = (...args: any[]) => emits(eventName, ...args)
+    forwardEvents[name] = (...args: any[]) => emits(prefix + eventName, ...args)
   })
   return forwardEvents
 }

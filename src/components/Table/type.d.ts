@@ -4,6 +4,7 @@ import type { Component } from 'vue'
 export interface PaginationType extends Partial<PaginationProps> {
   align?: 'center' | 'left' | 'right'
   total: number
+  defaultSlot?: typeof Component
 }
 export interface TableColumnType extends Partial<TableColumnCtx<any>> {
   defaultSlot?: typeof Component
@@ -36,3 +37,14 @@ export type TableEventsType = {
   'header-dragend': [newWidth: number, oldWidth: number, column: any, event: Event]
   'expand-change': [row: any, expandedRows: any]
 }
+
+type PaginationCallFunc = (value: number) => void
+
+export type PaginationEventsType = {
+  'page-size-change': [PaginationCallFunc]
+  'page-current-change': [PaginationCallFunc]
+  'page-prev-click': [PaginationCallFunc]
+  'page-next-click': [PaginationCallFunc]
+}
+
+export type VTableEmitsType = TableEventsType & PaginationEventsType

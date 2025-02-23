@@ -18,12 +18,16 @@
   </el-table>
 
   <div v-if="isDefined(pagination)" :class="['p-2 flex', paginationClass]">
-    <el-pagination v-bind="pagination"></el-pagination>
+    <el-pagination v-on="pageEvents" v-bind="pagination">
+      <template #default="scope" v-if="pagination.defaultSlot">
+        <component v-bind="scope" :is="pagination.defaultSlot"></component>
+      </template>
+    </el-pagination>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { TableEventsType, VTableProps } from '@/components/Table/type'
+import type { VTableEmitsType, VTableProps } from '@/components/Table/type'
 import { isDefined } from '@vueuse/core'
 import { exposeEventsUtils, forwardEventsUtils } from '@/utils/format'
 
@@ -68,7 +72,7 @@ function setColumnDefaults(column: object) {
   return { ...columnDefaults, ...column }
 }
 
-const emits = defineEmits<TableEventsType>()
+const emits = defineEmits<VTableEmitsType>()
 
 const eventsName = [
   'select',
@@ -90,8 +94,12 @@ const eventsName = [
   'header-dragend',
   'expand-change'
 ]
+const pageEventsName = ['size-change', 'current-change', 'prev-click', 'next-click']
+
 
 const forwardEvents = forwardEventsUtils(emits, eventsName)
+const pageEvents = forwardEventsUtils(emits, pageEventsName, 'page-')
+
 
 const tableRef = ref()
 const exposeEvents = [
