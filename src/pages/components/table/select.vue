@@ -13,11 +13,25 @@
       <p>菜单击回调内容：</p>
       <p>{{ menuClickRef }}</p>
     </el-tab-pane>
+
+    <el-tab-pane label="多选" name="2">
+      <VTable
+        @row-click="handleRowClick"
+        :data="tableData"
+        :columns="selectColumns"
+        highlight-current-row
+      >
+      </VTable>
+      <p>行点击回调内容：</p>
+      <p>{{ argsRef }}</p>
+      <p>菜单击回调内容：</p>
+      <p>{{ menuClickRef }}</p>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
 <script setup lang="tsx">
-import type { TableColumnType } from '@/components/Table/types'
+import type { TableColumnType } from '@/components/Table/type'
 
 definePage({
   meta: {
@@ -25,10 +39,72 @@ definePage({
     icon: 'fluent:select-all-on-24-regular'
   }
 })
+interface User {
+  date: string
+  name: string
+  address: string
+}
 
 const activeName = ref('1')
 const argsRef = ref()
 const menuClickRef = ref()
+
+const selectColumns = ref([
+  /*  {
+    type: 'selection',
+    width: 55
+  },*/
+  {
+    prop: 'date',
+    label: 'Date'
+  },
+  {
+    prop: 'name',
+    label: 'Name'
+  },
+  {
+    prop: 'address',
+    label: 'Address'
+  }
+] as TableColumnType[])
+
+const tableData: User[] = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  },
+  {
+    date: '2016-05-02',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  },
+  {
+    date: '2016-05-04',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  },
+  {
+    date: '2016-05-01',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  },
+  {
+    date: '2016-05-08',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  },
+  {
+    date: '2016-05-06',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  },
+  {
+    date: '2016-05-07',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  }
+]
 
 const fixedTableColumns = ref([
   {
