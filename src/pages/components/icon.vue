@@ -7,7 +7,7 @@
 definePage({
   meta: {
     title: '图标示例',
-    icon:"mdi:apps"
+    icon: 'tabler:icons'
   }
 })
 </script>

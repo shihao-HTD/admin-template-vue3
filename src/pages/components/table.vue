@@ -6,7 +6,7 @@
 definePage({
   meta: {
     title: 'pages.tables',
-    icon: 'mdi:apps'
+    icon: 'ph:table-light'
   }
 })
 </script>

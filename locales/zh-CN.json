@@ -21,8 +21,11 @@
     "home": "首页",
     "icons": "图标示例",
     "login": {
+      "code": "验证码",
       "password": "请输入密码",
+      "phone": "请输入手机号",
       "remember": "记住账号",
+      "repassword": "请再次输入密码",
       "sign-up": "注册账号",
       "submit": "登录",
       "username": "请输入用户名",
@@ -31,6 +34,7 @@
     "notice": "通知组件",
     "pick-icon": "图标选择器",
     "table-basic": "基础表格",
+    "table-select": "复杂列表格",
     "tables": "表格组件"
   }
 }

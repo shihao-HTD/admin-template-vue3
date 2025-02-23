@@ -6,7 +6,7 @@
 definePage({
   meta: {
     title: '通知示例',
-    icon: 'mdi:apps'
+    icon: 'fe:notice-push'
   }
 })
 </script>

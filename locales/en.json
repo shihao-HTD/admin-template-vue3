@@ -21,8 +21,11 @@
     "home": "Home",
     "icons": "Icons",
     "login": {
+      "code": "Sms Code",
       "password": "Password",
+      "phone": "Phone Number",
       "remember": "Remember Me",
+      "repassword": "RePassword",
       "sign-up": "Sign Up",
       "submit": "Login",
       "username": "Username",
@@ -31,6 +34,7 @@
     "notice": "Notice Component",
     "pick-icon": "Icon Picker",
     "table-basic": "pages.head-message",
+    "table-select": "pages.table-select",
     "tables": "pages.tables"
   }
 }
