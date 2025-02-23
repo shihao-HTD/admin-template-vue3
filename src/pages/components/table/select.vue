@@ -53,12 +53,31 @@
         <el-button @click="clearFilter">reset all filters</el-button>
       </div>
     </el-tab-pane>
+
+    <el-tab-pane
+      row-key="date"
+      :default-sort="{ prop: 'date', order: 'descending' }"
+      label="自定义模版"
+      name="5"
+    >
+      <VTable :data="customTableData" :columns="customColumns">
+        <el-table-column label="Operations">
+          <template #default="scope">
+            <el-button size="small" @click="handleEdit(scope.$index, scope.row)"> Edit </el-button>
+            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">
+              Delete
+            </el-button>
+          </template>
+        </el-table-column>
+      </VTable>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
 <script setup lang="tsx">
 import type { TableColumnType } from '@/components/Table/type'
 import { ElTable } from 'element-plus'
+import Popover from './Popover.vue'
 
 definePage({
   meta: {
@@ -353,6 +372,60 @@ const resetDateFilter = () => {
 const clearFilter = () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   filterTableRef.value!.clearFilter()
+}
+
+const customColumns = ref([
+  {
+    prop: 'date',
+    defaultSlot: (scope: any) => (
+      <div style="display: flex; align-items: center">
+        <el-icon>
+          <timer />
+        </el-icon>
+        <span style="margin-left: 10px">{scope.row.date}</span>
+      </div>
+    )
+  },
+  {
+    prop: 'name',
+    label: 'Name',
+    defaultSlot: (scope: any) => {
+      const { row } = scope
+      return h(Popover, {
+        row
+      })
+    }
+  }
+] as TableColumnType[])
+
+const customTableData: User[] = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  },
+  {
+    date: '2016-05-02',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  },
+  {
+    date: '2016-05-04',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  },
+  {
+    date: '2016-05-01',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles'
+  }
+]
+
+const handleEdit = (index: number, row: User) => {
+  console.log(index, row)
+}
+const handleDelete = (index: number, row: User) => {
+  console.log(index, row)
 }
 </script>
 
