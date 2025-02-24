@@ -1,5 +1,7 @@
 <template>
-  <div>hello form</div>
+  <div>
+    <v-form></v-form>
+  </div>
 </template>
 
 <script setup lang="ts">
