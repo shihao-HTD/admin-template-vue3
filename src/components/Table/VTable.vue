@@ -1,5 +1,11 @@
 <template>
-  <el-table ref="tableRef" v-on="forwardEvents" v-bind="props" style="width: 100%">
+  <el-table
+    v-loading="loading"
+    ref="tableRef"
+    v-on="forwardEvents"
+    v-bind="props"
+    style="width: 100%"
+  >
     <VTableColumn
       v-for="(column, index) in columns"
       :key="index"
@@ -17,13 +23,15 @@
     </template>
   </el-table>
 
-  <div v-if="isDefined(pagination)" :class="['p-2 flex', paginationClass]">
-    <el-pagination v-on="pageEvents" v-bind="pagination">
-      <template #default="scope" v-if="pagination.defaultSlot">
-        <component v-bind="scope" :is="pagination.defaultSlot"></component>
-      </template>
-    </el-pagination>
-  </div>
+  <slot name="footer">
+    <div v-if="isDefined(pagination)" :class="['p-2 flex', paginationClass]">
+      <el-pagination v-on="pageEvents" v-bind="pagination">
+        <template #default="scope" v-if="pagination.defaultSlot">
+          <component v-bind="scope" :is="pagination.defaultSlot"></component>
+        </template>
+      </el-pagination>
+    </div>
+  </slot>
 </template>
 
 <script lang="ts" setup>
@@ -56,7 +64,9 @@ const props = withDefaults(defineProps<VTableProps>(), {
   selectOnIndeterminate: true,
   indent: 16,
   tableLayout: 'fixed',
-  scrollbarAlwaysOn: false
+  scrollbarAlwaysOn: false,
+  adaptive: false,
+  loading: false
 })
 
 const columnDefaults = {
@@ -96,10 +106,8 @@ const eventsName = [
 ]
 const pageEventsName = ['size-change', 'current-change', 'prev-click', 'next-click']
 
-
 const forwardEvents = forwardEventsUtils(emits, eventsName)
 const pageEvents = forwardEventsUtils(emits, pageEventsName, 'page-')
-
 
 const tableRef = ref()
 const exposeEvents = [
@@ -135,6 +143,27 @@ const paginationClass = computed(() => {
     }
   }
   return defaultClass
+})
+
+async function setAdaptive() {
+  await nextTick()
+  if (props.adaptive) {
+    let offset = 50
+    if (typeof props.adaptive === 'number') {
+      offset = props.adaptive
+    }
+    const height = window.innerHeight - tableRef.value.$el.getBoundingClientRect().top - offset
+    tableRef.value.style.height = height + 'px'
+  }
+}
+
+const fn = useDebounceFn(setAdaptive, 200)
+useResizeObserver(tableRef, fn)
+
+onMounted(() => {
+  if (props.adaptive) {
+    setAdaptive()
+  }
 })
 </script>
 <style scoped></style>

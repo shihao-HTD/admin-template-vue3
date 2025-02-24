@@ -34,6 +34,7 @@
     "notice": "通知组件",
     "pick-icon": "图标选择器",
     "table-basic": "基础表格",
+    "table-high": "高级表格",
     "table-select": "复杂列表格",
     "tables": "表格组件"
   }

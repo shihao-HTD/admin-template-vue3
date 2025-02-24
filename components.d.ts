@@ -12,7 +12,6 @@ declare module 'vue' {
     DarkModeToggle: typeof import('./src/components/Themes/DarkModeToggle.vue')['default']
     DropDown: typeof import('./src/components/Menu/DropDown.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
-    ElButton: typeof import('element-plus/es')['ElButton']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDivider: typeof import('element-plus/es')['ElDivider']
@@ -22,11 +21,9 @@ declare module 'vue' {
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
-    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElPagination: typeof import('element-plus/es')['ElPagination']
-    ElPopover: typeof import('element-plus/es')['ElPopover']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSlider: typeof import('element-plus/es')['ElSlider']
@@ -36,7 +33,6 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
-    ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     FullScreen: typeof import('./src/components/Themes/FullScreen.vue')['default']
     Header: typeof import('./src/components/Layouts/Header.vue')['default']
@@ -59,5 +55,8 @@ declare module 'vue' {
     ThemeSettings: typeof import('./src/components/Themes/ThemeSettings.vue')['default']
     VTable: typeof import('./src/components/Table/VTable.vue')['default']
     VTableColumn: typeof import('./src/components/Table/VTableColumn.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

@@ -34,6 +34,7 @@
     "notice": "Notice Component",
     "pick-icon": "Icon Picker",
     "table-basic": "pages.head-message",
+    "table-high": "pages.table-high",
     "table-select": "pages.table-select",
     "tables": "pages.tables"
   }

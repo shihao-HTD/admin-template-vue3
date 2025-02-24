@@ -15,6 +15,13 @@ export interface TableColumnType extends Partial<TableColumnCtx<any>> {
 export interface VTableProps extends TableProps<any> {
   pagination?: PaginationType
   columns: TableColumnType[]
+  adaptive?: boolean | number // offset
+  loading?: boolean
+  elementLoadingText?: string
+  elementLoadingSpinner?: string
+  elementLoadingSvgViewBox?: string
+  elementLoadingBackground?: string
+  elementLoadingSvg?: string
 }
 
 export type TableEventsType = {
