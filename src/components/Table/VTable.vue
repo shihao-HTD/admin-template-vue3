@@ -137,6 +137,8 @@ const exposes = exposeEventsUtils(tableRef, exposeEvents)
 const localCols = ref(props.columns as TableColumnType[])
 const localData = ref(props.data as any[])
 
+const rowKey = ref(props.rowKey)
+
 defineExpose({
   ...exposes
 })
@@ -242,8 +244,8 @@ function rowDrop() {
       handle: '.drag-btn',
       animation: 300,
       onEnd: ({ newIndex, oldIndex }) => {
-        const draggedItem = localData.value.splice(oldIndex, 1)[0]
-        localData.value.splice(newIndex, 0, draggedItem)
+        const draggedItem = localData.value.splice(oldIndex!, 1)[0]
+        localData.value.splice(newIndex!, 0, draggedItem)
         emits('drag-row-change', localData.value)
       }
     })
@@ -256,7 +258,9 @@ function addId(flag: boolean, arr: any[]) {
     arr.forEach((item, index) => {
       item.id = ids + '-' + index
     })
+    rowKey.value = 'id'
   }
+  return arr
 }
 </script>
 <style scoped></style>
