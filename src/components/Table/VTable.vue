@@ -8,7 +8,7 @@
   >
     <VTableColumn
       v-for="(column, index) in columns"
-      :key="index"
+      :key="column.id || index"
       v-bind="setColumnDefaults(column)"
     >
     </VTableColumn>
@@ -35,9 +35,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { VTableEmitsType, VTableProps } from '@/components/Table/type'
+import type { TableColumnType, VTableEmitsType, VTableProps } from '@/components/Table/type'
 import { isDefined } from '@vueuse/core'
 import { exposeEventsUtils, forwardEventsUtils } from '@/utils/format'
+import Sortable from 'sortablejs'
 
 const props = withDefaults(defineProps<VTableProps>(), {
   pagination() {
@@ -66,7 +67,9 @@ const props = withDefaults(defineProps<VTableProps>(), {
   tableLayout: 'fixed',
   scrollbarAlwaysOn: false,
   adaptive: false,
-  loading: false
+  loading: false,
+  draggableCol: false,
+  draggableRow: false
 })
 
 const columnDefaults = {
@@ -128,6 +131,8 @@ const exposeEvents = [
 // ref, exposeEvents
 const exposes = exposeEventsUtils(tableRef, exposeEvents)
 
+const localCols = ref(props.columns as TableColumnType[])
+
 defineExpose({
   ...exposes
 })
@@ -160,10 +165,41 @@ async function setAdaptive() {
 const fn = useDebounceFn(setAdaptive, 200)
 useResizeObserver(tableRef, fn)
 
+onBeforeMount(() => {
+  addId(props.draggableCol, localCols.value)
+})
+
 onMounted(() => {
   if (props.adaptive) {
     setAdaptive()
   }
+  if (props.draggableCol) {
+    columnDrop()
+  }
 })
+
+function columnDrop() {
+  nextTick(() => {
+    const el = tableRef.value.$el.querySelector('.el-table__header-wrapper tr')
+    Sortable.create(el, {
+      delay: 0,
+      animation: 300,
+      onEnd: ({ newIndex, oldIndex }) => {
+        const draggedItem = localCols.value.splice(oldIndex as number, 1)[0]
+        localCols.value.splice(newIndex as number, 0, draggedItem)
+        emits('drag-col-change', localCols.value)
+      }
+    })
+  })
+}
+
+function addId(flag: boolean, arr: any[]) {
+  if (flag && arr.length && !arr[0].id) {
+    arr.forEach((item, index) => {
+      item.id = index
+    })
+  }
+  return arr
+}
 </script>
 <style scoped></style>

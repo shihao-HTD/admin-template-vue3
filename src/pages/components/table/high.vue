@@ -10,11 +10,23 @@
       >
       </VTable>
     </el-tab-pane>
+
+    <el-tab-pane label="列拖拽" name="2">
+      <VTable
+        :data="tableData"
+        :columns="columns"
+        highlight-current-row
+        :pagination="pagination"
+        draggableCol
+      >
+      </VTable>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
 <script setup lang="ts">
-import type { PaginationType, TableColumnType } from '@/components/Table/types'
+
+import type { PaginationType, TableColumnType } from '@/components/Table/type'
 
 definePage({
   meta: {

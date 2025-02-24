@@ -7,6 +7,7 @@ export interface PaginationType extends Partial<PaginationProps> {
   defaultSlot?: typeof Component
 }
 export interface TableColumnType extends Partial<TableColumnCtx<any>> {
+  id?: number | string
   defaultSlot?: typeof Component
   headerSlot?: typeof Component
   children?: TableColumnType[]
@@ -22,6 +23,9 @@ export interface VTableProps extends TableProps<any> {
   elementLoadingSvgViewBox?: string
   elementLoadingBackground?: string
   elementLoadingSvg?: string
+  // drag
+  draggableCol?: boolean
+  draggableRow?: boolean
 }
 
 export type TableEventsType = {
@@ -54,4 +58,9 @@ export type PaginationEventsType = {
   'page-next-click': [PaginationCallFunc]
 }
 
-export type VTableEmitsType = TableEventsType & PaginationEventsType
+type TableExtendEvents = {
+  'drag-row-change': [row: any]
+  'drag-col-change': [cols: any]
+}
+
+export type VTableEmitsType = TableEventsType & PaginationEventsType & TableExtendEvents
