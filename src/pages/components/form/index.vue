@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form></v-form>
+    <v-form :model="form"></v-form>
   </div>
 </template>
 
@@ -11,6 +11,19 @@ definePage({
     icon: 'fluent:form-multiple-28-regular'
   }
 })
+
+// do not use same name with ref
+const form = reactive({
+  name: '',
+  region: '',
+  date1: '',
+  date2: '',
+  delivery: false,
+  type: [],
+  resource: '',
+  desc: ''
+})
+
 </script>
 
 <style scoped></style>
