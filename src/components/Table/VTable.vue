@@ -5,13 +5,14 @@
     v-on="forwardEvents"
     v-bind="props"
     style="width: 100%"
+    :data="localData"
   >
-    <VTableColumn
+    <Column
       v-for="(column, index) in columns"
       :key="column.id || index"
       v-bind="setColumnDefaults(column)"
     >
-    </VTableColumn>
+    </Column>
 
     <slot></slot>
     <template #append>
@@ -34,11 +35,13 @@
   </slot>
 </template>
 
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import type { TableColumnType, VTableEmitsType, VTableProps } from '@/components/Table/type'
 import { isDefined } from '@vueuse/core'
 import { exposeEventsUtils, forwardEventsUtils } from '@/utils/format'
 import Sortable from 'sortablejs'
+import Column from './VTableColumn.vue'
+import DragIcon from './DragIcon.vue'
 
 const props = withDefaults(defineProps<VTableProps>(), {
   pagination() {
@@ -132,6 +135,7 @@ const exposeEvents = [
 const exposes = exposeEventsUtils(tableRef, exposeEvents)
 
 const localCols = ref(props.columns as TableColumnType[])
+const localData = ref(props.data as any[])
 
 defineExpose({
   ...exposes
@@ -167,6 +171,40 @@ useResizeObserver(tableRef, fn)
 
 onBeforeMount(() => {
   addId(props.draggableCol, localCols.value)
+  addId(props.draggableRow, localData.value)
+  if (props.draggableRow && localData.value.length) {
+    const defaultSlot = localCols.value[0].defaultSlot
+    localCols.value[0].defaultSlot = (_prop) => {
+      const { row } = _prop
+      return (
+        <DragIcon>
+          {defaultSlot ? (
+            defaultSlot(_prop)
+          ) : (
+            <span>{localCols.value[0]?.prop ? row[localCols.value[0].prop] : ''}</span>
+          )}
+        </DragIcon>
+      )
+      // return h(
+      //   DragIcon,
+      //   {
+      //     props: _prop
+      //   },
+      //   {
+      //     default: () => {
+      //       const { row } = _prop
+      //       return defaultSlot
+      //         ? defaultSlot(_prop)
+      //         : h(
+      //             'span',
+      //             { props: _prop },
+      //             localCols.value[0]?.prop ? row[localCols.value[0].prop] : ''
+      //           )
+      //     }
+      //   }
+      // )
+    }
+  }
 })
 
 onMounted(() => {
@@ -175,6 +213,9 @@ onMounted(() => {
   }
   if (props.draggableCol) {
     columnDrop()
+  }
+  if (props.draggableRow) {
+    rowDrop()
   }
 })
 
@@ -193,13 +234,29 @@ function columnDrop() {
   })
 }
 
+function rowDrop() {
+  nextTick(() => {
+    const el = tableRef.value.$el.querySelector('.el-table__body-wrapper tbody')
+    Sortable.create(el, {
+      delay: 0,
+      handle: '.drag-btn',
+      animation: 300,
+      onEnd: ({ newIndex, oldIndex }) => {
+        const draggedItem = localData.value.splice(oldIndex, 1)[0]
+        localData.value.splice(newIndex, 0, draggedItem)
+        emits('drag-row-change', localData.value)
+      }
+    })
+  })
+}
+
 function addId(flag: boolean, arr: any[]) {
+  const ids = Math.random().toString(36).slice(2)
   if (flag && arr.length && !arr[0].id) {
     arr.forEach((item, index) => {
-      item.id = index
+      item.id = ids + '-' + index
     })
   }
-  return arr
 }
 </script>
 <style scoped></style>

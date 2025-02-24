@@ -21,11 +21,21 @@
       >
       </VTable>
     </el-tab-pane>
+
+    <el-tab-pane label="行拖拽" name="3">
+      <VTable
+        :data="tableData"
+        :columns="columnsWithSlots"
+        highlight-current-row
+        :pagination="pagination"
+        draggable-row
+      >
+      </VTable>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
-<script setup lang="ts">
-
+<script setup lang="tsx">
 import type { PaginationType, TableColumnType } from '@/components/Table/type'
 
 definePage({
@@ -36,7 +46,25 @@ definePage({
 })
 
 const activeName = ref('1')
-
+const columnsWithSlots = ref([
+  {
+    prop: 'date',
+    label: 'Date',
+    // defaultSlot: () => 123
+  },
+  {
+    prop: 'name',
+    label: 'Name'
+  },
+  {
+    prop: 'address',
+    label: 'Address'
+  },
+  {
+    prop: 'number',
+    label: 'Num'
+  }
+] as TableColumnType[])
 const columns = ref([
   {
     prop: 'date',
