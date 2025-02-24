@@ -16,7 +16,6 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
-    ElCol: typeof import('element-plus/es')['ElCol']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
@@ -61,6 +60,7 @@ declare module 'vue' {
     SvgIcon: typeof import('./src/components/Icon/SvgIcon.vue')['default']
     ThemeSettings: typeof import('./src/components/Themes/ThemeSettings.vue')['default']
     VForm: typeof import('./src/components/Form/VForm.vue')['default']
+    VFormItem: typeof import('./src/components/Form/VFormItem.vue')['default']
     VTable: typeof import('./src/components/Table/VTable.vue')['default']
     VTableColumn: typeof import('./src/components/Table/VTableColumn.vue')['default']
   }

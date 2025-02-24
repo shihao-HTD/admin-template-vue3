@@ -1,25 +1,18 @@
 <template>
   <el-form v-bind="props">
     <slot name="default">
-      <template>
-
+      <template v-if="schema && schema.length">
+        <VFormItem v-bind="item" v-for="(item, index) in schema" :key="index">
+          {{ item }}
+        </VFormItem>
       </template>
     </slot>
   </el-form>
 </template>
 
 <script lang="ts" setup>
-import type { FormItemProps, FormMetaProps, FormProps } from 'element-plus'
-
-type NewFormProps = FormProps & FormMetaProps
-
-interface FormItemProp extends FormItemProps {}
-
-type FormSchema = FormItemProp[]
-
-interface VFormProps extends Partial<NewFormProps> {
-  schema?: FormSchema
-}
+import VFormItem from './VFormItem.vue'
+import type { VFormProps } from '@/components/Form/type'
 
 const props = withDefaults(defineProps<VFormProps>(), {
   inline: false,
