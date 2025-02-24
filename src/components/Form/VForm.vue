@@ -2,16 +2,17 @@
   <el-form v-bind="props">
     <slot name="default">
       <template v-if="schema && schema.length">
-        <VFormItem v-bind="item" v-for="(item, index) in schema" :key="index">
+        <VFormLayout v-bind="item" v-for="(item, index) in schema" :key="index">
           {{ item }}
-        </VFormItem>
+        </VFormLayout>
       </template>
     </slot>
   </el-form>
 </template>
 
 <script lang="ts" setup>
-import VFormItem from './VFormItem.vue'
+import VFormLayout from './VFormLayout.vue'
+
 import type { VFormProps } from '@/components/Form/type'
 
 const props = withDefaults(defineProps<VFormProps>(), {

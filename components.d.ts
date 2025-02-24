@@ -63,6 +63,7 @@ declare module 'vue' {
     ThemeSettings: typeof import('./src/components/Themes/ThemeSettings.vue')['default']
     VForm: typeof import('./src/components/Form/VForm.vue')['default']
     VFormItem: typeof import('./src/components/Form/VFormItem.vue')['default']
+    VFormLayout: typeof import('./src/components/Form/VFormLayout.vue')['default']
     VTable: typeof import('./src/components/Table/VTable.vue')['default']
     VTableColumn: typeof import('./src/components/Table/VTableColumn.vue')['default']
   }

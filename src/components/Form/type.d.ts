@@ -16,14 +16,16 @@ export type NewFormProps = FormProps & FormMetaProps
 
 export interface FormItemProp extends FormItemProps {
   prop?: string
-  type: string
+  type?: string
   // 事件
   events?: any
   // 扩展
   attrs: any
+  span?: number
   colProps?: ColProps
   value?: string
   children?: any[]
+  schema?: FormSchema
 }
 
 export type FormSchema = FormItemProp[]
