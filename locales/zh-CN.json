@@ -17,6 +17,8 @@
   "pages": {
     "about": "关于我们",
     "components": "组件示例",
+    "form-basic": "基础表单",
+    "forms": "表单组件",
     "head-message": "消息通知",
     "home": "首页",
     "icons": "图标示例",

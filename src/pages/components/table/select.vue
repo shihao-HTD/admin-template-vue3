@@ -60,8 +60,7 @@
       label="自定义模版"
       name="5"
     >
-      <VTable
-        :data="customTableData" :columns="customColumns">
+      <VTable :data="customTableData" :columns="customColumns">
         <el-table-column label="Operations">
           <template #default="scope">
             <el-button size="small" @click="handleEdit(scope.$index, scope.row)"> Edit </el-button>
@@ -84,7 +83,8 @@ import Popover from './Popover.vue'
 definePage({
   meta: {
     title: 'pages.table-select',
-    icon: 'fluent:select-all-on-24-regular'
+    icon: 'fluent:select-all-on-24-regular',
+    order:200
   }
 })
 interface User {

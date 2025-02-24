@@ -24,6 +24,7 @@ export interface AppRouteMenuItem {
   component?: Component
   meta?: RouteMeta
   children?: AppRouteMenuItem[]
+  redirect?: string
 }
 
 export interface IconOptions {

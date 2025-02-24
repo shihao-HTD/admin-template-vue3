@@ -86,7 +86,8 @@ const activeName = ref('1')
 definePage({
   meta: {
     title: 'pages.table-basic',
-    icon: 'icon-park-outline:page'
+    icon: 'icon-park-outline:page',
+    order:150
   }
 })
 const handlePageChange = (number) => {

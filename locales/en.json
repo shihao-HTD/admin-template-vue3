@@ -17,6 +17,8 @@
   "pages": {
     "about": "About Us",
     "components": "Components",
+    "form-basic": "pages.form-basic",
+    "forms": "pages.forms",
     "head-message": "Head Messages",
     "home": "Home",
     "icons": "Icons",

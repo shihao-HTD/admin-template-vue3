@@ -41,7 +41,8 @@ import type { PaginationType, TableColumnType } from '@/components/Table/type'
 definePage({
   meta: {
     title: 'pages.table-high',
-    icon: 'fluent:select-all-on-24-regular'
+    icon: 'fluent:select-all-on-24-regular',
+    order:120
   }
 })
 
