@@ -1,5 +1,5 @@
 import type { IconifyIcon } from '@iconify/vue'
-import type { ColProps, FormItemProps, FormMetaProps, FormProps } from 'element-plus'
+import type { ColProps, FormItemProps, FormItemRule, FormMetaProps, FormProps } from 'element-plus'
 
 export interface LoginItems {
   url: string
@@ -26,6 +26,7 @@ export interface FormItemProp extends FormItemProps {
   value?: string
   children?: any[]
   schema?: FormSchema
+  rules?: FormItemRule[]
 }
 
 export type FormSchema = FormItemProp[]
