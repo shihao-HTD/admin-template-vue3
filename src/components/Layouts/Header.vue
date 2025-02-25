@@ -2,11 +2,13 @@
   <el-row class="items-center pl-2 flex-nowrap! h-[50px]">
     <!--    面包屑-->
     <Iconify
-      v-if="settings?.mode!=='top'"
+      v-if="settings?.mode !== 'top'"
       @click="collapseModel = !collapseModel"
       class="text-2xl cursor-pointer"
       :icon="collapseModel ? 'ep:expand' : 'ep:fold'"
     ></Iconify>
+
+    <Breadcrumb></Breadcrumb>
     <!--    右侧-->
 
     <div class="relative overflow-x-hidden flex-grow">
@@ -34,10 +36,11 @@
 import DarkModeToggle from '../Themes/DarkModeToggle.vue'
 import FullScreen from '../Themes/FullScreen.vue'
 import ChangeLocale from '../Themes/ChangeLocale.vue'
-import type { ThemeSettingsProps } from '@/components/Themes/type'
-import ThemeSettings from '@/components/Themes/ThemeSettings.vue'
-import type { HeaderProps } from '@/components/Layouts/type'
+import type { ThemeSettingsProps } from '../Themes/type'
+import ThemeSettings from '../Themes/ThemeSettings.vue'
+import type { HeaderProps } from './type'
 import { loadLocaleMessages } from '@/modules/i18n'
+import Breadcrumb from '../Themes/Breadcrumb.vue'
 
 const props = withDefaults(defineProps<HeaderProps>(), {})
 

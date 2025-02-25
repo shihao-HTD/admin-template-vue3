@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AvatarMenu: typeof import('./src/components/Avatar/AvatarMenu.vue')['default']
+    Breadcrumb: typeof import('./src/components/Themes/Breadcrumb.vue')['default']
+    BreadCrumb: typeof import('./src/components/Themes/BreadCrumb.vue')['default']
     ChangeLocale: typeof import('./src/components/Themes/ChangeLocale.vue')['default']
     DarkModeToggle: typeof import('./src/components/Themes/DarkModeToggle.vue')['default']
     DragIcon: typeof import('./src/components/Table/DragIcon.vue')['default']
