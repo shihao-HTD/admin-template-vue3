@@ -1,10 +1,7 @@
 <template>
   <div>
-    <div v-copy.mute="msg1">copy directive1</div>
-    <el-input v-model="msg1"></el-input>
-    <p>----------</p>
-    <div v-copy="msg2">copy directive2</div>
-    <el-input v-model="msg2"></el-input>
+    <el-button v-debounce="test">test</el-button>
+    <el-button v-throttle="test">test2</el-button>
   </div>
 </template>
 
@@ -17,8 +14,10 @@ definePage({
     icon: 'mdi:home'
   }
 })
-const msg1 = ref('copy msg111')
-const msg2 = ref('copy msg222')
+
+function test() {
+  console.log('xxxxxxxxxxx')
+}
 
 onMounted(() => {
   registerSW({
