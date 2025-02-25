@@ -8,6 +8,7 @@
     :style="{ '--bg-color': backgroundColor }"
     v-bind="elMenuProps"
     :ellipsis="true"
+    :default-active="getDefaultActive($route)"
   >
     <slot name="icon"> </slot>
     <!--  左右Logo 加下拉菜单情况-->
@@ -90,6 +91,23 @@ onMounted(() => {
 const filterMenus = computed(() => {
   return generateMenuKeys(props.data)
 })
+
+function getDefaultActive(route: AppRouteMenuItem) {
+  let key = ''
+  function findKey(menus: AppRouteMenuItem[]) {
+    menus.forEach((menu) => {
+      if (menu.name === route.path) {
+        key = menu?.meta?.key as string
+      }
+      if (menu.children && menu.children.length > 0) {
+        findKey(menu.children)
+      }
+    })
+  }
+  findKey(filterMenus.value)
+
+  return key
+}
 
 const handleSelect = (...args: EmitSelectType) => {
   const [index] = args

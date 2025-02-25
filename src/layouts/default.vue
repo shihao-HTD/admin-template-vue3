@@ -1,5 +1,8 @@
 <template>
-  <div class="position-absolute left-0 top-0 w-full h-full overflow-hidden flex m-safe">
+  <div
+    class="position-absolute left-0 top-0 w-full h-full overflow-hidden flex m-safe"
+    :style="{ '--el-color-primary': settings?.theme }"
+  >
     <!--    sidebar-->
     <div
       :style="{
@@ -33,6 +36,7 @@
             :collapse="settings.mode !== 'mixbar' && localeSettings.collapse"
             :data="mixMenus"
             @select="handleSelect"
+            :active-text-color="settings.theme"
           >
           </Menu>
         </el-scrollbar>
@@ -45,6 +49,7 @@
             :collapse="localeSettings.collapse"
             :data="getSubMenus(menus)"
             @select="handleSelect"
+            :active-text-color="settings.theme"
           >
           </Menu>
         </el-scrollbar>
@@ -70,13 +75,13 @@
           mode="horizontal"
           :data="settings?.mode === 'mix' ? getTopMenus(menus) : menus"
           @select="handleSelect"
+          :active-text-color="settings.theme"
         ></Menu>
       </Header>
       <div class="overflow-y-auto h-full">
         <router-view></router-view>
       </div>
     </div>
-
 
     <el-drawer
       :style="{
@@ -93,6 +98,7 @@
         text-color="#b8b8b8"
         :data="menus"
         @select="handleSelect"
+        :active-text-color="settings?.theme"
       >
       </Menu>
     </el-drawer>
@@ -206,7 +212,6 @@ const isFullIcons = computed(() => {
     (item) => typeof item.meta?.icon !== 'undefined' && item.meta.icon
   )
 })
-
 
 const menuWidth = computed(() => {
   return settings.value ? settings.value.menuWidth : 240

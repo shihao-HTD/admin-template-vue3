@@ -8,7 +8,7 @@
       :icon="collapseModel ? 'ep:expand' : 'ep:fold'"
     ></Iconify>
 
-    <Breadcrumb></Breadcrumb>
+    <Breadcrumb v-if="!['mix', 'top'].includes(settings?.mode || '')"></Breadcrumb>
     <!--    右侧-->
 
     <div class="relative overflow-x-hidden flex-grow">
