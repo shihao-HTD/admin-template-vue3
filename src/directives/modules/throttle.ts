@@ -19,7 +19,7 @@ const directive: Directive = {
     el.__handleClick = handleClick
   },
   beforeUnmount(el) {
-    el.removeEventListener('click')
+    el.removeEventListener('click',el.__handleClick)
   }
 }
 
