@@ -16,6 +16,7 @@ declare module 'vue' {
     DropDown: typeof import('./src/components/Menu/DropDown.vue')['default']
     FullScreen: typeof import('./src/components/Themes/FullScreen.vue')['default']
     Header: typeof import('./src/components/Layouts/Header.vue')['default']
+    HeaderTabs: typeof import('./src/components/Layouts/HeaderTabs.vue')['default']
     IconfontIcon: typeof import('./src/components/Icon/IconfontIcon.vue')['default']
     Iconify: typeof import('./src/components/Icon/Iconify.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']

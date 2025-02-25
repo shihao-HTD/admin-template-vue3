@@ -78,6 +78,8 @@
           :active-text-color="settings.theme"
         ></Menu>
       </Header>
+      <HeaderTabs :data="tabsStore.tabs"></HeaderTabs>
+
       <div class="overflow-y-auto h-full">
         <router-view></router-view>
       </div>
@@ -113,7 +115,7 @@ import Header from '@/components/Layouts/Header.vue'
 import type { DropDownMenuItem, ThemeSettingsProps } from '@/components/Themes/type'
 import type { HeaderProps } from '@/components/Layouts/type'
 import { useMenu } from '@/components/Menu/useMenu'
-import { darken } from '@/utils'
+import { useTabsStore } from '@/store/tabs'
 
 interface ThemeSettingsOption extends HeaderProps {
   menuWidth?: number | string
@@ -121,6 +123,8 @@ interface ThemeSettingsOption extends HeaderProps {
   avatar: string
   avatarMenu: DropDownMenuItem[]
 }
+const route = useRoute()
+const tabsStore = useTabsStore()
 
 const localeSettings = reactive<ThemeSettingsOption>({
   locales: [
@@ -206,6 +210,17 @@ function generateMenuData(routes: RouteRecordRaw[]): AppRouteMenuItem[] {
 const { getTopMenus, getSubMenus } = useMenu()
 
 onMounted(() => {})
+
+watch(
+  route,
+  () => {
+    tabsStore.addRoute(route)
+    tabsStore.current = route.name
+  },
+  {
+    immediate: true
+  }
+)
 
 const isFullIcons = computed(() => {
   return getSubMenus(menus.value).every(
