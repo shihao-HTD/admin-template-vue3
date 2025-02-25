@@ -17,6 +17,13 @@
   "pages": {
     "about": "About Us",
     "components": "Components",
+    "directive-copy": "v-copy",
+    "directive-debounce-throttle": "v-debounce&v-throttle",
+    "directive-drag": "v-draggable",
+    "directive-flash": "v-flash",
+    "directive-longpress": "v-longpress",
+    "directive-watermark": "v-watermark",
+    "directives": "Directives",
     "form-basic": "pages.form-basic",
     "forms": "pages.forms",
     "head-message": "Head Messages",

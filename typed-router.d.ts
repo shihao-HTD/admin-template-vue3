@@ -55,6 +55,13 @@ declare module 'vue-router/auto/routes' {
     '/components/table/high': RouteRecordInfo<'/components/table/high', '/components/table/high', Record<never, never>, Record<never, never>>,
     '/components/table/Popover': RouteRecordInfo<'/components/table/Popover', '/components/table/Popover', Record<never, never>, Record<never, never>>,
     '/components/table/select': RouteRecordInfo<'/components/table/select', '/components/table/select', Record<never, never>, Record<never, never>>,
+    '/directives': RouteRecordInfo<'/directives', '/directives', Record<never, never>, Record<never, never>>,
+    '/directives/copy': RouteRecordInfo<'/directives/copy', '/directives/copy', Record<never, never>, Record<never, never>>,
+    '/directives/debounce&throttle': RouteRecordInfo<'/directives/debounce&throttle', '/directives/debounce&throttle', Record<never, never>, Record<never, never>>,
+    '/directives/draggable': RouteRecordInfo<'/directives/draggable', '/directives/draggable', Record<never, never>, Record<never, never>>,
+    '/directives/flash': RouteRecordInfo<'/directives/flash', '/directives/flash', Record<never, never>, Record<never, never>>,
+    '/directives/long-press': RouteRecordInfo<'/directives/long-press', '/directives/long-press', Record<never, never>, Record<never, never>>,
+    '/directives/watermark': RouteRecordInfo<'/directives/watermark', '/directives/watermark', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
   }
 }
