@@ -6,7 +6,7 @@
       {{ formValue }}
     </div>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit">Create</el-button>
+      <el-button type="primary" @click="test">Create</el-button>
       <el-button>Cancel</el-button>
     </el-form-item>
   </div>
@@ -22,6 +22,17 @@ definePage({
     icon: 'fluent:form-multiple-28-regular'
   }
 })
+
+const newSchema = ref([
+  { prop: 'name1', value: '', type: 'input' },
+  { prop: 'name2', value: '', type: 'input' },
+  { prop: 'name3', value: '', type: 'input' }
+])
+
+function test() {
+  const arr1 = schema.value.concat(newSchema.value as any)
+  schema.value = arr1
+}
 
 const schema = ref([
   { prop: 'name', value: '', label: 'Activity name', type: 'input' },
