@@ -21,6 +21,9 @@ export const useTabsStore = defineStore('tabs', {
       this.tabs.push({
         ...route
       })
+    },
+    removeRoute(path: string) {
+      this.tabs = this.tabs.filter((item) => item.name !== path)
     }
   },
   persist: true

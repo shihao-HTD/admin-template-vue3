@@ -81,6 +81,7 @@
       <HeaderTabs
         v-model="tabsStore.current"
         @tabClick="handleTabClick"
+        @tabRemove="handleTabRemove"
         :data="tabsStore.tabs"
       ></HeaderTabs>
 
@@ -272,6 +273,21 @@ function handleTabClick(tab) {
   const { index } = tab
   const route = tabsStore.tabs[index] as AppRouteMenuItem
   router.push(route.name as string)
+}
+
+function handleTabRemove(tab) {
+  tabsStore.removeRoute(tab)
+  if (tabsStore.current === tab) {
+    if (tabsStore.tabs.length !== 0) {
+      tabsStore.current = tabsStore.tabs[0].name as string
+    } else {
+      // 用户删除了最后一个tab
+      const tmpRoute = menus.value.filter((item) => item.path === '/')[0]
+      tabsStore.addRoute(tmpRoute)
+      tabsStore.current = tmpRoute.name as string
+    }
+    router.push(tabsStore.current)
+  }
 }
 </script>
 
