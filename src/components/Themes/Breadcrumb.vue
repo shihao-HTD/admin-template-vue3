@@ -14,6 +14,8 @@
 const ArrowRight = <i class="i-ep:arrow-right"></i>
 const route = useRoute()
 
+
+
 const breadcrumbData = ref<any[]>([])
 
 function getBreadcrumbData() {
