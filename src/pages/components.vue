@@ -7,7 +7,8 @@ definePage({
   meta: {
     title: 'pages.components',
     icon: 'mdi:user'
-  }
+  },
+  redirect: '/components/icon/ep-icon-list'
 })
 </script>
 
