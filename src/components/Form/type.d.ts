@@ -27,6 +27,11 @@ export interface FormItemProp extends FormItemProps {
   children?: any[]
   schema?: FormSchema
   rules?: FormItemRule[]
+  slots?: {
+    default: typeof Component
+    label: typeof Component
+    error: typeof Component
+  }
 }
 
 export type FormSchema = FormItemProp[]
