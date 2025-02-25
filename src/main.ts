@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import I18n from "@/modules/i18n"
+import I18n from '@/modules/i18n'
 import './assets/main.css'
 // import 'reset-css'
 // import '@unocss/reset/normalize.css'
@@ -16,11 +16,11 @@ import 'element-plus/dist/index.css'
 
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import ElementPlus from 'element-plus'
-
+import { setupDirectives } from '@/directives'
 
 const app = createApp(App)
 
-
+setupDirectives(app)
 
 app.use(ElementPlus)
 
