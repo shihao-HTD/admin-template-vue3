@@ -1,14 +1,7 @@
 <template>
   <div>
-    <v-form v-model="model" :schema="schema"></v-form>
-
-    <div>
-      {{ formValue }}
-    </div>
-    <el-form-item>
-      <el-button type="primary" @click="test">Create</el-button>
-      <el-button>Cancel</el-button>
-    </el-form-item>
+    <VForm v-model="model" :schema="schema"></VForm>
+    {{ formValue }}
   </div>
 </template>
 
@@ -23,24 +16,28 @@ definePage({
   }
 })
 
-const newSchema = ref([
-  { prop: 'name1', value: '', type: 'input' },
-  { prop: 'name2', value: '', type: 'input' },
-  { prop: 'name3', value: '', type: 'input' }
-])
-
-function test() {
-  const arr1 = schema.value.concat(newSchema.value as any)
-  schema.value = arr1
-}
-
 const schema = ref([
-  { prop: 'name', value: '', label: 'Activity name', type: 'input' },
+  {
+    prop: 'name',
+    value: '',
+    label: 'Activity name',
+    type: 'input',
+    rules: [
+      { required: true, message: 'Please input Activity name', trigger: 'blur' },
+      { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
+    ]
+  },
   {
     prop: 'region',
     value: '',
     label: 'Activity zone',
     type: 'select',
+    rules: [
+      {
+        required: true,
+        message: 'Please select Activity zone'
+      }
+    ],
     children: [
       {
         label: 'Zone one',
@@ -68,7 +65,15 @@ const schema = ref([
           style: {
             width: '100%'
           }
-        }
+        },
+        rules: [
+          {
+            type: 'date',
+            required: true,
+            message: 'Please pick a date',
+            trigger: 'change'
+          }
+        ]
       },
       {
         span: 2,
@@ -88,7 +93,15 @@ const schema = ref([
           style: {
             width: '100%'
           }
-        }
+        },
+        rules: [
+          {
+            type: 'date',
+            required: true,
+            message: 'Please pick a time',
+            trigger: 'change'
+          }
+        ]
       }
     ]
   },
@@ -98,6 +111,14 @@ const schema = ref([
     value: [],
     label: 'Activity type',
     type: 'checkbox',
+    rules: [
+      {
+        type: 'array',
+        required: true,
+        message: 'Please select at least one activity type',
+        trigger: 'change'
+      }
+    ],
     children: [
       {
         label: 'Online activities',
@@ -131,6 +152,13 @@ const schema = ref([
         label: 'Venue',
         value: 2
       }
+    ],
+    rules: [
+      {
+        required: true,
+        message: 'Please select activity resource',
+        trigger: 'change'
+      }
     ]
   },
   {
@@ -139,15 +167,14 @@ const schema = ref([
     value: '',
     attrs: {
       type: 'textarea'
-    }
+    },
+    rules: [{ required: true, message: 'Please input activity form', trigger: 'blur' }]
   }
 ] as FormSchema)
 
 const { model, formValue } = useForm(schema.value)
 
-const onSubmit = () => {
-  console.log('submit!')
-}
+// do not use same name with ref
 </script>
 
 <style scoped></style>

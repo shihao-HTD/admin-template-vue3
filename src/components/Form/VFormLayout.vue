@@ -22,7 +22,12 @@
 import type { FormItemProp } from './type'
 import VFormItem from './VFormItem.vue'
 
-const props = defineProps<FormItemProp>()
+const props = withDefaults(defineProps<FormItemProp>(), {
+  showMessage: true,
+  labelWidth: '',
+  inlineMessage: '',
+  required: undefined
+})
 
 const modelValue = defineModel()
 </script>

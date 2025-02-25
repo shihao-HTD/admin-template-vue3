@@ -1,5 +1,5 @@
 <template>
-  <el-form v-bind="props">
+  <el-form ref="tableFormRef" v-bind="props" :rules="rules" :model="model">
     <slot name="default">
       <template v-if="schema && schema.length">
         <VFormLayout
@@ -12,6 +12,11 @@
         </VFormLayout>
       </template>
     </slot>
+
+    <el-form-item>
+      <el-button type="primary" @click="onSubmit">Create</el-button>
+      <el-button>Cancel</el-button>
+    </el-form-item>
   </el-form>
 </template>
 
@@ -20,22 +25,24 @@ import VFormLayout from './VFormLayout.vue'
 
 import type { VFormProps } from '@/components/Form/type'
 import { useForm } from '@/components/Form/useForm'
+import type { FormInstance } from 'element-plus'
 
 const props = withDefaults(defineProps<VFormProps>(), {
   inline: false,
-  'label-position': 'right',
-  'hide-required-asterisk': false,
-  'require-asterisk-position': 'left',
-  'show-message': true,
-  'inline-message': false,
-  'status-icon': false,
-  'validate-on-rule-change': true,
-  disabled: false,
-  'scroll-to-error': false
+  labelPosition: 'right',
+  hideRequiredAsterisk: false,
+  requireAsteriskPosition: 'left',
+  showMessage: true,
+  inlineMessage: false,
+  statusIcon: false,
+  validateOnRuleChange: true,
+  scrollToError: false,
+  disabled: false
 })
 const emits = defineEmits(['update:modelValue'])
 
-const { model } = useForm(props.schema || [])
+const { model, rules } = useForm(props.schema || [])
+const tableFormRef = ref<FormInstance>()
 
 watch(
   model,
@@ -46,6 +53,11 @@ watch(
     deep: true
   }
 )
+
+async function onSubmit() {
+  console.log('submit')
+  tableFormRef.value?.validate()
+}
 </script>
 
 <style scoped></style>

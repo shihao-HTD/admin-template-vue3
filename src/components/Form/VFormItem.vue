@@ -43,12 +43,21 @@
 <script setup lang="ts">
 import type { FormItemProp } from './type'
 
-const props = defineProps<FormItemProp>()
+const props = withDefaults(defineProps<FormItemProp>(), {
+  showMessage: true,
+  labelWidth: '',
+  inlineMessage: '',
+  required: undefined
+})
 
 const modelValue = defineModel('modelValue')
 
 onBeforeMount(() => {
-  modelValue.value = props.value
+  if (props.type === 'select' && props.value === '') {
+    modelValue.value = undefined
+  } else {
+    modelValue.value = props.value
+  }
 })
 </script>
 

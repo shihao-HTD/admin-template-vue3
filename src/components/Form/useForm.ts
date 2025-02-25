@@ -3,8 +3,11 @@ import type { FormSchema } from './type.d.ts'
 export function useForm(schema: FormSchema) {
   const model = ref<any>()
 
+  const rules = ref<any>()
+
   onBeforeMount(() => {
     model.value = setForm(schema || [])
+    rules.value = setRules(schema || [])
   })
   function setForm(arr: any[], level = 0) {
     const obj = {}
@@ -23,6 +26,20 @@ export function useForm(schema: FormSchema) {
       }
     })
     return obj
+  }
+
+  function setRules(arr: FormSchema) {
+    let formRules = {}
+    arr.forEach((item) => {
+      if (item.prop && item.rules) {
+        formRules[item.prop] = item.rules
+      }
+      if (item.schema && item.schema.length) {
+        formRules = { ...formRules, ...setRules(item.schema) }
+      }
+    })
+
+    return formRules
   }
 
   function flatObj(obj) {
@@ -47,6 +64,7 @@ export function useForm(schema: FormSchema) {
 
   return {
     model,
+    rules,
     setForm,
     formValue: computed(() => flatObj(model.value))
   }
