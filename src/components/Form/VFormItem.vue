@@ -5,8 +5,8 @@
     </template>
 
     <template #default v-else>
-      <el-input v-if="type === 'input'" v-model="modelValue" v-bind="attrs" />
-      <el-select v-else-if="type === 'select'" v-model="modelValue" v-bind="attrs">
+      <el-input v-if="type === 'input'" v-model="modelValue" v-bind="attrs" v-on="events" />
+      <el-select v-else-if="type === 'select'" v-model="modelValue" v-bind="attrs" v-on="events">
         <el-option
           :label="item.label"
           :value="item.value"
@@ -21,13 +21,20 @@
         v-model="modelValue"
         type="date"
         v-bind="attrs"
+        v-on="events"
       />
 
-      <el-time-picker v-else-if="type === 'time-picker'" v-model="modelValue" v-bind="attrs" />
+      <el-time-picker
+        v-else-if="type === 'time-picker'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+      />
 
       <el-switch v-else-if="type === 'switch'" v-model="modelValue" />
       <el-checkbox-group v-else-if="type === 'checkbox'" v-model="modelValue" v-bind="attrs">
         <el-checkbox
+          v-on="events"
           :label="item.label"
           :value="item.value"
           v-bind="item"
@@ -35,7 +42,12 @@
           :key="index"
         />
       </el-checkbox-group>
-      <el-radio-group v-else-if="type === 'radio'" v-model="modelValue" v-bind="attrs">
+      <el-radio-group
+        v-else-if="type === 'radio'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+      >
         <el-radio
           :value="item.value"
           v-bind="item"
@@ -44,6 +56,19 @@
           >{{ item.label }}</el-radio
         >
       </el-radio-group>
+
+      <el-autocomplete
+        v-else-if="type === 'autocomplete'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+      ></el-autocomplete>
+      <el-cascader
+        v-else-if="type === 'cascader'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+      />
 
       <span v-else v-bind="attrs">{{ value }}</span>
     </template>
