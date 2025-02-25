@@ -3,7 +3,7 @@
     <el-button v-debounce="test">test</el-button>
     <el-button v-throttle="test">test2</el-button>
 
-    <el-button type="primary" v-has="['admin']">BTN</el-button>
+    <el-button type="primary" v-has.not="['admin']">BTN</el-button>
     <el-button type="primary" @click="handleClick">add roles</el-button>
   </div>
 </template>

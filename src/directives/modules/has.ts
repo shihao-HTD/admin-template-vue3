@@ -8,11 +8,14 @@ const directive: Directive = {
 
     const { modifiers } = binding
 
-    const not = modifiers.not
+    const keys = Object.keys(modifiers)
+    const attribute = keys.find((item) => item !== 'not') || 'roles'
 
     const checkPermission = () => {
       if (typeof values === 'string') {
-        const flag = not ? store.roles.includes(values) : !store.roles.includes(values)
+        const flag = binding.modifiers.not
+          ? store[attribute].includes(values)
+          : !store[attribute].includes(values)
         if (flag) {
           el.style.display = 'none'
         } else {
@@ -20,9 +23,9 @@ const directive: Directive = {
         }
       }
       if (Array.isArray(values)) {
-        const flag = not
-          ? values.some((item) => store.roles.includes(item))
-          : !values.some((item) => store.roles.includes(item))
+        const flag = binding.modifiers.not
+          ? values.some((item) => store[attribute].includes(item))
+          : !values.some((item) => store[attribute].includes(item))
 
         if (flag) {
           el.style.display = 'none'
@@ -36,8 +39,7 @@ const directive: Directive = {
 
     store.$subscribe(
       (mutation, state) => {
-        console.log('=>(has.ts:48) mutation', mutation)
-        if ((mutation.events as any).key === 'roles') {
+        if ((mutation.events as any).key === attribute) {
           checkPermission()
         }
       },
