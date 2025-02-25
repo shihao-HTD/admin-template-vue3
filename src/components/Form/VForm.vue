@@ -6,7 +6,7 @@
           v-bind="item"
           v-for="(item, index) in schema"
           :key="index"
-          v-model="form[item.prop as string]"
+          v-model="model[item.prop as string]"
         >
           {{ item }}
         </VFormLayout>
@@ -19,6 +19,7 @@
 import VFormLayout from './VFormLayout.vue'
 
 import type { VFormProps } from '@/components/Form/type'
+import { useForm } from '@/components/Form/useForm'
 
 const props = withDefaults(defineProps<VFormProps>(), {
   inline: false,
@@ -34,35 +35,12 @@ const props = withDefaults(defineProps<VFormProps>(), {
 })
 const emits = defineEmits(['update:modelValue'])
 
-const form = ref<any>()
-
-function setForm(arr: any[], level = 0) {
-  const obj = {}
-  let i = 0
-  arr.forEach((item) => {
-    if (!item.prop) {
-      item.prop = `form${level}-${i}`
-    }
-    if (item.value) {
-      obj[item.prop] = item.value
-    } else if (item.schema && item.schema.length) {
-      obj[item.prop] = setForm(item.schema, level + 1)
-      i++
-    } else {
-      obj[item.prop] = undefined
-    }
-  })
-  return obj
-}
-
-onBeforeMount(() => {
-  form.value = setForm(props?.schema || [])
-})
+const { model } = useForm(props.schema || [])
 
 watch(
-  form,
+  model,
   () => {
-    emits('update:modelValue', form.value)
+    emits('update:modelValue', model.value)
   },
   {
     deep: true

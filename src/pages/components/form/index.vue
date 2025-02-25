@@ -1,7 +1,10 @@
 <template>
   <div>
-    <v-form :model="form" :schema="schema"></v-form>
+    <v-form v-model="model" :schema="schema"></v-form>
 
+    <div>
+      {{ formValue }}
+    </div>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">Create</el-button>
       <el-button>Cancel</el-button>
@@ -11,6 +14,7 @@
 
 <script setup lang="ts">
 import type { FormSchema } from '@/components/Form/type'
+import { useForm } from '@/components/Form/useForm'
 
 definePage({
   meta: {
@@ -128,17 +132,7 @@ const schema = ref([
   }
 ] as FormSchema)
 
-// do not use same name with ref
-const form = reactive({
-  name: '',
-  region: '',
-  date1: '',
-  date2: '',
-  delivery: false,
-  type: [],
-  resource: '',
-  desc: ''
-})
+const { model, formValue } = useForm(schema.value)
 
 const onSubmit = () => {
   console.log('submit!')
