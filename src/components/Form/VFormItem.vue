@@ -1,12 +1,65 @@
 <template>
-  <el-form-item ref="formItemRef" v-bind="props">
-    <template #default v-if="props?.defaultSlot">
-      <component :is="props?.defaultSlot" v-bind="props"></component>
+  <el-form-item
+    v-bind="props"
+    :ref="(ref) => props?.itemRef && props.itemRef(ref as FormItemInstance)"
+  >
+    <template v-if="props?.prefixSlot">
+      <component :is="props.prefixSlot" v-bind="props"></component>
     </template>
-
+    <template #default v-if="props?.defaultSlot">
+      <component :is="props.defaultSlot" v-bind="props"></component>
+    </template>
     <template #default v-else>
-      <el-input v-if="type === 'input'" v-model="modelValue" v-bind="attrs" v-on="events" />
-      <el-select v-else-if="type === 'select'" v-model="modelValue" v-bind="attrs" v-on="events">
+      <!-- <el-input
+        v-if="type === 'input'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+        :ref="(ref) => props.childRef && props.childRef(ref)"
+      /> -->
+      <!-- <el-input-number
+        v-if="type === 'input-number'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+        :ref="(ref) => props.childRef && props.childRef(ref)"
+      />
+      <el-rate
+        v-if="type === 'rate'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+        :ref="(ref) => props.childRef && props.childRef(ref)"
+      />
+      <el-slider v-if="type === 'slider'" v-model="modelValue" v-bind="attrs" v-on="events" />
+      <el-calendar v-if="type === 'calendar'" v-model="modelValue" v-bind="attrs" v-on="events" />
+      <el-date-picker
+        v-else-if="type === 'date-picker'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+      />
+      <el-tree-select
+        v-else-if="type === 'tree-select'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+      />
+      <el-time-picker
+        v-else-if="type === 'time-picker'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+        :ref="(ref) => props.childRef && props.childRef(ref)"
+      />
+      <el-switch
+        v-else-if="type === 'switch'"
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+        :ref="(ref) => props.childRef && props.childRef(ref)"
+      /> -->
+      <el-select v-if="type === 'select'" v-model="modelValue" v-bind="attrs" v-on="events">
         <el-option
           :label="item.label"
           :value="item.value"
@@ -15,29 +68,12 @@
           :key="index"
         />
       </el-select>
-
-      <el-date-picker
-        v-else-if="type === 'date-picker'"
-        v-model="modelValue"
-        type="date"
-        v-bind="attrs"
-        v-on="events"
-      />
-
-      <el-time-picker
-        v-else-if="type === 'time-picker'"
-        v-model="modelValue"
-        v-bind="attrs"
-        v-on="events"
-      />
-
-      <el-switch v-else-if="type === 'switch'" v-model="modelValue" />
       <el-checkbox-group v-else-if="type === 'checkbox'" v-model="modelValue" v-bind="attrs">
         <el-checkbox
-          v-on="events"
           :label="item.label"
           :value="item.value"
           v-bind="item"
+          v-on="events"
           v-for="(item, index) in children"
           :key="index"
         />
@@ -48,44 +84,54 @@
         v-bind="attrs"
         v-on="events"
       >
-        <el-radio
-          :value="item.value"
-          v-bind="item"
-          v-for="(item, index) in children"
-          :key="index"
-          >{{ item.label }}</el-radio
-        >
+        <el-radio v-for="(item, index) in children" :key="index" :label="item.value">{{
+            item.label
+          }}</el-radio>
       </el-radio-group>
-
-      <el-autocomplete
+      <!-- <el-autocomplete
         v-else-if="type === 'autocomplete'"
         v-model="modelValue"
         v-bind="attrs"
         v-on="events"
+        :ref="(ref) => props.childRef && props.childRef(ref)"
       ></el-autocomplete>
       <el-cascader
         v-else-if="type === 'cascader'"
         v-model="modelValue"
         v-bind="attrs"
         v-on="events"
+        :ref="(ref) => props.childRef && props.childRef(ref)"
+      /> -->
+      <component
+        :is="'el-' + type"
+        v-else-if="
+          !['checkbox', 'radio', 'select'].includes(type) &&
+          typeof type !== 'undefined' &&
+          type !== ''
+        "
+        v-model="modelValue"
+        v-bind="attrs"
+        v-on="events"
+        :ref="(ref) => props.childRef && props.childRef(ref)"
       />
-
       <span v-else v-bind="attrs">{{ value }}</span>
     </template>
-
-    <template #label="scope" v-if="props?.labelSlot">
-      <component :is="props?.labelSlot" v-bind="scope"></component>
+    <template v-if="props?.suffixSlot">
+      <component :is="props.suffixSlot" v-bind="props"></component>
     </template>
-    <template #error="scope" v-if="props?.errorSlot">
-      <component :is="props?.errorSlot" v-bind="scope"></component>
+    <template #label="scope" v-if="props?.labelSlot">
+      <component :is="props.labelSlot" v-bind="scope"></component>
+    </template>
+    <template #error="scope" v-if="props.errorSlot">
+      <component :is="props.errorSlot" v-bind="scope"></component>
     </template>
   </el-form-item>
 </template>
 
 <script setup lang="ts">
-import type { FormItemProp } from './type'
+// import { exposeEventsUtils } from '@/utils/format'
+import type { FormItemProp } from './type.d.ts'
 import type { FormItemInstance } from 'element-plus'
-import { exposeEventsUtils } from '@/utils/format'
 
 const props = withDefaults(defineProps<FormItemProp>(), {
   showMessage: true,
@@ -94,38 +140,36 @@ const props = withDefaults(defineProps<FormItemProp>(), {
   required: undefined
 })
 
-const modelValue = defineModel('modelValue')
-const formItemRef = ref<FormItemInstance>()
+// const formItemRef = ref<FormItemInstance>()
 
-const exposeEvents = [
-  'size',
-  'validateMessage',
-  'validateStatus',
-  'validate',
-  'clearValidate',
-  'resetFields'
-]
+// const exposeEvents = [
+//   'size',
+//   'validateMessage',
+//   'validateStatus',
+//   'validate',
+//   'clearValidate',
+//   'resetFields'
+// ]
 
-const exposes = exposeEventsUtils(formItemRef, exposeEvents)
+const modelValue = defineModel()
+// const exposes = exposeEventsUtils(formItemRef, exposeEvents)
 
-defineExpose({
-  ...exposes
-})
+// defineExpose({ ...exposes })
 
 onBeforeMount(() => {
+  // 针对于select类型，如果value为空串，则改成undefined
   if (props.type === 'select' && props.value === '') {
     modelValue.value = undefined
   } else {
     modelValue.value = props.value
   }
 })
-onMounted(() => {})
 
-watch(formItemRef, () => {
-  if (formItemRef.value && props.itemRef) {
-    props.itemRef(formItemRef.value)
-  }
-})
+// watch(formItemRef, () => {
+//   if (formItemRef.value && props?.itemRef) {
+//     props.itemRef(formItemRef.value)
+//   }
+// })
 </script>
 
 <style scoped></style>

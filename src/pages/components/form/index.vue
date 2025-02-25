@@ -1,8 +1,11 @@
 <template>
   <div>
-    <VForm ref="formRef" v-model="model" :schema="schema">
+    <VForm v-model="model" :schema="schema" ref="formRef">
       <template #actions>
-        <el-button @click="onSubmit" type="primary"> create </el-button>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">Create</el-button>
+          <el-button @click="onCancel">Cancel</el-button>
+        </el-form-item>
       </template>
     </VForm>
     {{ formValue }}
@@ -12,7 +15,7 @@
 <script setup lang="ts">
 import type { FormSchema } from '@/components/Form/type'
 import { useForm } from '@/components/Form/useForm'
-import type { FormInstance } from 'element-plus'
+import type { FormInstance, FormItemInstance } from 'element-plus'
 
 definePage({
   meta: {
@@ -20,8 +23,8 @@ definePage({
     icon: 'fluent:form-multiple-28-regular'
   }
 })
-
 const formRef = ref<FormInstance>()
+const formItemRef = ref<FormItemInstance>()
 
 const schema = ref([
   {
@@ -33,8 +36,8 @@ const schema = ref([
       { required: true, message: 'Please input Activity name', trigger: 'blur' },
       { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
     ],
-    itemRef(ref) {
-      console.log('=>(index.vue:37) ref', ref)
+    itemRef: (ref: FormItemInstance) => {
+      formItemRef.value = ref
     }
   },
   {
@@ -116,6 +119,12 @@ const schema = ref([
     ]
   },
   { prop: 'delivery', value: false, label: 'Instant delivery', type: 'switch' },
+  {
+    type: 'rate',
+    prop: 'rate',
+    value: '',
+    label: 'Rate'
+  },
   {
     prop: 'type',
     value: [],
@@ -463,12 +472,15 @@ const schema = ref([
 
 const { model, formValue } = useForm(schema.value)
 
-function onSubmit() {
-  console.log('submit')
+const onSubmit = () => {
   formRef.value?.validate()
+  console.log('submit!')
 }
 
-// do not use same name with ref
+const onCancel = () => {
+  formItemRef.value?.clearValidate()
+  console.log('cancel!', formItemRef.value?.size)
+}
 </script>
 
 <style scoped></style>

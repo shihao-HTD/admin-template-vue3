@@ -1,43 +1,86 @@
 import type { IconifyIcon } from '@iconify/vue'
 import type {
-  ColProps,
-  FormItemInstance,
-  FormItemProps,
-  FormItemRule,
+  FormProps,
   FormMetaProps,
-  FormProps
+  FormItemProps,
+  ColProps,
+  FormItemRule,
+  FormItemInstance
 } from 'element-plus'
 
-export interface LoginItems {
+// 适用于第三方登录的
+export interface LoginItem {
+  icon: IconifyIcon | string
   url: string
-  icon: string | IconifyIcon
 }
 
 export interface LoginFormProps {
-  position?: 'left' | 'right' | 'center'
+  position?: 'left' | 'center' | 'right'
   title?: string
-  loginItems: LoginItems[]
+  loginItems?: LoginItem[]
 }
 
 export type NewFormProps = FormProps & FormMetaProps
 
-export interface FormItemProp extends FormItemProps {
+export type ComponentType =
+  | 'input'
+  | 'button'
+  | 'input-number'
+  | 'select'
+  | 'option'
+  | 'text'
+  | 'link'
+  | 'rate'
+  | 'slider'
+  | 'switch'
+  | 'checkbox'
+  | 'checkbox-group'
+  | 'radio'
+  | 'radio-button'
+  | 'radio-group'
+  | 'cascader'
+  | 'color-picker'
+  | 'time-picker'
+  | 'time-select'
+  | 'date-picker'
+  | 'transfer'
+  | 'avatar'
+  | 'image'
+  | 'progress'
+  | 'tag'
+  | 'timeline'
+  | 'tree'
+  | 'steps'
+  | 'step'
+  | ''
+  | undefined
+
+export interface FormItemProp extends Partial<FormItemProps> {
   prop?: string
-  type?: string
+  type?: ComponentType
   // 事件
   events?: any
-  // 扩展
-  attrs: any
+  // 扩展属性
+  attrs?: any
   span?: number
   colProps?: ColProps
-  value?: string
+  value?: any
   children?: any[]
   schema?: FormSchema
   rules?: FormItemRule[]
-  defaultSlot: typeof Component
-  labelSlot: typeof Component
-  errorSlot: typeof Component
+  defaultSlot?: typeof Component
+  labelSlot?: typeof Component
+  errorSlot?: typeof Component
+  prefixSlot?: typeof Component
+  suffixSlot?: typeof Component
+  // slots?: {
+  //   default: typeof Component
+  //   label: typeof Component
+  //   error: typeof Component
+  // }
+  // itemRef
   itemRef?: (ref: FormItemInstance) => void
+  childRef?: (ref: any) => void
 }
 
 export type FormSchema = FormItemProp[]

@@ -58,7 +58,7 @@
 
 <script setup lang="tsx">
 import Iconify from '@/components/Icon/Iconify.vue'
-import type { LoginFormProps, LoginItems } from '@/components/Form/type'
+import type { LoginFormProps, LoginItem } from '@/components/Form/type'
 import type { FormInstance, FormRules } from 'element-plus'
 function getIcon(icon: string) {
   return () => <Iconify icon={icon} />
@@ -160,7 +160,7 @@ async function onSubmit() {
   }
 }
 
-function handleClickItem(item: LoginItems) {
+function handleClickItem(item: LoginItem) {
   emits('clickIcon', item)
 }
 </script>

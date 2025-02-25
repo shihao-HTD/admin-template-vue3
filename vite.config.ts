@@ -15,7 +15,6 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import Layouts from 'vite-plugin-vue-layouts'
 import UnoCSS from 'unocss/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 import { VitePWA } from 'vite-plugin-pwa'
 
@@ -81,12 +80,12 @@ export default defineConfig({
         VueRouterAutoImports,
         '@vueuse/core'
       ],
-      resolvers: [ElementPlusResolver()]
+      // resolvers: [ElementPlusResolver()]
     }),
     Components({
       directoryAsNamespace: false,
       collapseSamePrefixes: true,
-      resolvers: [ElementPlusResolver()]
+      // resolvers: [ElementPlusResolver()]
     }),
     Layouts({
       layoutsDirs: 'src/layouts',
