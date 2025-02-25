@@ -26,6 +26,8 @@ export function exposeEventsUtils(ref: Ref<any>, arr: string[]) {
     exposeMethods[exposeName] = (...args: any[]) => {
       if (ref.value && typeof ref.value[exposeName] === 'function') {
         return ref.value[exposeName](...args)
+      } else {
+        return ref.value[exposeName]
       }
     }
   })

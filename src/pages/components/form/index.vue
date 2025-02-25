@@ -32,7 +32,10 @@ const schema = ref([
     rules: [
       { required: true, message: 'Please input Activity name', trigger: 'blur' },
       { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' }
-    ]
+    ],
+    itemRef(ref) {
+      console.log("=>(index.vue:37) ref", ref);
+    }
   },
   {
     prop: 'region',

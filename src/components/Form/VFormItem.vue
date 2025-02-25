@@ -1,7 +1,7 @@
 <template>
-  <el-form-item v-bind="props">
-    <template #default v-if="props.slots?.default">
-      <component :is="props.slots?.default" v-bind="props"></component>
+  <el-form-item ref="formItemRef" v-bind="props">
+    <template #default v-if="props?.defaultSlot">
+      <component :is="props?.defaultSlot" v-bind="props"></component>
     </template>
 
     <template #default v-else>
@@ -48,17 +48,19 @@
       <span v-else v-bind="attrs">{{ value }}</span>
     </template>
 
-    <template #label="scope" v-if="props.slots?.label">
-      <component :is="props.slots.label" v-bind="scope"></component>
+    <template #label="scope" v-if="props?.labelSlot">
+      <component :is="props?.labelSlot" v-bind="scope"></component>
     </template>
-    <template #error="scope" v-if="props.slots?.error">
-      <component :is="props.slots.error" v-bind="scope"></component>
+    <template #error="scope" v-if="props?.errorSlot">
+      <component :is="props?.errorSlot" v-bind="scope"></component>
     </template>
   </el-form-item>
 </template>
 
 <script setup lang="ts">
 import type { FormItemProp } from './type'
+import type { FormItemInstance } from 'element-plus'
+import { exposeEventsUtils } from '@/utils/format'
 
 const props = withDefaults(defineProps<FormItemProp>(), {
   showMessage: true,
@@ -68,12 +70,35 @@ const props = withDefaults(defineProps<FormItemProp>(), {
 })
 
 const modelValue = defineModel('modelValue')
+const formItemRef = ref<FormItemInstance>()
+
+const exposeEvents = [
+  'size',
+  'validateMessage',
+  'validateStatus',
+  'validate',
+  'clearValidate',
+  'resetFields'
+]
+
+const exposes = exposeEventsUtils(formItemRef, exposeEvents)
+
+defineExpose({
+  ...exposes
+})
 
 onBeforeMount(() => {
   if (props.type === 'select' && props.value === '') {
     modelValue.value = undefined
   } else {
     modelValue.value = props.value
+  }
+})
+onMounted(() => {})
+
+watch(formItemRef, () => {
+  if (formItemRef.value && props.itemRef) {
+    props.itemRef(formItemRef.value)
   }
 })
 </script>
