@@ -7,11 +7,11 @@ interface TabsStoreType {
 }
 
 export const useTabsStore = defineStore('tabs', {
-  state() {
+  state(): TabsStoreType {
     return {
       tabs: [],
       current: ''
-    } as TabsStoreType
+    }
   },
   actions: {
     addRoute(route: AppRouteMenuItem) {
@@ -22,5 +22,6 @@ export const useTabsStore = defineStore('tabs', {
         ...route
       })
     }
-  }
+  },
+  persist: true
 })

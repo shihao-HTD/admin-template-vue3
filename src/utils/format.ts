@@ -6,7 +6,7 @@ export function kebabToCamel(str: string): string {
   })
 }
 
-export function forwardEventsUtils(emits: any, arr: string[], prefix?: string) {
+export function forwardEventsUtils(emits: any, arr: string[], prefix: string = '') {
   const forwardEvents: Record<string, (...args: any) => void> = {}
 
   arr.forEach((eventName) => {

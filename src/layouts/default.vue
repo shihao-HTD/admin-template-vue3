@@ -78,7 +78,11 @@
           :active-text-color="settings.theme"
         ></Menu>
       </Header>
-      <HeaderTabs :data="tabsStore.tabs"></HeaderTabs>
+      <HeaderTabs
+        v-model="tabsStore.current"
+        @tabClick="handleTabClick"
+        :data="tabsStore.tabs"
+      ></HeaderTabs>
 
       <div class="overflow-y-auto h-full">
         <router-view></router-view>
@@ -116,6 +120,7 @@ import type { DropDownMenuItem, ThemeSettingsProps } from '@/components/Themes/t
 import type { HeaderProps } from '@/components/Layouts/type'
 import { useMenu } from '@/components/Menu/useMenu'
 import { useTabsStore } from '@/store/tabs'
+import { darken } from '@/utils'
 
 interface ThemeSettingsOption extends HeaderProps {
   menuWidth?: number | string
@@ -261,6 +266,12 @@ function handleSelect(item: AppRouteMenuItem) {
       localeSettings.collapse = true
     }
   }
+}
+
+function handleTabClick(tab) {
+  const { index } = tab
+  const route = tabsStore.tabs[index] as AppRouteMenuItem
+  router.push(route.name as string)
 }
 </script>
 
