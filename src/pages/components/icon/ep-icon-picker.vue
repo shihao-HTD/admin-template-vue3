@@ -15,7 +15,6 @@ definePage({
 })
 
 function handleSubmit(data: IconPickerSubmitDataType) {
-  console.log('=>(ep-icon-picker.vue:11) data', data)
 }
 </script>
 

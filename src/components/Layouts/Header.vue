@@ -60,7 +60,6 @@ const emits = defineEmits<{
   (e: 'settingsChange', settings: ThemeSettingsProps): void
 }>()
 const handleCommand = (command: string | number | object) => {
-  console.log('=>(AvatarMenu.vue:67) command', command)
   emits('menuChange', command)
 }
 

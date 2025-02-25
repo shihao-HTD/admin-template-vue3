@@ -41,7 +41,6 @@ const iconPropsComputed = computed(() => {
   return restProps
 })
 function handleCommand(command: LocaleItem, index: number) {
-  console.log('=>(ChangeLocale.vue:38) current.value', current.value)
   emits('change', command.name)
 }
 </script>

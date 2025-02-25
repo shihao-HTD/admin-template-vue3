@@ -231,12 +231,10 @@ const mixMenus = computed(() => {
 
 function handleSettingsChange(themeSettings: ThemeSettingsProps) {
   localeSettings.settings = themeSettings
-  console.log('=>(default.vue:96) themeSettings', themeSettings)
 }
 const menus = computed(() => generateMenuData(routes))
 
 function handleSelect(item: AppRouteMenuItem) {
-  console.log('=>(default.vue:170) item', item)
   if (item && item.name) {
     router.push(item.name as string)
     if (isMobile.value) {

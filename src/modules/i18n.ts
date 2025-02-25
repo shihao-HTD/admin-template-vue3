@@ -38,7 +38,6 @@ const filterEPLocalesMap = availableLocales.reduce(
   {}
 )
 
-// console.log(filterEPLocalesMap)
 
 const loadedLanguages: string[] = []
 

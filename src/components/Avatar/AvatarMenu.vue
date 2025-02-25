@@ -46,7 +46,6 @@ const emits = defineEmits<{
   (e: 'command', arg: string | number | object): void
 }>()
 const handleCommand = (command: string | number | object) => {
-  console.log('=>(AvatarMenu.vue:67) command', command)
   emits('command', command)
 }
 </script>

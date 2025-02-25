@@ -115,7 +115,6 @@ onMounted(() => {
 })
 
 function handleClose() {
-  console.log(form)
   emits('change', form)
 }
 </script>

@@ -46,6 +46,10 @@ import type { FormItemProp } from './type'
 const props = defineProps<FormItemProp>()
 
 const modelValue = defineModel('modelValue')
+
+onBeforeMount(() => {
+  modelValue.value = props.value
+})
 </script>
 
 <style scoped></style>
