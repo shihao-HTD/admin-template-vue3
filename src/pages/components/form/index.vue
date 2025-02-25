@@ -1,6 +1,10 @@
 <template>
   <div>
-    <VForm v-model="model" :schema="schema"></VForm>
+    <VForm ref="formRef" v-model="model" :schema="schema">
+      <template #actions>
+        <el-button @click="onSubmit" type="primary"> create </el-button>
+      </template>
+    </VForm>
     {{ formValue }}
   </div>
 </template>
@@ -8,6 +12,7 @@
 <script setup lang="ts">
 import type { FormSchema } from '@/components/Form/type'
 import { useForm } from '@/components/Form/useForm'
+import type { FormInstance } from 'element-plus'
 
 definePage({
   meta: {
@@ -15,6 +20,8 @@ definePage({
     icon: 'fluent:form-multiple-28-regular'
   }
 })
+
+const formRef = ref<FormInstance>()
 
 const schema = ref([
   {
@@ -173,6 +180,11 @@ const schema = ref([
 ] as FormSchema)
 
 const { model, formValue } = useForm(schema.value)
+
+function onSubmit() {
+  console.log('submit')
+  formRef.value?.validate()
+}
 
 // do not use same name with ref
 </script>

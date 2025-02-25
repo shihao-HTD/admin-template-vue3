@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="tableFormRef" v-bind="props" :rules="rules" :model="model">
+  <el-form ref="formRef" v-bind="props" :rules="rules" :model="model">
     <slot name="default">
       <template v-if="schema && schema.length">
         <VFormLayout
@@ -13,10 +13,7 @@
       </template>
     </slot>
 
-    <el-form-item>
-      <el-button type="primary" @click="onSubmit">Create</el-button>
-      <el-button>Cancel</el-button>
-    </el-form-item>
+    <slot name="actions"></slot>
   </el-form>
 </template>
 
@@ -25,7 +22,8 @@ import VFormLayout from './VFormLayout.vue'
 
 import type { VFormProps } from '@/components/Form/type'
 import { useForm } from '@/components/Form/useForm'
-import type { FormInstance } from 'element-plus'
+import type { FormInstance, FormItemProp } from 'element-plus'
+import { exposeEventsUtils } from '@/utils/format'
 
 const props = withDefaults(defineProps<VFormProps>(), {
   inline: false,
@@ -39,10 +37,19 @@ const props = withDefaults(defineProps<VFormProps>(), {
   scrollToError: false,
   disabled: false
 })
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits<{
+  'update:modelValue': [model: any]
+  validate: [prop: FormItemProp, isValid: boolean, message: string]
+}>()
+
+const exposeEvents = ['validate', 'validateField', 'resetFields', 'clearValidate', 'scrollToField']
 
 const { model, rules } = useForm(props.schema || [])
-const tableFormRef = ref<FormInstance>()
+const formRef = ref<FormInstance>()
+
+const exposes = exposeEventsUtils(formRef, exposeEvents)
+
+defineExpose({ ...exposes })
 
 watch(
   model,
@@ -53,11 +60,6 @@ watch(
     deep: true
   }
 )
-
-async function onSubmit() {
-  console.log('submit')
-  tableFormRef.value?.validate()
-}
 </script>
 
 <style scoped></style>
