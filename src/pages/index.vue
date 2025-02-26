@@ -1,51 +1,15 @@
 <template>
   <div>
-    <el-button type="primary">Click</el-button>
-    <el-button type="primary">Click1</el-button>
-    <el-button type="primary">Click2</el-button>
-    <el-button type="primary">Click3</el-button>
-    <div v-flash>这是一段文字</div>
+    <Editor></Editor>
 
-    <ul v-flash>
-      <li>这是一段文字!</li>
-      <li>这是一段文字1!</li>
-      <li>这是一段文字2!</li>
-      <li>这是一段文字3!</li>
-    </ul>
 
-    <el-button type="primary" v-has.roles="['admin']">BTN</el-button>
-    <el-button type="primary" @click="handleClick">add Role</el-button>
-    <el-button type="primary" @click="() => toggle()">toggle</el-button>
-
-    <CollapseTransition>
-      <div class="w-20 border border-color-red pt-10 pb-10" v-show="show">
-        <div class="h-[150px] overflow-y-auto">
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-          <p>这是一个元素</p>
-        </div>
-      </div>
-    </CollapseTransition>
-    <el-button @click="handleChangeOption">ChangeOption</el-button>
-    <VueEcharts autoresize :option="option" :height="600"></VueEcharts>
-    <Charts :options="option"></Charts>
   </div>
 </template>
 
 <script setup lang="ts">
 // import { loadLocaleMessages } from '@/modules/i18n'
 import useUserStore from '../store/user'
+import Editor from '@/components/Editor/Editor.vue'
 
 const store = useUserStore()
 

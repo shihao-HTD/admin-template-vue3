@@ -16,6 +16,7 @@ declare module 'vue' {
     Description: typeof import('./src/components/Description/Description.vue')['default']
     DragIcon: typeof import('./src/components/Table/DragIcon.vue')['default']
     DropDown: typeof import('./src/components/Menu/DropDown.vue')['default']
+    Editor: typeof import('./src/components/Editor/Editor.vue')['default']
     FullScreen: typeof import('./src/components/Themes/FullScreen.vue')['default']
     Header: typeof import('./src/components/Layouts/Header.vue')['default']
     HeaderTabs: typeof import('./src/components/Layouts/HeaderTabs.vue')['default']
