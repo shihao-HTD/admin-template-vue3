@@ -226,7 +226,11 @@ const contentClass = computed(() => {
       return 'h-[calc(100%-50px)]'
     }
   } else {
-    return ''
+    if (settings.value?.showTabs) {
+      return 'min-h-[calc(100%-90px)]'
+    } else {
+      return 'min-h-[calc(100%-50px)]'
+    }
   }
 })
 
