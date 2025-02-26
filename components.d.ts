@@ -10,6 +10,7 @@ declare module 'vue' {
     AvatarMenu: typeof import('./src/components/Avatar/AvatarMenu.vue')['default']
     Breadcrumb: typeof import('./src/components/Themes/Breadcrumb.vue')['default']
     ChangeLocale: typeof import('./src/components/Themes/ChangeLocale.vue')['default']
+    Charts: typeof import('./src/components/Charts/Charts.vue')['default']
     CollapseTransition: typeof import('./src/components/Transition/CollapseTransition.vue')['default']
     DarkModeToggle: typeof import('./src/components/Themes/DarkModeToggle.vue')['default']
     Description: typeof import('./src/components/Description/Description.vue')['default']
