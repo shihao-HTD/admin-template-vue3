@@ -87,12 +87,19 @@
       ></HeaderTabs>
 
       <div class="overflow-y-auto h-full">
-        <router-view v-slot="{ Component }">
+        <router-view #="{ Component }">
           <Transition
             :name="camelToHyphen(settings?.transition || 'fade') + '-transition'"
             mode="out-in"
           >
-            <component :is="Component"></component>
+            <router-view v-slot="{ Component }" v-if="$route.meta.keepAlive">
+              <keep-alive :key="settings?.transition">
+                <component :is="Component"></component>
+              </keep-alive>
+            </router-view>
+            <router-view v-slot="{ Component }" v-else>
+              <component :is="Component"></component>
+            </router-view>
           </Transition>
         </router-view>
       </div>
