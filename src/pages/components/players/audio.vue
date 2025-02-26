@@ -5,10 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { Howl, Howler } from 'howler'
 
-console.log('🚀 ~ file: audio.vue:7 ~ Howler:', Howler)
-console.log('🚀 ~ file: audio.vue:7 ~ Howl:', Howl)
 
 definePage({
   meta: {

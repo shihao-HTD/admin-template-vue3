@@ -117,7 +117,7 @@ export interface HowlerOptions {
   onunlock: () => void // 音频自动解锁时触发
 }
 
-export type AudioOptions = HowlerOptions
+export type AudioPlayerOptions = HowlerOptions & HowlerGlobalOptions
 
 export type HowlerMethods = {
   play: [spriteOrId?: string | number]
@@ -140,7 +140,7 @@ export type HowlerMethods = {
 }
 
 export interface AudioPlayerProps {
-  options?: AudioOptions
+  options?: AudioPlayerOptions
   title?: string
 }
 
@@ -155,6 +155,7 @@ export interface HowlerGlobalOptions {
   ctx: boolean // 注意：这里的类型可能需要根据具体实现调整
   masterGain: boolean // 注意：这里的类型可能需要根据具体实现调整
 }
+export type HowlerGlobalOptionsKeys = keyof HowlerGlobalOptions
 
 export interface HowlerGlobalMethods {
   mute(muted: boolean): void

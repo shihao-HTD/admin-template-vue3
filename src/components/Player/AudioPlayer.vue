@@ -12,7 +12,7 @@
         <i class="i-bi:sort-down-alt hidden lt-sm:(block text-xl)"></i>
         <div class="flex items-center">
           <i class="i-iconoir:skip-prev lt-sm:(text-3xl)"></i>
-          <i class="i-iconoir:play mx-2 lt-sm:(text-5xl mx-9)"></i>
+          <i class="i-iconoir:play mx-2 lt-sm:(text-5xl mx-9)" @click="playAudio"></i>
           <i class="i-iconoir:skip-next lt-sm:(text-3xl)"></i>
         </div>
         <!-- 速率控制按钮 -->
@@ -64,9 +64,23 @@
 </template>
 
 <script setup lang="ts">
-import type { AudioPlayerProps } from './types'
+import type { AudioPlayerProps, HowlerGlobalOptionsKeys } from './types'
+import { Howl, Howler } from 'howler'
 
-defineProps<AudioPlayerProps>()
+console.log('🚀 ~ file: audio.vue:7 ~ Howler:', Howler)
+console.log('🚀 ~ file: audio.vue:7 ~ Howl:', Howl)
+
+const keys: HowlerGlobalOptionsKeys[] = [
+  'usingWebAudio',
+  'noAudio',
+  'autoUnlock',
+  'html5PoolSize',
+  'autoSuspend',
+  'ctx',
+  'masterGain'
+]
+
+const props = defineProps<AudioPlayerProps>()
 
 const progress = ref(0)
 const rateList = ref([0.5, 1, 1.5, 2])
@@ -75,6 +89,38 @@ const rateCurrent = ref(1)
 const loop = ref(0)
 
 const [isMute, toggle] = useToggle(false)
+
+const audioInstance = ref()
+
+onBeforeMount(() => {
+  init()
+})
+
+onBeforeUnmount(() => {
+  Howler.unload()
+})
+
+function init() {
+  const options = props.options
+  if (options) {
+    keys.forEach((key) => {
+      if (key in options) {
+        Howler[key] = options[key]
+      }
+    })
+  }
+  audioInstance.value = new Howl({
+    src: ''
+  })
+
+  console.log('=>(AudioPlayer.vue:105) audioInstance.value', audioInstance.value)
+}
+
+function playAudio() {
+  if (audioInstance.value) {
+    audioInstance.value.play()
+  }
+}
 
 const toggleVolume = () => {
   toggle()
