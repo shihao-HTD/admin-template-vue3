@@ -1,5 +1,5 @@
 <template>
-  <el-row :class="['items-center flex-nowrap h-[50px] z-100 bg-white dark:bg-dark']">
+  <div :class="['flex items-center flex-nowrap h-[50px] z-100 bg-white dark:bg-dark']">
     <!--    面包屑-->
     <Iconify
       v-if="settings?.mode !== 'top'"
@@ -29,7 +29,7 @@
         class="mr-2"
       ></AvatarMenu>
     </el-row>
-  </el-row>
+  </div>
 </template>
 
 <script setup lang="ts">
