@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Editor :options="{}"></Editor>
+    <Editor v-model="msg" :options="{}"></Editor>
+    <el-button @click="test">test</el-button>
   </div>
 </template>
 
@@ -8,6 +9,12 @@
 // import { loadLocaleMessages } from '@/modules/i18n'
 import useUserStore from '../store/user'
 import Editor from '@/components/Editor/Editor.vue'
+
+const msg = ref('')
+
+function test() {
+  msg.value = '123'
+}
 
 const store = useUserStore()
 

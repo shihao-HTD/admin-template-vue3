@@ -10,6 +10,7 @@ import type { EditorOptions, EditorProps } from '@/components/Editor/types'
 const props = withDefaults(defineProps<EditorProps>(), {})
 
 const editorRef = ref()
+const editorInstance = shallowRef<Vditor>()
 
 const defaultOptions: EditorOptions = {
   rtl: false,
@@ -38,9 +39,40 @@ const defaultOptions: EditorOptions = {
   icon: 'ant',
   cdn: 'https://unpkg.com/vditor@3.9.6'
 }
+const modelValue = defineModel()
+
+const emits = defineEmits(['init'])
+
+watch(modelValue, (newVal) => {
+  if (editorInstance.value && newVal && `${newVal}` !== editorInstance.value.getValue()) {
+    editorInstance.value.setValue(newVal + '')
+  }
+})
 
 onMounted(() => {
-  new Vditor(editorRef.value, Object.assign(defaultOptions, props.options))
+  const defaultAfter = props.options.after
+  const defaultInput = props.options.input
+
+  editorInstance.value = new Vditor(
+    editorRef.value,
+    Object.assign(defaultOptions, {
+      ...props.options,
+      after() {
+        defaultAfter && defaultAfter()
+        modelValue.value = editorInstance.value?.getHTML()
+      },
+      input(value) {
+        defaultInput && defaultInput(value)
+        modelValue.value = value
+      }
+    })
+  )
+  emits('init', editorInstance.value)
+  modelValue.value = props.options.value
+})
+
+onBeforeMount(() => {
+  editorInstance.value && editorInstance.value.destroy()
 })
 </script>
 
