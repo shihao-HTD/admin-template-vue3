@@ -82,6 +82,7 @@
         v-model="tabsStore.current"
         @tabClick="handleTabClick"
         @tabRemove="handleTabRemove"
+        @tabMenuClick="handleTabMenuClick"
         :data="tabsStore.tabs"
       ></HeaderTabs>
 
@@ -122,6 +123,7 @@ import type { HeaderProps } from '@/components/Layouts/type'
 import { useMenu } from '@/components/Menu/useMenu'
 import { useTabsStore } from '@/store/tabs'
 import { darken } from '@/utils'
+import { TabActions } from '@/components/Layouts/const'
 
 interface ThemeSettingsOption extends HeaderProps {
   menuWidth?: number | string
@@ -288,6 +290,23 @@ function handleTabRemove(tab) {
     }
     router.push(tabsStore.current)
   }
+}
+
+function handleTabMenuClick(action: TabActions) {
+  const index = tabsStore.tabs.findIndex((item) => item.name === tabsStore.current)
+  if (action === TabActions.closeAll) {
+    tabsStore.tabs = []
+    const tmpRoute = menus.value.filter((item) => item.path === '/')[0]
+    tabsStore.addRoute(tmpRoute)
+    tabsStore.current = tmpRoute.name as string
+  } else if (action === TabActions.closeLeft) {
+    tabsStore.tabs = tabsStore.tabs.splice(index, tabsStore.tabs.length - 1)
+  } else if (action === TabActions.closeRight) {
+    tabsStore.tabs = tabsStore.tabs.splice(0, index + 1)
+  } else if (action === TabActions.closeOthers) {
+    tabsStore.tabs = tabsStore.tabs.splice(index, 1)
+  }
+  router.push(tabsStore.current)
 }
 </script>
 
