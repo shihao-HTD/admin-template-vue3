@@ -27,14 +27,10 @@
 </template>
 
 <script setup lang="ts">
-import type { TabPaneName, TabsPaneContext, TabsProps } from 'element-plus'
-import type { AppRouteMenuItem } from '@/components/Menu/type'
 import { forwardEventsUtils } from '@/utils/format'
 import { TabActions } from '@/components/Layouts/const'
+import type { HeaderTabsEvents, HeaderTabsProps } from '@/components/Layouts/type'
 
-interface HeaderTabsProps extends Partial<TabsProps> {
-  data: AppRouteMenuItem[]
-}
 withDefaults(defineProps<HeaderTabsProps>(), {
   stretch: false,
   closable: false,
@@ -43,14 +39,6 @@ withDefaults(defineProps<HeaderTabsProps>(), {
   tabPosition: 'top'
 })
 
-type HeaderTabsEvents = {
-  tabClick: [pane: TabsPaneContext, ev: Event]
-  tabChange: [name: TabPaneName]
-  edit: [paneName: TabPaneName | undefined, action: 'remove' | 'add']
-  tabRemove: [name: TabPaneName]
-  tabAdd: []
-  tabMenuClick: [action: TabActions]
-}
 const emits = defineEmits<HeaderTabsEvents>()
 const eventNames = ['tabClick', 'tabChange', 'edit', 'tabRemove', 'tabAdd']
 
