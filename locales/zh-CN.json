@@ -17,13 +17,20 @@
   "pages": {
     "about": "关于我们",
     "components": "组件示例",
-    "directive-copy": "复制指令v-copy",
-    "directive-debounce-throttle": "防抖与节流指令",
-    "directive-drag": "拖拽指令v-draggable",
-    "directive-flash": "打字机效果指令v-flash",
-    "directive-longpress": "长按指令v-longPress",
-    "directive-watermark": "水印指令v-watermark",
+    "directive": {
+      "copy": "复制指令v-copy",
+      "debounce-throttle": "防抖与节流指令",
+      "drag": "拖拽指令v-draggable",
+      "flash": "打字机效果指令v-flash",
+      "longpress": "长按指令v-longPress",
+      "watermark": "水印指令v-watermark"
+    },
     "directives": "自定义指令",
+    "display": {
+      "avatars": "头像列表",
+      "default": "展示类型组件",
+      "description": "折叠描述面板"
+    },
     "form-basic": "基础表单",
     "forms": "表单组件",
     "head-message": "消息通知",
@@ -40,6 +47,14 @@
       "username": "请输入用户名",
       "welcome": "欢迎回来"
     },
+    "menu": {
+      "menu1": "Menu1",
+      "menu1-1": "Menu1-1",
+      "menu1-1-1": "Menu1-1-1",
+      "menu1-2": "Menu1-2",
+      "menu2": "Menu2"
+    },
+    "menus": "多级菜单",
     "notice": "通知组件",
     "pick-icon": "图标选择器",
     "table-basic": "基础表格",

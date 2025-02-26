@@ -17,15 +17,22 @@
   "pages": {
     "about": "About Us",
     "components": "Components",
-    "directive-copy": "v-copy",
-    "directive-debounce-throttle": "v-debounce&v-throttle",
-    "directive-drag": "v-draggable",
-    "directive-flash": "v-flash",
-    "directive-longpress": "v-longpress",
-    "directive-watermark": "v-watermark",
+    "directive": {
+      "copy": "v-copy",
+      "debounce-throttle": "v-debounce&v-throttle",
+      "drag": "v-draggable",
+      "flash": "v-flash",
+      "longpress": "v-longpress",
+      "watermark": "v-watermark"
+    },
     "directives": "Directives",
-    "form-basic": "pages.form-basic",
-    "forms": "pages.forms",
+    "display": {
+      "avatars": "Avatars",
+      "default": "Display Components",
+      "description": "pages.display.description"
+    },
+    "form-basic": "Basic Form",
+    "forms": "Forms",
     "head-message": "Head Messages",
     "home": "Home",
     "icons": "Icons",
@@ -40,11 +47,19 @@
       "username": "Username",
       "welcome": "Welcome"
     },
+    "menu": {
+      "menu1": "Menu1",
+      "menu1-1": "Menu1-1",
+      "menu1-1-1": "Menu1-1-1",
+      "menu1-2": "Menu1-2",
+      "menu2": "Menu2"
+    },
+    "menus": "pages.menus",
     "notice": "Notice Component",
     "pick-icon": "Icon Picker",
-    "table-basic": "pages.head-message",
-    "table-high": "pages.table-high",
-    "table-select": "pages.table-select",
-    "tables": "pages.tables"
+    "table-basic": "Basic Table",
+    "table-high": "High Table",
+    "table-select": "Select Table",
+    "tables": "Tables"
   }
 }
