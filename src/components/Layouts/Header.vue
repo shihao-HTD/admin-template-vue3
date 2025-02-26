@@ -1,5 +1,5 @@
 <template>
-  <el-row class="items-center pl-2 flex-nowrap! h-[50px]">
+  <el-row :class="['items-center flex-nowrap h-[50px] z-100 bg-white dark:bg-dark']">
     <!--    面包屑-->
     <Iconify
       v-if="settings?.mode !== 'top'"

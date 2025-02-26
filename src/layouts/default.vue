@@ -57,52 +57,72 @@
     </div>
 
     <!--    content-->
-    <div class="w-full h-full flex-1 overflow-hidden">
-      <Header
-        v-model:collapse="localeSettings.collapse"
-        :data="localeSettings.avatarMenu"
-        :username="localeSettings.username"
-        :locales="localeSettings.locales"
-        :src="localeSettings.avatar"
-        @settingsChange="handleSettingsChange"
-        :settings="settings"
-        @select="handleSelect"
-      >
-        <!--   顶部菜单 顶部左侧菜单混合     -->
-        <Menu
-          v-if="settings?.mode === 'top' || settings?.mode === 'mix'"
-          :collapse="false"
-          mode="horizontal"
-          :data="settings?.mode === 'mix' ? getTopMenus(menus) : menus"
-          @select="handleSelect"
-          :active-text-color="settings.theme"
-        ></Menu>
-      </Header>
-      <HeaderTabs
-        v-model="tabsStore.current"
-        @tabClick="handleTabClick"
-        @tabRemove="handleTabRemove"
-        @tabMenuClick="handleTabMenuClick"
-        :data="tabsStore.tabs"
-      ></HeaderTabs>
-
+    <!-- content -->
+    <div :class="['relative w-full h-full flex-1 overflow-hidden']">
       <div class="overflow-y-auto h-full">
-        <router-view #="{ Component }">
-          <Transition
-            :name="camelToHyphen(settings?.transition || 'fade') + '-transition'"
-            mode="out-in"
-          >
-            <router-view v-slot="{ Component }" v-if="$route.meta.keepAlive">
-              <keep-alive :key="settings?.transition">
-                <component :is="Component"></component>
-              </keep-alive>
-            </router-view>
-            <router-view v-slot="{ Component }" v-else>
-              <component :is="Component"></component>
-            </router-view>
-          </Transition>
-        </router-view>
+        <!-- header: fullscreen, darkmode, theme, menu -->
+        <Header
+          v-model:collapse="localeSettings.collapse"
+          :locales="localeSettings.locales"
+          :username="localeSettings.username"
+          :src="localeSettings.avatar"
+          :data="localeSettings.avatarMenu"
+          :settings="settings"
+          @settings-change="handleSettingsChange"
+          @select="handleSelect"
+        >
+          <!-- menu：顶部左侧菜单混合 -->
+          <Menu
+            v-if="settings?.mode === 'mix' || settings?.mode === 'top'"
+            mode="horizontal"
+            :data="settings?.mode === 'mix' ? getTopMenus(menus) : menus"
+            :collapse="false"
+            :active-text-color="settings?.theme"
+            @select="handleSelect"
+          ></Menu>
+        </Header>
+        <HeaderTabs
+          v-if="settings?.showTabs"
+          :data="tabsStore.tabs"
+          @tab-click="handleTabClick"
+          @tab-remove="handleTabRemove"
+          @tab-menu-click="handleTabMenuClick"
+          v-model="tabsStore.current"
+        ></HeaderTabs>
+        <!-- router-view -->
+        <div :class="['p-2 bg', contentClass]">
+          <el-scrollbar>
+            <Transition
+              :name="camelToHyphen(settings?.transition || 'fade') + '-transition'"
+              mode="out-in"
+            >
+              <router-view v-slot="{ Component }" v-if="$route.meta.keepAlive">
+                <keep-alive :key="settings?.transition">
+                  <component :is="Component"></component>
+                </keep-alive>
+              </router-view>
+              <router-view v-slot="{ Component }" v-else>
+                <component
+                  :is="Component"
+                  :key="$route.fullPath"
+                  class="rounded bg-white shadow p-4"
+                ></component>
+              </router-view>
+            </Transition>
+          </el-scrollbar>
+
+          <!-- <transition mode="out-in" name="fade">
+      <KeepAlive :include="['Index', 'Home', 'About', '/', '/about/']" :max="20">
+        <component :is="Component" :key="route.fullPath" class="p-4 rounded shadow bg-white" />
+      </KeepAlive>
+    </transition> -->
+        </div>
       </div>
+      <!-- <el-scrollbar>
+      </el-scrollbar> -->
+      <!-- <div class="overflow-y-auto h-full">
+        <router-view></router-view>
+      </div> -->
     </div>
 
     <el-drawer
@@ -195,6 +215,19 @@ useResizeObserver(document.body, (entries) => {
   }
   isMobile.value = width < 440
   tmpWidth.value = width
+})
+
+// 内容区域class
+const contentClass = computed(() => {
+  if (settings.value?.fixedHead) {
+    if (settings.value?.showTabs) {
+      return 'h-[calc(100%-90px)]'
+    } else {
+      return 'h-[calc(100%-50px)]'
+    }
+  } else {
+    return ''
+  }
 })
 
 onBeforeMount(() => {
@@ -326,6 +359,9 @@ function handleTabMenuClick(action: TabActions) {
 </script>
 
 <style lang="scss" scoped>
+.bg {
+  background-color: var(--el-fill-color-light);
+}
 .mixbar {
   :deep(.el-menu-item) {
     height: auto;
@@ -333,11 +369,13 @@ function handleTabMenuClick(action: TabActions) {
     flex-direction: column;
     margin-bottom: 15px;
     padding: 4px 0 !important;
-
     svg {
       margin-right: 0;
       margin-bottom: 10px;
     }
   }
+}
+:deep(.el-scrollbar__view) {
+  height: 100%;
 }
 </style>
