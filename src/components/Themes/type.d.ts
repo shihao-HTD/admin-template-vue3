@@ -1,5 +1,6 @@
 import type { IconifyIcon } from '@iconify/vue'
 import type { AvatarProps, ButtonProps, ButtonType, PartialOptions, Placement } from 'element-plus'
+import type { TransitionNameEnum } from '@/components/Themes/const'
 
 export interface LocaleItem {
   name: string
@@ -47,4 +48,5 @@ export interface ThemeSettingsProps {
   showBreadCrumb?: boolean
   mode: 'siderbar' | 'mix' | 'top' | 'mixbar'
   backgroundColor: string
+  transition: TransitionNameEnum
 }

@@ -6,6 +6,11 @@ export function kebabToCamel(str: string): string {
   })
 }
 
+export function camelToHyphen(name: string) {
+  return name.replace(/\B([A-Z])/g, '-$1').toLowerCase()
+}
+
+
 export function forwardEventsUtils(emits: any, arr: string[], prefix: string = '') {
   const forwardEvents: Record<string, (...args: any) => void> = {}
 

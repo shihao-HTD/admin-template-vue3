@@ -87,7 +87,14 @@
       ></HeaderTabs>
 
       <div class="overflow-y-auto h-full">
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+          <Transition
+            :name="camelToHyphen(settings?.transition || 'fade') + '-transition'"
+            mode="out-in"
+          >
+            <component :is="Component"></component>
+          </Transition>
+        </router-view>
       </div>
     </div>
 
@@ -124,6 +131,7 @@ import { useMenu } from '@/components/Menu/useMenu'
 import { useTabsStore } from '@/store/tabs'
 import { darken } from '@/utils'
 import { TabActions } from '@/components/Layouts/const'
+import { camelToHyphen } from '@/utils/format'
 
 interface ThemeSettingsOption extends HeaderProps {
   menuWidth?: number | string

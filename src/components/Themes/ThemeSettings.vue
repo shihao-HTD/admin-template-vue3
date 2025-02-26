@@ -4,7 +4,10 @@
 
   <el-drawer
     class="min-w-[330px] lt-sm:w-full!"
-    @close="handleClose" v-model="drawer" title="主题设置">
+    @close="handleClose"
+    v-model="drawer"
+    title="主题设置"
+  >
     <el-form :model="form">
       <el-form-item label="主题设置">
         <el-color-picker v-model="form.theme"> </el-color-picker>
@@ -68,7 +71,11 @@
         <el-switch v-model="form.showLogo"> </el-switch>
       </el-form-item>
 
-      <el-form-item label="切换动画"> </el-form-item>
+      <el-form-item label="切换动画">
+        <el-select v-model="form.transition" placeholder="Select">
+          <el-option v-for="item in TRANSITION_NAMES" :key="item" :label="item" :value="item" />
+        </el-select>
+      </el-form-item>
 
       <el-form-item label="标签页">
         <el-switch v-model="form.showTabs"> </el-switch>
@@ -87,6 +94,7 @@
 
 <script setup lang="ts">
 import type { ThemeSettingsProps } from '@/components/Themes/type'
+import { TRANSITION_NAMES, TransitionNameEnum } from '@/components/Themes/const'
 
 const drawer = ref(false)
 
@@ -103,7 +111,8 @@ const props = withDefaults(defineProps<ThemeSettingsProps>(), {
   fixedHead: false,
   showBreadcrumb: true,
   mode: 'siderbar',
-  backgroundColor: '#001529'
+  backgroundColor: '#001529',
+  transition: TransitionNameEnum.Fade
 })
 
 const form = reactive<ThemeSettingsProps>({
