@@ -1,5 +1,6 @@
 {
   "components": {
+    "audio-player": "components.audio-player",
     "cancel": "Cancel",
     "choose-icon": "Selected Icon",
     "copy-icon": "Copy Icon",
@@ -9,7 +10,8 @@
     "icon-lists": "Icon Lists",
     "icon-picker": "Pick Icon",
     "show-text": "Show Text",
-    "submit": "Submit"
+    "submit": "Submit",
+    "video-player": "components.video-player"
   },
   "message": {
     "copy-success": "Copy Success!"
@@ -58,6 +60,7 @@
     "menus": "pages.menus",
     "notice": "Notice Component",
     "pick-icon": "Icon Picker",
+    "players": "pages.players",
     "table-basic": "Basic Table",
     "table-high": "High Table",
     "table-select": "Select Table",
