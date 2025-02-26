@@ -40,6 +40,7 @@ const defaultOptions: EditorOptions = {
   cdn: 'https://unpkg.com/vditor@3.9.6'
 }
 const modelValue = defineModel()
+const history = ref('')
 
 const emits = defineEmits(['init'])
 
@@ -49,17 +50,32 @@ watch(modelValue, (newVal) => {
   }
 })
 
-onMounted(() => {
-  const defaultAfter = props.options.after
-  const defaultInput = props.options.input
+watch(
+  () => props.options,
+  (newOptions) => {
+    history.value = editorInstance.value?.getValue() || ''
+    editorInstance.value?.destroy()
+    initEditor(newOptions)
+  },
+  {
+    deep: true
+  }
+)
 
-  editorInstance.value = new Vditor(
+function initEditor(options: EditorOptions) {
+  const defaultAfter = options.after
+  const defaultInput = options.input
+
+  const instance = new Vditor(
     editorRef.value,
     Object.assign(defaultOptions, {
-      ...props.options,
+      ...options,
       after() {
         defaultAfter && defaultAfter()
-        modelValue.value = editorInstance.value?.getHTML()
+        if (history.value) {
+          instance.setValue(history.value, true)
+        }
+        modelValue.value = instance.getValue()
       },
       input(value) {
         defaultInput && defaultInput(value)
@@ -67,8 +83,14 @@ onMounted(() => {
       }
     })
   )
+  editorInstance.value = instance
+  modelValue.value = options.value || ''
+  return instance
+}
+
+onMounted(() => {
+  initEditor(props.options)
   emits('init', editorInstance.value)
-  modelValue.value = props.options.value
 })
 
 onBeforeMount(() => {
