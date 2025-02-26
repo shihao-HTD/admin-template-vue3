@@ -7,6 +7,7 @@ import type {
   FormItemRule,
   FormItemInstance
 } from 'element-plus'
+import type { CSSProperties } from 'vue'
 
 // 适用于第三方登录的
 export interface LoginItem {
@@ -55,6 +56,13 @@ export type ComponentType =
   | ''
   | undefined
 
+type FormItemChild = {
+  type?: ComponentType
+  label?: string
+  value?: any
+  [key: string]: any
+}
+
 export interface FormItemProp extends Partial<FormItemProps> {
   prop?: string
   type?: ComponentType
@@ -65,7 +73,7 @@ export interface FormItemProp extends Partial<FormItemProps> {
   span?: number
   colProps?: ColProps
   value?: any
-  children?: any[]
+  children?: FormItemChild[]
   schema?: FormSchema
   rules?: FormItemRule[]
   defaultSlot?: typeof Component
@@ -87,4 +95,6 @@ export type FormSchema = FormItemProp[]
 
 export interface VFormProps extends Partial<NewFormProps> {
   schema?: FormSchema
+  rowClass?: string
+  rowStyle?: CSSProperties
 }

@@ -31,6 +31,7 @@
       "default": "Display Components",
       "description": "pages.display.description"
     },
+    "editors": "pages.editors",
     "form-basic": "Basic Form",
     "forms": "Forms",
     "head-message": "Head Messages",

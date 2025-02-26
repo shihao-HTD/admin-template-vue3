@@ -31,6 +31,7 @@
       "default": "展示类型组件",
       "description": "折叠描述面板"
     },
+    "editors": "编辑器",
     "form-basic": "基础表单",
     "forms": "表单组件",
     "head-message": "消息通知",

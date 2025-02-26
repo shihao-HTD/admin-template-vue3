@@ -68,8 +68,13 @@
           :key="index"
         />
       </el-select>
-      <el-checkbox-group v-else-if="type === 'checkbox'" v-model="modelValue" v-bind="attrs">
-        <el-checkbox
+      <el-checkbox-group
+        v-else-if="type === 'checkbox' || type === 'checkbox-group'"
+        v-model="modelValue"
+        v-bind="attrs"
+      >
+        <component
+          :is="'el-' + item.type"
           :label="item.label"
           :value="item.value"
           v-bind="item"
@@ -79,14 +84,18 @@
         />
       </el-checkbox-group>
       <el-radio-group
-        v-else-if="type === 'radio'"
+        v-else-if="type === 'radio' || type === 'radio-group'"
         v-model="modelValue"
         v-bind="attrs"
         v-on="events"
       >
-        <el-radio v-for="(item, index) in children" :key="index" :label="item.value">{{
-            item.label
-          }}</el-radio>
+        <component
+          :is="'el-' + item.type"
+          v-for="(item, index) in children"
+          :key="index"
+          :label="item.value"
+          >{{ item.label }}</component
+        >
       </el-radio-group>
       <!-- <el-autocomplete
         v-else-if="type === 'autocomplete'"

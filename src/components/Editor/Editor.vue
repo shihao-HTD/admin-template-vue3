@@ -50,17 +50,17 @@ watch(modelValue, (newVal) => {
   }
 })
 
-watch(
-  () => props.options,
-  (newOptions) => {
+const fn = useDebounceFn((newOptions) => {
+  if (editorInstance.value) {
     history.value = editorInstance.value?.getValue() || ''
     editorInstance.value?.destroy()
     initEditor(newOptions)
-  },
-  {
-    deep: true
   }
-)
+}, 100)
+
+watch(() => props.options, fn, {
+  deep: true
+})
 
 function initEditor(options: EditorOptions) {
   const defaultAfter = options.after
