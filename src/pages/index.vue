@@ -1,8 +1,6 @@
 <template>
   <div>
-    <Editor></Editor>
-
-
+    <Editor :options="{}"></Editor>
   </div>
 </template>
 
