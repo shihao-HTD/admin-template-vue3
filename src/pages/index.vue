@@ -5,6 +5,28 @@
 
     <el-button type="primary" v-has.not="['admin']">BTN</el-button>
     <el-button type="primary" @click="handleClick">add roles</el-button>
+    <el-button type="primary" @click="() => toggle()">toggle</el-button>
+
+    <CollapseTransition>
+      <div class="w-20 border border-color-red pt-10 pb-10" v-show="show">
+        <div class="h-[150px] overflow-y-auto">
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+          <p>这是一个元素</p>
+        </div>
+      </div>
+    </CollapseTransition>
   </div>
 </template>
 
@@ -19,6 +41,8 @@ definePage({
   }
 })
 const store = useUserStore()
+
+const [show, toggle] = useToggle(true)
 
 function handleClick() {
   store.roles = ['user', 'admin']
