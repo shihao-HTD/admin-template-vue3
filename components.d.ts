@@ -32,6 +32,7 @@ declare module 'vue' {
     Notice: typeof import('./src/components/Notice/Notice.vue')['default']
     NoticeMessageList: typeof import('./src/components/Notice/NoticeMessageList.vue')['default']
     Notification: typeof import('./src/components/Notice/Notification.vue')['default']
+    ProgressBar: typeof import('./src/components/Player/ProgressBar.vue')['default']
     ReloadPrompt: typeof import('./src/components/others/ReloadPrompt.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
