@@ -1,27 +1,36 @@
 <template>
-  <div>
-    <AudioPlayer :options="options"></AudioPlayer>
-    <el-button @click="handleClick">Click</el-button>
+  <VideoPlayer :options="options"></VideoPlayer>
+  <div class="pt-2">
+    <el-button type="primary" @click="handleClick">ChangeSource</el-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { AudioPlayerOptions } from '@/components/Player/types'
-import { Howler } from 'howler'
-
 definePage({
   meta: {
-    title: 'components.audio-player',
-    icon: 'ant-design:audio-outlined'
+    title: 'components.video-player',
+    icon: 'ph:video'
   }
 })
+import VideoPlayer from '@/components/Player/VideoPlayer.vue'
+import type { VideoPlayerOptions } from '@/components/Player/types'
 
 const options = ref({
-  src: 'https://toimc-online.static.toimc.com/vue-toimc-admin/music/%E5%85%89%E8%BE%89%E5%B2%81%E6%9C%88.mp3'
-} as AudioPlayerOptions)
+  sources: [
+    {
+      src: 'https://toimc-online.static.toimc.com/vue-toimc-admin/video/001.mp4',
+      type: 'video/mp4'
+    }
+  ]
+} as VideoPlayerOptions)
 
 const handleClick = () => {
-  Howler.unload()
+  options.value.sources = [
+    {
+      src: 'https://toimc-online.static.toimc.com/vue-toimc-admin/video/002.mp4',
+      type: 'video/mp4'
+    }
+  ]
 }
 </script>
 
