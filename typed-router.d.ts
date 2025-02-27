@@ -65,6 +65,7 @@ declare module 'vue-router/auto/routes' {
     '/directives/draggable': RouteRecordInfo<'/directives/draggable', '/directives/draggable', Record<never, never>, Record<never, never>>,
     '/directives/flash': RouteRecordInfo<'/directives/flash', '/directives/flash', Record<never, never>, Record<never, never>>,
     '/directives/long-press': RouteRecordInfo<'/directives/long-press', '/directives/long-press', Record<never, never>, Record<never, never>>,
+    '/directives/scrollText': RouteRecordInfo<'/directives/scrollText', '/directives/scrollText', Record<never, never>, Record<never, never>>,
     '/directives/watermark': RouteRecordInfo<'/directives/watermark', '/directives/watermark', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
   }

@@ -25,6 +25,7 @@
       "drag": "v-draggable",
       "flash": "v-flash",
       "longpress": "v-longpress",
+      "scrollText": "v-scrollText",
       "watermark": "v-watermark"
     },
     "directives": "Directives",

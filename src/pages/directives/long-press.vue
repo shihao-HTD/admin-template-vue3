@@ -8,7 +8,7 @@
 import { ElMessage } from 'element-plus'
 definePage({
   meta: {
-    title: 'pages.directive-longpress',
+    title: 'pages.directive.longpress',
     icon: 'icon-park-outline:press'
   }
 })

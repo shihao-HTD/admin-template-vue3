@@ -10,7 +10,7 @@
 <script setup lang="ts">
 definePage({
   meta: {
-    title: 'pages.directive-watermark',
+    title: 'pages.directive.watermark',
     icon: 'ic:outline-branding-watermark'
   }
 })

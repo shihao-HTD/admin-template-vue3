@@ -25,6 +25,7 @@
       "drag": "拖拽指令v-draggable",
       "flash": "打字机效果指令v-flash",
       "longpress": "长按指令v-longPress",
+      "scrollText": "滚动文字指令scrollText",
       "watermark": "水印指令v-watermark"
     },
     "directives": "自定义指令",
