@@ -120,31 +120,58 @@ export interface HowlerOptions {
 export type AudioPlayerOptions = HowlerOptions & HowlerGlobalOptions
 
 export type HowlerMethods = {
-  play: [spriteOrId?: string | number]
-  pause: [id?: number]
-  stop: [id?: number]
-  mute: [muted?: boolean, id?: number]
-  volume: [volume?: number, id?: number]
-  fade: [from: number, to: number, duration: number, id?: number]
-  rate: [rate?: number, id?: number]
-  seek: [seek?: number, id?: number]
-  loop: [loop?: boolean, id?: number]
-  state: []
-  playing: [id?: number]
-  duration: [id?: number]
-  on: [event: string, fn: Function, id?: number]
-  once: [event: string, fn: Function, id?: number]
-  off: [event: string, fn?: Function, id?: number]
-  load: []
-  unload: []
+  play: (spriteOrId?: string | number) => number | void
+  pause: (id?: number) => void
+  stop: (id?: number) => void
+  mute: (muted?: boolean, id?: number) => void
+  volume: (volume?: number, id?: number) => number | void
+  fade: (from: number, to: number, duration: number, id?: number) => void
+  rate: (rate?: number, id?: number) => number | void
+  seek: (seek?: number, id?: number) => number | void
+  loop: (loop?: boolean, id?: number) => boolean | void
+  state: () => 'unloaded' | 'loading' | 'loaded'
+  playing: (id?: number) => boolean
+  duration: (id?: number) => number
+  on: (event: string, fn: Function, id?: number) => void
+  once: (event: string, fn: Function, id?: number) => void
+  off: (event: string, fn?: Function, id?: number) => void
+  load: () => void
+  unload: () => void
+  // play: [spriteOrId?: string | number]
+  // pause: [id?: number]
+  // stop: [id?: number]
+  // mute: [muted?: boolean, id?: number]
+  // volume: [volume?: number, id?: number]
+  // fade: [from: number, to: number, duration: number, id?: number]
+  // rate: [rate?: number, id?: number]
+  // seek: [seek?: number, id?: number]
+  // loop: [loop?: boolean, id?: number]
+  // state: []
+  // playing: [id?: number]
+  // duration: [id?: number]
+  // on: [event: string, fn: Function, id?: number]
+  // once: [event: string, fn: Function, id?: number]
+  // off: [event: string, fn?: Function, id?: number]
+  // load: []
+  // unload: []
 }
+
+export type ControlsType = 'prev' | 'next' | 'forward' | 'rewind' | 'volume' | 'rate' | 'mode'
 
 export interface AudioPlayerProps {
   options?: AudioPlayerOptions
   title?: string
+  controls?: ControlsType[]
 }
 
-export type AudioEvents = HowlerMethods
+export type AudioPlayerMethods = HowlerMethods
+
+export type AudioPlayerEvents = {
+  init: [ins: any]
+  prev: []
+  next: []
+  mode: [index: number]
+}
 
 export interface HowlerGlobalOptions {
   usingWebAudio: boolean
@@ -158,9 +185,9 @@ export interface HowlerGlobalOptions {
 export type HowlerGlobalOptionsKeys = keyof HowlerGlobalOptions
 
 export interface HowlerGlobalMethods {
-  mute(muted: boolean): void
-  volume(volume?: number): number
-  stop(): void
-  codecs(ext: string): boolean
-  unload(): void
+  mute: (muted: boolean) => void
+  volume: (volume?: number) => number | void
+  stop: () => void
+  codecs: (ext: string) => boolean
+  unload: () => void
 }
