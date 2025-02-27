@@ -2,7 +2,7 @@
   <div class="w-full">
     <!-- title -->
     <slot name="title" v-if="title">
-      <div class="py-2">
+      <div class="py-2" v-scrollText="{ delay: 2000, duration: 5000 }">
         {{ title }}
       </div>
     </slot>

@@ -30,11 +30,13 @@ const title = ref('')
 const lists = ref([
   {
     src: 'https://toimc-online.static.toimc.com/vue-toimc-admin/music/%E5%A6%82%E6%84%BF.mp3',
-    title: '如愿 - Cover王菲'
+    title:
+      '如愿 - Cover王菲,如愿 - Cover王菲如愿 - Cover王菲如愿 - Cover王菲如愿 - Cover王菲如愿 - Cove.. - Co----123123123'
   },
   {
     src: 'https://toimc-online.static.toimc.com/vue-toimc-admin/music/%E5%AD%A4%E5%8B%87%E8%80%85.mp3',
-    title: '孤勇者 - Cover陈奕迅'
+    title:
+      '孤勇者 - Cover陈奕迅孤勇者 - Cover陈奕迅孤勇者 - Cover陈奕迅孤勇者 - Cover陈奕迅1111_____-孤勇者 - Cover陈奕迅孤勇者 - Cover陈奕迅孤勇者 - Cover陈奕迅'
   },
   {
     src: 'https://toimc-online.static.toimc.com/vue-toimc-admin/music/%E7%88%B1%E4%BD%A0.mp3',
