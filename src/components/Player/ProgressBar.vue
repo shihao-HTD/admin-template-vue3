@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-block flex-1 mx-4 relative">
+  <div class="inline-block flex-1 mx-4 relative" ref="progressRef">
     <!-- 进度条 -->
     <span
       class="cursor-pointer z-50 absolute top-1/2"
@@ -20,7 +20,6 @@
       class="h-2 w-full bg-[var(--el-fill-color-darker)] rounded cursor-pointer"
       @mousedown="jumpTo"
       @touchstart="jumpTo"
-      ref="progressRef"
     >
       <div
         class="h-2 bg-[var(--el-color-primary)] rounded-l absolute z-10"
@@ -51,17 +50,14 @@ onMounted(() => {
 
 // modelValue -> left ; left -> modelValue
 watch(modelValue, (newVal) => {
-  if (progressWidth.value) {
+  if (!isNaN(newVal) && typeof newVal !== 'undefined') {
     left.value = newVal * progressWidth.value
   }
 })
 
 useResizeObserver(progressRef, (entries) => {
   const { width } = entries[0].contentRect
-  const rate = left.value / progressWidth.value
-  left.value = rate * width
-
-  modelValue.value = rate
+  left.value = modelValue.value * width
   progressWidth.value = width
 })
 

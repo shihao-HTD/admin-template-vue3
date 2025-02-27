@@ -12,7 +12,12 @@
         <i class="i-bi:sort-down-alt hidden lt-sm:(block text-xl)"></i>
         <div class="flex items-center">
           <i class="i-iconoir:skip-prev lt-sm:(text-3xl)"></i>
-          <i class="i-iconoir:play mx-2 lt-sm:(text-5xl mx-9)" @click="playAudio"></i>
+          <i
+            class="i-iconoir:play mx-2 lt-sm:(text-5xl mx-9)"
+            @click="togglePlay"
+            v-if="!state.isPlay"
+          ></i>
+          <i class="i-iconoir:pause mx-2 lt-sm:(text-5xl mx-9)" @click="togglePlay" v-else></i>
           <i class="i-iconoir:skip-next lt-sm:(text-3xl)"></i>
         </div>
         <!-- 速率控制按钮 -->
@@ -25,24 +30,32 @@
           <!-- 播放总体时间 -->
           <span class="text-sm">04:00</span>
         </div>
-        <i class="i-iconoir:backward-15-seconds lt-sm:(text-2xl)"></i>
+        <i
+          class="i-iconoir:backward-15-seconds lt-sm:(text-2xl)"
+          @click="seekPlayback(PlayAction.Rewind)"
+        ></i>
         <!-- 进度条 -->
         <div class="flex-1 flex items-center mx-2 lt-sm:(my-2)">
           <!-- 播放时间 -->
-          <span class="text-sm lt-sm:(hidden)">00:00</span>
+          <span class="text-sm min-w-10 text-center lt-sm:(hidden)">{{
+            formatTime(state.progress)
+          }}</span>
           <ProgressBar v-model="progress"></ProgressBar>
 
-          <!-- 播放总体时间 -->
-          <span class="text-sm lt-sm:(hidden)">04:00</span>
+          <!-- 播放总体时间 hh:mm:ss -->
+          <span class="text-sm lt-sm:(hidden)">{{ formatTime(state.duration) }}</span>
         </div>
-        <i class="i-iconoir:forward-15-seconds lt-sm:(text-2xl)"></i>
+        <i
+          class="i-iconoir:forward-15-seconds lt-sm:(text-2xl)"
+          @click="seekPlayback(PlayAction.Forward)"
+        ></i>
       </div>
       <div class="flex items-center mx-2 lt-sm:(w-full mx-0 my-2 justify-between) lt-sm:(hidden)">
         <i class="flex items-center group">
           <!-- 静音&音量调节按钮 -->
           <ProgressBar
-            v-model="progress"
-            class="transition-width invisible w-0 mx-0! group-hover:(visible w-[80px] mx-2!)"
+            v-model="state.volume"
+            class="transition-width invisible w-0 mx-0! group-hover:(visible w-[80px] ml-2! mr-4!)"
           ></ProgressBar>
           <i class="i-clarity:volume-mute-line mr-3" v-if="isMute" @click="toggleVolume"></i>
           <i class="i-clarity:volume-up-line mr-3" v-else @click="toggleVolume"></i>
@@ -64,11 +77,9 @@
 </template>
 
 <script setup lang="ts">
-import type { AudioPlayerProps, HowlerGlobalOptionsKeys } from './types'
+import type { AudioPlayerProps, HowlerGlobalOptionsKeys, AudioPlayerOptions } from './types'
 import { Howl, Howler } from 'howler'
-
-console.log('🚀 ~ file: audio.vue:7 ~ Howler:', Howler)
-console.log('🚀 ~ file: audio.vue:7 ~ Howl:', Howl)
+import { formatTime } from '@/utils'
 
 const keys: HowlerGlobalOptionsKeys[] = [
   'usingWebAudio',
@@ -80,17 +91,56 @@ const keys: HowlerGlobalOptionsKeys[] = [
   'masterGain'
 ]
 
+type Options = Partial<AudioPlayerOptions>
+
+const defaultAudioOptions: Options = {
+  volume: 1,
+  loop: false,
+  rate: 1,
+  mute: false
+}
+
 const props = defineProps<AudioPlayerProps>()
 
 const progress = ref(0)
 const rateList = ref([0.5, 1, 1.5, 2])
 const rateCurrent = ref(1)
+const audioInstance = ref()
+
+enum PlayAction {
+  Forward,
+  Rewind
+}
 
 const loop = ref(0)
+const state = reactive({
+  isPlay: false,
+  duration: 0,
+  progress: 0,
+  volume: 1,
+  oldVolume: 1
+})
 
 const [isMute, toggle] = useToggle(false)
 
-const audioInstance = ref()
+watch(progress, (newVal) => {
+  if (audioInstance.value && newVal) {
+    audioInstance.value.seek(newVal * state.duration)
+    state.progress = newVal * state.duration
+  }
+})
+watch(
+  () => state.volume,
+  (newVal) => {
+    if (audioInstance.value && !isNaN(newVal)) {
+      audioInstance.value.volume(newVal)
+      toggle(newVal <= 0)
+    }
+  },
+  {
+    deep: true
+  }
+)
 
 onBeforeMount(() => {
   init()
@@ -100,6 +150,38 @@ onBeforeUnmount(() => {
   Howler.unload()
 })
 
+const step = () => {
+  // 实例未创建
+  if (!audioInstance.value) return
+  state.isPlay = audioInstance.value.playing()
+  // 音频未播放
+  if (!state.isPlay) return
+  state.progress = audioInstance.value.seek() || 0
+
+  // 设置进度条的百分比
+  progress.value = state.progress / state.duration
+
+  requestAnimationFrame(step)
+}
+
+const togglePlay = () => {
+  if (audioInstance.value) {
+    state.isPlay ? audioInstance.value.pause() : audioInstance.value.play()
+  }
+}
+
+const seekPlayback = (type) => {
+  if (audioInstance.value) {
+    if (type === PlayAction.Forward) {
+      state.progress = state.progress + 15 > state.duration ? state.duration : state.progress + 15
+    }
+    if (type === PlayAction.Rewind) {
+      state.progress = state.progress - 15 < 0 ? 0 : state.progress - 15
+    }
+    audioInstance.value.seek(state.progress)
+  }
+}
+
 function init() {
   const options = props.options
   if (options) {
@@ -108,28 +190,40 @@ function init() {
         Howler[key] = options[key]
       }
     })
+    state.volume = options.volume || 1
   }
-  audioInstance.value = new Howl({
-    src: ''
-  })
 
-  console.log('=>(AudioPlayer.vue:105) audioInstance.value', audioInstance.value)
-}
-
-function playAudio() {
-  if (audioInstance.value) {
-    audioInstance.value.play()
-  }
+  audioInstance.value = new Howl(
+    Object.assign(defaultAudioOptions, props.options, {
+      onload: () => {
+        state.duration = audioInstance.value.duration()
+      },
+      onplay: () => {
+        step()
+      }
+    })
+  )
 }
 
 const toggleVolume = () => {
   toggle()
+  if (isMute.value) {
+    state.oldVolume = state.volume
+  }
+  if (audioInstance.value) {
+    audioInstance.value.mute(isMute)
+    const oldVolume = state.oldVolume === 0 ? 1 : state.oldVolume
+    state.volume = isMute.value ? 0 : oldVolume
+  }
 }
 
 const handleRateChange = () => {
   rateCurrent.value++
   if (rateCurrent.value >= rateList.value.length) {
     rateCurrent.value = 0
+  }
+  if (audioInstance.value) {
+    audioInstance.value.rate(rateList.value[rateCurrent.value])
   }
 }
 const handleLoopChange = () => {

@@ -39,3 +39,29 @@ export function exposeEventsUtils(ref: Ref<any>, arr: string[]) {
 
   return exposeMethods
 }
+
+/**
+ * Formats the given number of seconds into a string representing the time in the format HH:MM:SS.
+ *
+ * @param {number} seconds - The number of seconds to format.
+ * @return {string} The formatted time string in the format HH:MM:SS.
+ */
+export function formatTime(seconds: number): string {
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const remainingSeconds = Math.round(seconds % 60)
+
+  let formattedTime = ''
+
+  if (hours > 0) {
+    const formattedHours = String(hours).padStart(2, '0')
+    formattedTime += `${formattedHours}:`
+  }
+
+  const formattedMinutes = String(minutes).padStart(2, '0')
+  const formattedSeconds = String(remainingSeconds).padStart(2, '0')
+
+  formattedTime += `${formattedMinutes}:${formattedSeconds}`
+
+  return formattedTime
+}
