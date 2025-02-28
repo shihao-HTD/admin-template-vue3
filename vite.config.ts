@@ -144,11 +144,13 @@ export default defineConfig(({ mode }) => {
         open: isAnalysis
       }),
       cdn({
+        url: 'https://unpkg.com',
         modules: [
-          'vue',
+          { name: 'vue', relativeModule: './dist/vue.global.prod.js' },
           'vue-demi',
-          'pinia',
-          'vue-router',
+          { name: 'pinia', relativeModule: './dist/pinia.iife.prod.js' },
+          // 关注issue: https://github.com/nonzzz/vite-plugin-cdn/issues/30
+          // { name: 'vue-router',aliases: ['auto', 'auto/routes'], relativeModule: './dist/vue-router.global.prod.js' },
           {
             name: 'element-plus',
             aliases: ['lib', 'es'],
@@ -159,9 +161,26 @@ export default defineConfig(({ mode }) => {
           },
           {
             name: 'echarts',
-            aliases: ['core', 'renderers', 'charts', 'components', 'features']
+            aliases: ['core', 'renderers', 'components', 'features', 'charts']
+          },
+          { name: 'vue-i18n', relativeModule: './dist/vue-i18n.global.prod.js' },
+          { name: 'sortablejs', global: 'Sortable', relativeModule: './Sortable.min.js' }
+        ],
+        transform: () => {
+          return {
+            script: (scriptNode: any) => {
+              const { tag, name } = scriptNode
+              if (tag === 'script') {
+                if (name === 'sortablejs') {
+                  scriptNode.async = true
+                }
+                if (name === 'echarts') {
+                  scriptNode.defer = true
+                }
+              }
+            }
           }
-        ]
+        }
       })
     ],
     resolve: {
