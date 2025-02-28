@@ -98,14 +98,17 @@
             >
               <router-view v-slot="{ Component }" v-if="$route.meta.keepAlive">
                 <keep-alive :key="settings?.transition">
-                  <component :is="Component"></component>
+                  <component
+                    :is="Component"
+                    class="rounded bg-[var(--el-bg-color)] shadow p-4"
+                  ></component>
                 </keep-alive>
               </router-view>
               <router-view v-slot="{ Component }" v-else>
                 <component
                   :is="Component"
                   :key="$route.fullPath"
-                  class="rounded bg-white shadow p-4"
+                  class="rounded bg-[var(--el-bg-color)] shadow p-4"
                 ></component>
               </router-view>
             </Transition>
