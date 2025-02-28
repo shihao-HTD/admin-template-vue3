@@ -25,6 +25,7 @@ import I18n from '@intlify/unplugin-vue-i18n/vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { cdn } from 'vite-plugin-cdn2'
 
+
 // 过滤element-plus的.mjs的文件，不打包不需要的locales
 // 判断，/locales中对应的文件名的.mjs文件作为过滤条件 -> 保留
 function externalElementPlusLocales(id: string) {
