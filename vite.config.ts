@@ -22,6 +22,8 @@ import { viteMockServe } from 'vite-plugin-mock'
 
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import I18n from '@intlify/unplugin-vue-i18n/vite'
+import { visualizer } from 'rollup-plugin-visualizer'
+import { cdn } from 'vite-plugin-cdn2'
 
 // 过滤element-plus的.mjs的文件，不打包不需要的locales
 // 判断，/locales中对应的文件名的.mjs文件作为过滤条件 -> 保留
@@ -52,7 +54,6 @@ export default defineConfig({
     }
   },
 
-
   plugins: [
     VueRouter(),
     vue(),
@@ -80,12 +81,12 @@ export default defineConfig({
         // 'vue-router'
         VueRouterAutoImports,
         '@vueuse/core'
-      ],
+      ]
       // resolvers: [ElementPlusResolver()]
     }),
     Components({
       directoryAsNamespace: false,
-      collapseSamePrefixes: true,
+      collapseSamePrefixes: true
       // resolvers: [ElementPlusResolver()]
     }),
     Layouts({
@@ -128,6 +129,22 @@ export default defineConfig({
       // 所以禁止修改
       compositionOnly: true,
       jitCompilation: true
+    }),
+    visualizer({
+      open: true
+    }),
+    cdn({
+      modules: [
+        'vue',
+        'vue-demi',
+        'pinia',
+        'vue-router',
+        'element-plus',
+        {
+          name: 'echarts',
+          aliases: ['core', 'renderers', 'charts', 'components', 'features']
+        }
+      ]
     })
   ],
   resolve: {

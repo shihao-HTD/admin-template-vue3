@@ -32,7 +32,8 @@
     "vue": "^3.5.13",
     "vue-echarts": "^7.0.3",
     "vue-i18n": "9",
-    "vue-router": "^4.2.0"
+    "vue-router": "^4.2.0",
+    "rollup-plugin-visualizer": "^5.9.2"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.113",
@@ -75,6 +76,8 @@
     "vite-plugin-vue-layouts": "^0.8.0",
     "vitest": "^0.34.4",
     "vue-tsc": "^1.8.10",
-    "workbox-window": "^7.0.0"
+    "workbox-window": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "vite-plugin-cdn2": "^0.15.2"
   }
 }
