@@ -33,3 +33,7 @@ setupPinia(app)
 app.use(router)
 
 app.mount('#app')
+
+app.config.errorHandler = (err, vm, info) => {
+  console.error('捕获到错误：', err, '组件实例：', vm, '信息：', info)
+}

@@ -26,9 +26,9 @@ export type LoadingOptions = {
 type AutoresizeProp =
   | boolean
   | {
-  throttle?: number
-  onResize?: () => void
-}
+      throttle?: number
+      onResize?: () => void
+    }
 
 export interface VEchartsProps {
   option: typeof EChartsOption
@@ -48,6 +48,6 @@ export interface VueEchartsProps extends Partial<VEchartsProps> {
   theme?: 'dark' | 'default' | string
   style?: CSSProperties
   height?: string | number
-  charts: string
+  charts?: string
   components?: string[]
 }

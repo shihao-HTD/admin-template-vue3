@@ -52,9 +52,11 @@ export default defineConfig(({ mode }) => {
   const isProd = mode === 'production'
 
   const isAnalysis = process.env.ANALYSIS === 'true'
+  const isSourceMap = process.env.SOURCE_MAP === 'true'
 
   return {
     build: {
+      sourcemap: isSourceMap,
       rollupOptions: {
         external(source) {
           return externalElementPlusLocales(source)

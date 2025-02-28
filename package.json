@@ -14,6 +14,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "analysis": "cross-env ANALYSIS=true npm run p",
+    "build:debug": "cross-env SOURCE_MAP=true npm run p",
     "p": "run-s build-only preview"
   },
   "dependencies": {
