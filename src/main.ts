@@ -11,9 +11,11 @@ import '@unocss/reset/tailwind-compat.css'
 
 import 'virtual:uno.css'
 import 'virtual:svg-icons-register'
-import 'element-plus/dist/index.css'
+if (import.meta.env.MODE !== 'production') {
+  import('element-plus/dist/index.css')
+  import('element-plus/theme-chalk/dark/css-vars.css')
+}
 
-import 'element-plus/theme-chalk/dark/css-vars.css'
 import ElementPlus from 'element-plus'
 import { setupDirectives } from '@/directives'
 import { setupPinia } from '@/store'

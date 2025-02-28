@@ -147,7 +147,14 @@ export default defineConfig(({ mode }) => {
           'vue-demi',
           'pinia',
           'vue-router',
-          'element-plus',
+          {
+            name: 'element-plus',
+            aliases: ['lib', 'es'],
+            spare: [
+              'https://unpkg.com/element-plus@2.4.2/dist/index.css',
+              'https://unpkg.com/element-plus@2.4.2/theme-chalk/dark/css-vars.css'
+            ]
+          },
           {
             name: 'echarts',
             aliases: ['core', 'renderers', 'charts', 'components', 'features']
