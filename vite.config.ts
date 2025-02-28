@@ -164,7 +164,19 @@ export default defineConfig(({ mode }) => {
             aliases: ['core', 'renderers', 'components', 'features', 'charts']
           },
           { name: 'vue-i18n', relativeModule: './dist/vue-i18n.global.prod.js' },
-          { name: 'sortablejs', global: 'Sortable', relativeModule: './Sortable.min.js' }
+          { name: 'sortablejs', global: 'Sortable', relativeModule: './Sortable.min.js' },
+          {
+            name: 'vditor',
+            global: 'Vditor',
+            relativeModule: './dist/index.min.js',
+            spare: ['https://unpkg.com/vditor@3.9.6/dist/index.css']
+          },
+          {
+            name: 'video.js',
+            global: 'videojs',
+            relativeModule: './dist/video.min.js',
+            spare: ['https://unpkg.com/video.js@8.6.1/dist/video-js.min.css']
+          }
         ],
         transform: () => {
           return {
@@ -174,7 +186,7 @@ export default defineConfig(({ mode }) => {
                 if (name === 'sortablejs') {
                   scriptNode.async = true
                 }
-                if (name === 'echarts') {
+                if (['echarts', 'vditor', 'video.js'].includes(name)) {
                   scriptNode.defer = true
                 }
               }
