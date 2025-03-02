@@ -1,8 +1,8 @@
-name: "Deploy to GitHub Pages"
+name: 'Deploy to GitHub Pages'
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ['main']
 
 permissions:
   contents: read
@@ -11,7 +11,7 @@ permissions:
 
 # 允许一个并发的部署
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: true
 
 jobs:
@@ -28,24 +28,24 @@ jobs:
           version: 8.x
       - uses: actions/setup-node@v4
         with:
-          node-version: "18"
-          cache: "pnpm"
+          node-version: '18'
+          cache: 'pnpm'
       - name: install
         run: pnpm install
       # 如果是自定义的域名则不需要下面的配置内容
-      # - name: Extract Repository name
-      #   run: echo "REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)" >> $GITHUB_ENV
+      - name: Extract Repository name
+        run: echo "REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)" >> $GITHUB_ENV
       - name: build
-        # env:
-        #   BASE_PATH: "/${{ env.REPO_NAME }}/"
+        env:
+          BASE_PATH: '/${{ env.REPO_NAME }}/'
         run: pnpm build
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist repository
-          path: "./dist"
+          path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
