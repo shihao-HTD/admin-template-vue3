@@ -55,6 +55,7 @@ export default defineConfig(({ mode }) => {
   const isSourceMap = process.env.SOURCE_MAP === 'true'
 
   return {
+    base: isProd ? '/vue3-admin-template/' : './',
     build: {
       sourcemap: isSourceMap,
       rollupOptions: {
