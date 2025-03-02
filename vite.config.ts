@@ -54,8 +54,10 @@ export default defineConfig(({ mode }) => {
   const isAnalysis = process.env.ANALYSIS === 'true'
   const isSourceMap = process.env.SOURCE_MAP === 'true'
 
+  const base = isProd ? '/vue3-admin-template/' : './'
+
   return {
-    base: isProd ? '/vue3-admin-template/' : './',
+    base,
     build: {
       sourcemap: isSourceMap,
       rollupOptions: {
@@ -111,12 +113,12 @@ export default defineConfig(({ mode }) => {
           theme_color: '#ffffff',
           icons: [
             {
-              src: '/192x192.png',
+              src: path.join(base, '/192x192.png'),
               sizes: '192x192',
               type: 'image/png'
             },
             {
-              src: '/512x512.png',
+              src: path.join(base, '/512x512.png'),
               sizes: '512x512',
               type: 'image/png'
             }
