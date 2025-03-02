@@ -1,0 +1,1 @@
+import{b as e}from"./route-block-83d24a4e.js";import{f as t}from"./index-ef8b8a62.js";const o={};function c(n,r){return Vue.openBlock(),Vue.createElementBlock("div",null,"Not Found")}typeof e=="function"&&e(o);const a=t(o,[["render",c]]);export{a as default};
