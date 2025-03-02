@@ -53,8 +53,7 @@ export default defineConfig(({ mode }) => {
 
   const isAnalysis = process.env.ANALYSIS === 'true'
   const isSourceMap = process.env.SOURCE_MAP === 'true'
-
-  const base = isProd ? '/vue3-admin-template/' : './'
+  const base = isProd ? process.env.BASE_PATH || '/' : './'
 
   return {
     base,

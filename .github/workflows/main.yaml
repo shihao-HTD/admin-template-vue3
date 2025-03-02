@@ -32,11 +32,12 @@ jobs:
           cache: "pnpm"
       - name: install
         run: pnpm install
-      - name: Extract Repository name
-        run: echo "REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)" >> $GITHUB_ENV
+      # 如果是自定义的域名则不需要下面的配置内容
+      # - name: Extract Repository name
+      #   run: echo "REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)" >> $GITHUB_ENV
       - name: build
-        env:
-          BASE_PATH: "/${{ env.REPO_NAME }}/"
+        # env:
+        #   BASE_PATH: "/${{ env.REPO_NAME }}/"
         run: pnpm build
       - name: Setup Pages
         uses: actions/configure-pages@v3
