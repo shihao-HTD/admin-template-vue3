@@ -52,7 +52,8 @@ watch(modelValue, (newVal) => {
 
 const fn = useDebounceFn((newOptions) => {
   if (editorInstance.value) {
-    history.value = editorInstance.value?.getValue() || ''
+    history.value =
+      typeof editorInstance.value?.getValue === 'function' ? editorInstance.value?.getValue() : ''
     editorInstance.value?.destroy()
     initEditor(newOptions)
   }
